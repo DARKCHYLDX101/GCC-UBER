@@ -44,12 +44,12 @@ MULTILIB_MATCHES      += march?armv7=mcpu?cortex-m4
 # (mcrr etc).
 
 # Disable these for ANDROID arm-eabi toolchain
-MULTILIB_OPTIONS       += mfloat-abi=hard
-MULTILIB_DIRNAMES      += fpu
-MULTILIB_EXCEPTIONS    += *mthumb/*mfloat-abi=hard*
+#MULTILIB_OPTIONS       += mfloat-abi=hard
+#MULTILIB_DIRNAMES      += fpu
+#MULTILIB_EXCEPTIONS    += *mthumb/*mfloat-abi=hard*
 
-MULTILIB_EXCEPTIONS    += *mcpu=fa526/*mfloat-abi=hard*
-MULTILIB_EXCEPTIONS    += *mcpu=fa626/*mfloat-abi=hard*
+#MULTILIB_EXCEPTIONS    += *mcpu=fa526/*mfloat-abi=hard*
+#MULTILIB_EXCEPTIONS    += *mcpu=fa626/*mfloat-abi=hard*
 
 # MULTILIB_OPTIONS    += mcpu=ep9312
 # MULTILIB_DIRNAMES   += ep9312
