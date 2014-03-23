@@ -892,6 +892,9 @@ build_aggr_conv (tree type, tree ctor, int flags, tsubst_flags_t complain)
 
       if (i < CONSTRUCTOR_NELTS (ctor))
 	val = CONSTRUCTOR_ELT (ctor, i)->value;
+      else if (TREE_CODE (ftype) == REFERENCE_TYPE)
+	/* Value-initialization of reference is ill-formed.  */
+	return NULL;
       else
 	{
 	  if (empty_ctor == NULL_TREE)
@@ -5806,9 +5809,11 @@ convert_like_real (conversion *convs, tree expr, tree fn, int argnum,
       && convs->kind != ck_ambig
       && (convs->kind != ck_ref_bind
 	  || convs->user_conv_p)
-      && convs->kind != ck_rvalue
+      && (convs->kind != ck_rvalue
+	  || SCALAR_TYPE_P (totype))
       && convs->kind != ck_base)
     {
+      bool complained = false;
       conversion *t = convs;
 
       /* Give a helpful error if this is bad because of excess braces.  */
@@ -5816,7 +5821,14 @@ convert_like_real (conversion *convs, tree expr, tree fn, int argnum,
 	  && SCALAR_TYPE_P (totype)
 	  && CONSTRUCTOR_NELTS (expr) > 0
 	  && BRACE_ENCLOSED_INITIALIZER_P (CONSTRUCTOR_ELT (expr, 0)->value))
-	permerror (loc, "too many braces around initializer for %qT", totype);
+	{
+	  complained = true;
+	  permerror (loc, "too many braces around initializer "
+		     "for %qT", totype);
+	  while (BRACE_ENCLOSED_INITIALIZER_P (expr)
+		 && CONSTRUCTOR_NELTS (expr) == 1)
+	    expr = CONSTRUCTOR_ELT (expr, 0)->value;
+	}
 
       for (; t ; t = next_conversion (t))
 	{
@@ -5853,8 +5865,9 @@ convert_like_real (conversion *convs, tree expr, tree fn, int argnum,
 	    break;
 	}
 
-      permerror (loc, "invalid conversion from %qT to %qT",
-		 TREE_TYPE (expr), totype);
+      if (!complained)
+	permerror (loc, "invalid conversion from %qT to %qT",
+		   TREE_TYPE (expr), totype);
       if (fn)
 	permerror (DECL_SOURCE_LOCATION (fn),
 		   "  initializing argument %P of %qD", argnum, fn);
@@ -5999,6 +6012,8 @@ convert_like_real (conversion *convs, tree expr, tree fn, int argnum,
 	   to avoid the error about taking the address of a temporary.  */
 	array = cp_build_addr_expr (array, complain);
 	array = cp_convert (build_pointer_type (elttype), array, complain);
+	if (array == error_mark_node)
+	  return error_mark_node;
 
 	/* Build up the initializer_list object.  */
 	totype = complete_type (totype);
@@ -6023,8 +6038,11 @@ convert_like_real (conversion *convs, tree expr, tree fn, int argnum,
 	  return fold_if_not_in_template (expr);
 	}
       expr = reshape_init (totype, expr, complain);
-      return get_target_expr_sfinae (digest_init (totype, expr, complain),
+      expr = get_target_expr_sfinae (digest_init (totype, expr, complain),
 				     complain);
+      if (expr != error_mark_node)
+	TARGET_EXPR_LIST_INIT_P (expr) = true;
+      return expr;
 
     default:
       break;
@@ -7414,7 +7432,7 @@ build_new_method_call_1 (tree instance, tree fns, vec<tree, va_gc> **args,
   struct z_candidate *candidates = 0, *cand;
   tree explicit_targs = NULL_TREE;
   tree basetype = NULL_TREE;
-  tree access_binfo;
+  tree access_binfo, binfo;
   tree optype;
   tree first_mem_arg = NULL_TREE;
   tree instance_ptr;
@@ -7454,6 +7472,7 @@ build_new_method_call_1 (tree instance, tree fns, vec<tree, va_gc> **args,
   if (!conversion_path)
     conversion_path = BASELINK_BINFO (fns);
   access_binfo = BASELINK_ACCESS_BINFO (fns);
+  binfo = BASELINK_BINFO (fns);
   optype = BASELINK_OPTYPE (fns);
   fns = BASELINK_FUNCTIONS (fns);
   if (TREE_CODE (fns) == TEMPLATE_ID_EXPR)
@@ -7697,13 +7716,13 @@ build_new_method_call_1 (tree instance, tree fns, vec<tree, va_gc> **args,
 	    {
 	      /* Optimize away vtable lookup if we know that this
 		 function can't be overridden.  We need to check if
-		 the context and the instance type are the same,
+		 the context and the type where we found fn are the same,
 		 actually FN might be defined in a different class
 		 type because of a using-declaration. In this case, we
 		 do not want to perform a non-virtual call.  */
 	      if (DECL_VINDEX (fn) && ! (flags & LOOKUP_NONVIRTUAL)
 		  && same_type_ignoring_top_level_qualifiers_p
-		  (DECL_CONTEXT (fn), TREE_TYPE (instance))
+		  (DECL_CONTEXT (fn), BINFO_TYPE (binfo))
 		  && resolves_to_fixed_type_p (instance, 0))
 		flags |= LOOKUP_NONVIRTUAL;
               if (explicit_targs)
