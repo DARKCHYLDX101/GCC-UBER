@@ -1,3 +1,21 @@
+2014-03-23  John David Anglin  <danglin@gcc.gnu.org>
+
+	* gcc.dg/tree-prof/pr59003.c: Add -fno-common to dg-options on
+	hppa*-*-hpux*.
+
+	* gcc.dg/torture/pr60092.c: Skip on 32-bit hpux.
+
+	PR libfortran/59313
+	PR libfortran/58015
+	* gfortran.dg/erf_3.F90: Skip on hppa*-*-hpux*.
+	* gfortran.dg/round_4.f90: Likewise.
+
+2014-03-23  Dominique d'Humieres  <dominiq@lps.ens.fr>
+
+	PR libfortran/60128
+	* gfortran.dg/fmt_en.f90: Update test. XFAIL for
+	i?86-*-solaris2.9*.
+
 2014-03-22  Jakub Jelinek  <jakub@redhat.com>
 
 	PR sanitizer/60613
