@@ -1,3 +1,34 @@
+2014-03-25  Jakub Jelinek  <jakub@redhat.com>
+
+	* combine.c (simplify_compare_const): Add MODE argument.
+	Handle mode_width 0 as very large mode_width.
+	(try_combine, simplify_comparison): Adjust callers.
+
+	* cselib.c (cselib_hash_rtx): Perform addition in unsigned
+	type to avoid signed integer overflow.
+	* explow.c (plus_constant): Likewise.
+
+2014-03-25  Dominik Vogt  <vogt@linux.vnet.ibm.com>
+
+	* doc/generic.texi: Correct typos.
+
+2014-03-24  Tobias Burnus  <burnus@net-b.de>
+
+	* doc/invoke.texi (-flto): Expand section about
+	using static libraries with LTO.
+
+2014-03-24  Andreas Krebbel  <Andreas.Krebbel@de.ibm.com>
+
+	PR rtl-optimization/60501
+	* optabs.def (addptr3_optab): New optab.
+	* optabs.c (gen_addptr3_insn, have_addptr3_insn): New function.
+	* doc/md.texi ("addptrm3"): Document new RTL standard expander.
+	* expr.h (gen_addptr3_insn, have_addptr3_insn): Add prototypes.
+
+	* lra.c (emit_add3_insn): Use the addptr pattern if available.
+
+	* config/s390/s390.md ("addptrdi3", "addptrsi3"): New expanders.
+
 2014-03-24  Ulrich Drepper  <drepper@gmail.com>
 
 	* config/i386/avx512fintrin.h: Define _mm512_set1_ps and
