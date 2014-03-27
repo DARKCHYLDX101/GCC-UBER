@@ -1,3 +1,41 @@
+2014-03-27  Marcus Shawcroft  <marcus.shawcroft@arm.com>
+
+	PR target/60580
+	* config/aarch64/aarch64.c (faked_omit_frame_pointer): Remove.
+	(aarch64_frame_pointer_required): Adjust logic.
+	(aarch64_can_eliminate): Adjust logic.
+	(aarch64_override_options_after_change): Adjust logic.
+
+2014-03-27  Dehao Chen  <dehao@google.com>
+
+	* ipa-inline.c (early_inliner): Update node's inline info.
+
+2014-03-26  Dehao Chen  <dehao@google.com>
+
+	* dojump.c (do_compare_rtx_and_jump): Sets correct probability for
+	compiler inserted conditional jumps for NAN float check.
+
+2014-03-26  Jakub Jelinek  <jakub@redhat.com>
+
+	* ubsan.h (ubsan_create_data): Change second argument's type
+	to const location_t *.
+	* ubsan.c (ubsan_source_location): If xloc.file is NULL, set it to
+	_("<unknown>").
+	(ubsan_create_data): Change second argument to const location_t *PLOC.
+	Create Loc field whenever PLOC is non-NULL.
+	(ubsan_instrument_unreachable, ubsan_expand_null_ifn,
+	ubsan_build_overflow_builtin, instrument_bool_enum_load): Adjust
+	callers.
+
+	PR other/59545
+	* real.c (real_to_integer2): Change type of low to UHWI.
+
+2014-03-26  Tobias Burnus  <burnus@net-b.de>
+
+	* gcc.c (LINK_COMMAND_SPEC): Use libcilkrts.spec for -fcilkplus.
+	(CILK_SELF_SPECS): New define.
+	(driver_self_specs): Use it.
+
 2014-03-26  Richard Biener  <rguenther@suse.de>
 
 	* tree-pretty-print.c (percent_K_format): Implement special
