@@ -1,5 +1,5 @@
-// { dg-options "-std=gnu++11" }
-// { dg-require-atomic-builtins "" }
+// { dg-do run }
+// { dg-options "-std=gnu++14" }
 
 // Copyright (C) 2014 Free Software Foundation, Inc.
 //
@@ -18,29 +18,21 @@
 // with this library; see the file COPYING3.  If not see
 // <http://www.gnu.org/licenses/>.
 
-// PR libstdc++/60612
+// 27.7.6 - Quoted manipulators		[quoted.manip]
 
-#include <exception>
-#include <stdlib.h>
+// libstdc++/60270
 
-#ifdef _GLIBCXX_USE_C99
-void terminate() { _Exit(0); }
-
-void f() noexcept
-{
-  try {
-    throw 1;
-  } catch (...) {
-    std::set_terminate(terminate);
-    std::rethrow_exception(std::current_exception());
-  }
-}
-#endif
+#include <string>
+#include <sstream>
+#include <iomanip>
+#include <testsuite_hooks.h>
 
 int main()
 {
-#ifdef _GLIBCXX_USE_C99
-  f();
-#endif
-  return 0;
+  std::istringstream in;
+  std::string s = "xxx";
+  in >> s;
+  VERIFY( !s.empty() );
+  in >> std::quoted(s);
+  VERIFY( !s.empty() );
 }

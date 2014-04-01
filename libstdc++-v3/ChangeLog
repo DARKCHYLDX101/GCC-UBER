@@ -1,3 +1,21 @@
+2014-03-31  Lars Gullik Bjønnes  <larsbj@gullik.org>
+	    Jonathan Wakely  <jwakely@redhat.com>
+
+	PR libstdc++/60270
+	* include/std/iomanip (_Quoted_string operator>>): Do not clear
+	string if input is not quoted.
+	* testsuite/27_io/manipulators/standard/char/60270.cc: New.
+
+2014-03-31  Jonathan Wakely  <jwakely@redhat.com>
+
+	* libsupc++/eh_ptr.cc: Improve static_assert messages.
+
+2014-03-31  Rainer Orth  <ro@CeBiTec.Uni-Bielefeld.DE>
+
+	* testsuite/18_support/exception_ptr/60612-terminate.cc
+	(terminate, f): Wrap in _GLIBCXX_USE_C99.
+	* testsuite/18_support/exception_ptr/60612-unexpected.cc: Likewise.
+
 2014-03-27  Jonathan Wakely  <jwakely@redhat.com>
 
 	* doc/xml/manual/io.xml (std.io.objects): Additional markup.

@@ -1,3 +1,68 @@
+2014-04-01  Richard Henderson  <rth@redhat.com>
+
+	PR target/60704
+	* config/i386/i386.md (*float<SWI48><MODEF>2_sse): Leave the second
+	alternative enabled before register allocation.
+
+2014-04-01  Chung-Lin Tang  <cltang@codesourcery.com>
+
+	* config/nios2/nios2.md (unspec): Remove UNSPEC_TLS, UNSPEC_TLS_LDM.
+	* config/nios2/nios2.c (nios2_function_profiler): Fix addi operand
+	typo.
+	(nios2_large_got_address): Remove unneeded 'sym' parameter.
+	(nios2_got_address): Update nios2_large_got_address call site.
+	(nios2_delegitimize_address): New function.
+	(TARGET_DELEGITIMIZE_ADDRESS): Define to nios2_delegitimize_address.
+	* config/nios2/linux.h (GLIBC_DYNAMIC_LINKER): Define.
+	(LINK_SPEC): Specify dynamic linker using GNU_USER_DYNAMIC_LINKER.
+
+2014-04-01  Martin Husemann  <martin@duskware.de>
+
+	* config/mips/netbsd.h (TARGET_OS_CPP_BUILTINS): Define __mips_o32
+	for -mabi=32.
+
+2014-04-01  Richard Sandiford  <rdsandiford@googlemail.com>
+
+	PR rtl-optimization/60604
+	* recog.c (general_operand): Incorporate REG_CANNOT_CHANGE_MODE_P
+	check from register_operand.
+	(register_operand): Redefine in terms of general_operand.
+	(nonmemory_operand): Use register_operand for the non-constant cases.
+
+2014-04-01  Richard Biener  <rguenther@suse.de>
+
+	* gimple.h (struct gimple_statement_base): Align subcode to
+	16 bits.
+
+2014-04-01  Sebastian Huber  <sebastian.huber@embedded-brains.de>
+
+	* doc/invoke.texi (mapp-regs): Clarify.
+
+2014-03-31  Ulrich Drepper  <drepper@gmail.com>
+
+	* config/i386/avx512fintrin.h (__v32hi): Define type.
+	(__v64qi): Likewise.
+	(_mm512_set1_epi8): Define.
+	(_mm512_set1_epi16): Define.
+	(_mm512_set4_epi32): Define.
+	(_mm512_set4_epi64): Define.
+	(_mm512_set4_pd): Define.
+	(_mm512_set4_ps): Define.
+	(_mm512_setr4_epi64): Define.
+	(_mm512_setr4_epi32): Define.
+	(_mm512_setr4_pd): Define.
+	(_mm512_setr4_ps): Define.
+	(_mm512_setzero_epi32): Define.
+
+2014-03-31  Martin Jambor  <mjambor@suse.cz>
+
+	PR middle-end/60647
+	* tree-sra.c (callsite_has_enough_arguments_p): Renamed to
+	callsite_arguments_match_p.  Updated all callers.  Also check types of
+	corresponding formal parameters and actual arguments.
+	(not_all_callers_have_enough_arguments_p) Renamed to
+	some_callers_have_mismatched_arguments_p.
+
 2014-03-31  Yuri Rumyantsev  <ysrumyan@gmail.com>
 
 	* tree-inline.c (copy_loops): Add missed copy of 'safelen'.
