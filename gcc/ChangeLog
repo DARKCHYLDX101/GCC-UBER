@@ -1,3 +1,154 @@
+2014-04-03  Cong Hou  <congh@google.com>
+
+	PR tree-optimization/60505
+	* tree-vectorizer.h (struct _stmt_vec_info): Add th field as the
+	threshold of number of iterations below which no vectorization will be
+	done.
+	* tree-vect-loop.c (new_loop_vec_info):
+	Initialize LOOP_VINFO_COST_MODEL_THRESHOLD.
+	* tree-vect-loop.c (vect_analyze_loop_operations):
+	Set LOOP_VINFO_COST_MODEL_THRESHOLD.
+	* tree-vect-loop.c (vect_transform_loop):
+	Use LOOP_VINFO_COST_MODEL_THRESHOLD.
+	* tree-vect-loop.c (vect_analyze_loop_2): Check the maximum number
+	of iterations of the loop and see if we should build the epilogue.
+
+2014-04-03  Richard Biener  <rguenther@suse.de>
+
+	* tree-streamer.h (struct streamer_tree_cache_d): Add next_idx
+	member.
+	(streamer_tree_cache_create): Adjust.
+	* tree-streamer.c (streamer_tree_cache_add_to_node_array): Adjust
+	to allow optional nodes array.
+	(streamer_tree_cache_insert_1): Use next_idx to assign idx.
+	(streamer_tree_cache_append): Likewise.
+	(streamer_tree_cache_create): Create nodes array optionally
+	as specified by parameter.
+	* lto-streamer-out.c (create_output_block): Avoid maintaining
+	the node array in the writer cache.
+	(DFS_write_tree): Remove assertion.
+	(produce_asm_for_decls): Free the out decl state hash table
+	early.
+	* lto-streamer-in.c (lto_data_in_create): Adjust for
+	streamer_tree_cache_create prototype change.
+
+2014-04-03  Richard Biener  <rguenther@suse.de>
+
+	* tree-streamer-out.c (streamer_write_chain): Do not temporarily
+	set TREE_CHAIN to NULL_TREE.
+
+2014-04-03  Richard Biener  <rguenther@suse.de>
+
+	PR tree-optimization/60740
+	* graphite-scop-detection.c (stmt_simple_for_scop_p): Iterate
+	over all GIMPLE_COND operands.
+
+2014-04-03  Nathan Sidwell  <nathan@codesourcery.com>
+
+	* doc/invoke.texi (Wnon-virtual-dtor): Adjust documentation.
+	(Weffc++): Remove Scott's numbering, merge lists and reference
+	Wnon-virtual-dtor.
+
+	c-family/
+
+	cp/
+	* class.c (accessible_nvdtor_p): New.
+	(check_bases): Don't check base destructor here ...
+	(check_bases_and_members): ... check them here.  Trigger on
+	Wnon-virtual-dtor flag.
+	(finish_struct_1): Use accessible_nvdtor_p.
+
+	testsuite/
+	* g++.dg/warn/Wnvdtor.C: Add non-polymorphic case.
+	* g++.dg/warn/Wnvdtor-2.C: New.
+	* g++.dg/warn/Wnvdtor-3.C: New.
+	* g++.dg/warn/Wnvdtor-4.C: New.
+	* g++.dg/warn/Weff1.C: Delete.
+	* g++.old-deja/g++.benjamin/15309-1.C: Delete.
+	* g++.old-deja/g++.benjamin/15309-2.C: Delete.
+
+2014-04-03  Nick Clifton  <nickc@redhat.com>
+
+	* config/rl78/rl78-expand.md (movqi): Handle (SUBREG (SYMBOL_REF))
+	properly.
+
+2014-04-03  Martin Jambor  <mjambor@suse.cz>
+
+	* ipa-cp.c (ipcp_verify_propagated_values): Also dump symtab and
+	mention gcc_unreachable before failing.
+	* ipa.c (symtab_remove_unreachable_nodes): Also print order of
+	removed symbols.
+
+2014-04-02  Jan Hubicka  <hubicka@ucw.cz>
+
+	PR ipa/60659
+	* ipa-devirt.c (get_polymorphic_call_info): Do not ICE on type inconsistent
+	code and instead mark the context inconsistent.
+	(possible_polymorphic_call_targets): For inconsistent contexts
+	return empty complete list.
+
+2014-04-02  Anthony Green  <green@moxielogic.com>
+
+	* config/moxie/moxie.md (zero_extendqisi2, zero_extendhisi2)
+	(extendqisi2, extendhisi2): Define.
+	* config/moxie/moxie.h (DEFAULT_SIGNED_CHAR): Change to 0.
+	(WCHAR_TYPE): Change to unsigned int.
+
+2014-04-02  Bill Schmidt  <wschmidt@linux.vnet.ibm.com>
+
+	PR tree-optimization/60733
+	* gimple-ssa-strength-reduction.c (ncd_with_phi): Change required
+	insertion point for PHI candidates to be the end of the feeding
+	block for the PHI argument.
+
+2014-04-02  Vladimir Makarov  <vmakarov@redhat.com>
+
+	PR rtl-optimization/60650
+	* lra-constraints.c (process_alt_operands): Decrease reject for
+	earlyclobber matching.
+
+2014-04-02  Andreas Krebbel  <Andreas.Krebbel@de.ibm.com>
+
+	* config/s390/s390.c (s390_expand_insv): Use GET_MODE_BITSIZE.
+
+2014-04-02  Ulrich Weigand  <Ulrich.Weigand@de.ibm.com>
+
+	* config/spu/spu.c (pad_bb): Do not crash when the last
+	insn is CODE_FOR_blockage.
+
+2014-04-02  Ulrich Weigand  <Ulrich.Weigand@de.ibm.com>
+
+	* config/spu/spu.md ("insv"): Fail if bitoffset+bitsize
+	lies outside the target mode.
+
+2014-04-02  Michael Meissner  <meissner@linux.vnet.ibm.com>
+
+	PR target/60735
+	* config/rs6000/rs6000.c (rs6000_hard_regno_mode_ok): If we have
+	software floating point or no floating point registers, do not
+	allow any type in the FPRs.  Eliminate a test for SPE SIMD types
+	in GPRs that occurs after we tested for GPRs that would never be
+	true.
+
+	* config/rs6000/rs6000.md (mov<mode>_softfloat32, FMOVE64):
+	Rewrite tests to use TARGET_DOUBLE_FLOAT and TARGET_E500_DOUBLE,
+	since the FMOVE64 type is DFmode/DDmode.  If TARGET_E500_DOUBLE,
+	specifically allow DDmode, since that does not use the SPE SIMD
+	instructions.
+
+2014-04-02  Richard Biener  <rguenther@suse.de>
+
+	PR middle-end/60729
+	* optabs.c (expand_abs_nojump): Honor flag_trapv only for
+	MODE_INTs.  Properly use negv_optab.
+	(expand_abs): Likewise.
+
+2014-04-02  Richard Biener  <rguenther@suse.de>
+
+	PR bootstrap/60719
+	* Makefile.in (install-driver): Guard extra installs with special
+	names properly.
+
 2014-04-01  Michael Meissner  <meissner@linux.vnet.ibm.com>
 
 	* doc/extend.texi (PowerPC AltiVec/VSX Built-in Functions):
@@ -238,7 +389,7 @@
 2014-03-27  Vladimir Makarov  <vmakarov@redhat.com>
 
 	PR rtl-optimization/60650
-	* lra-asign.c (find_hard_regno_for, spill_for): Add parameter
+	* lra-assign.c (find_hard_regno_for, spill_for): Add parameter
 	first_p.  Use it.
 	(find_spills_for): New.
 	(assign_by_spills): Pass the new parameter to find_hard_regno_for.
