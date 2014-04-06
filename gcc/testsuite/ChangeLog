@@ -1,3 +1,11 @@
+2014-04-05  Dominique d'Humieres <dominiq@lps.ens.fr>
+
+	* gfortran.dg/warn_conversion_4.f90: Adjust test.
+
+2014-05-04 Pitchumani Sivanupandi  <Pitchumani.S@atmel.com>
+
+	* gcc.target/avr/dev-specific-rmw.c: New test.
+
 2014-04-04  Cong Hou  <congh@google.com>
 
 	PR tree-optimization/60656
