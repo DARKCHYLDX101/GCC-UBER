@@ -1,3 +1,42 @@
+2014-04-08  Bill Schmidt  <wschmidt@linux.vnet.ibm.com>
+
+	* config/rs6000/rs6000.c (rs6000_expand_vector_set): Use vnand
+	instead of vnor to exploit possible fusion opportunity in the
+	future.
+	(altivec_expand_vec_perm_const_le): Likewise.
+
+2014-04-08  Pat Haugen  <pthaugen@us.ibm.com>
+
+	* config/rs6000/sync.md (AINT mode_iterator): Move definition.
+	(loadsync_<mode>): Change mode.
+	(load_quadpti, store_quadpti): New.
+	(atomic_load<mode>, atomic_store<mode>): Add support for TI mode.
+	* config/rs6000/rs6000.md (unspec enum): Add UNSPEC_LSQ.
+
+2014-04-08  Richard Sandiford  <rdsandiford@googlemail.com>
+
+	PR target/60763
+	* config/rs6000/vsx.md (vsx_xscvdpspn_scalar): Change input to DImode.
+	* config/rs6000/rs6000.md (reload_vsx_from_gprsf): Update accordingly.
+	Use gen_rtx_REG rather than simplify_gen_subreg for op0_di.
+
+2014-04-08  Richard Biener  <rguenther@suse.de>
+
+	PR middle-end/60706
+	* tree-pretty-print.c (pp_double_int): For HWI32 hosts with
+	a 64bit widest int print double-int similar to on HWI64 hosts.
+
+2014-04-08  Richard Biener  <rguenther@suse.de>
+
+	PR tree-optimization/60785
+	* graphite-sese-to-poly.c (rewrite_phi_out_of_ssa): Treat
+	default defs properly.
+
+2014-04-08  Nathan Sidwell  <nathan@codesourcery.com>
+
+	* doc/invoke (Wnon-virtual-dtor): Update to match implementation.
+	(Weffc++): Likewise.
+
 2014-04-07  Jan Hubicka  <hubcika@ucw.cz>
 
 	* ipa-devirt.c (maybe_record_node): When node is not recorded,
