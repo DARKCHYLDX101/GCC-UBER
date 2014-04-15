@@ -1,3 +1,23 @@
+2014-04-14  Jonathan Wakely  <jwakely@redhat.com>
+
+	* include/bits/stl_vector.h (_Vector_base::_Vector_impl,
+	_Vector_base::_M_allocate): NullablePointer requirements do not
+	include initialization from literal zero, use value-initialization.
+	* include/bits/vector.tcc (vector::_M_insert_aux,
+	vector::_M_explace_back_aux): Likewise for assignment.
+
+	* include/bits/allocator.h (operator==, operator!=): Add exception
+	specifications.
+
+	PR libstdc++/60497
+	* include/std/tuple (get): Qualify calls to prevent ADL.
+	* testsuite/20_util/tuple/60497.cc: New.
+
+	* include/std/tuple (tuple_element_t): Define.
+	* testsuite/20_util/tuple/tuple_element.cc: Change to compile-only
+	test.
+	* testsuite/20_util/tuple/tuple_element_t.cc: New.
+
 2014-04-11  Marc Glisse  <marc.glisse@inria.fr>
 
 	PR libstdc++/59434

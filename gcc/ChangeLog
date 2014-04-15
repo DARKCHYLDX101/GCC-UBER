@@ -1,3 +1,135 @@
+2014-04-15  Richard Biener  <rguenther@suse.de>
+
+	* tree-ssa-structalias.c (find_func_aliases_for_builtin_call):
+	Add struct function argument and adjust.
+	(find_func_aliases_for_call): Likewise.
+	(find_func_aliases): Likewise.
+	(find_func_clobbers): Likewise.
+	(intra_create_variable_infos): Likewise.
+	(compute_points_to_sets): Likewise.
+	(ipa_pta_execute): Adjust.  Do not push/pop cfun.
+
+2014-04-15  Richard Biener  <rguenther@suse.de>
+
+	* tree.c (iterative_hash_expr): Use enum tree_code_class
+	to store TREE_CODE_CLASS.
+	(tree_block): Likewise.
+	(tree_set_block): Likewise.
+	* tree.h (fold_build_pointer_plus_loc): Use
+	convert_to_ptrofftype_loc.
+
+2014-04-15  Jakub Jelinek  <jakub@redhat.com>
+
+	PR plugins/59335
+	* Makefile.in (PLUGIN_HEADERS): Add various headers that have been
+	added in 4.9.
+
+2014-04-15  Eric Botcazou  <ebotcazou@adacore.com>
+
+	* cfgloop.h (struct loop): Move force_vectorize down.
+	* gimplify.c (gimple_boolify) <ANNOTATE_EXPR>: Handle new kinds.
+	(gimplify_expr) <ANNOTATE_EXPR>: Minor tweak.
+	* lto-streamer-in.c (input_cfg): Read dont_vectorize field.
+	* lto-streamer-out.c (output_cfg): Write dont_vectorize field.
+	* tree-cfg.c (replace_loop_annotate): Revamp and handle new kinds.
+	* tree-core.h (enum annot_expr_kind): Add new kind values.
+	* tree-inline.c (copy_loops): Copy dont_vectorize field and reorder.
+	* tree-pretty-print.c (dump_generic_node) <ANNOTATE_EXPR>: Handle new
+	kinds.
+	* tree.def (ANNOTATE_EXPR): Tweak comment.
+
+2014-04-14  Jan Hubicka  <hubicka@ucw.cz>
+
+	* ipa-devirt.c (maybe_record_node): Ignore all non-methods (including
+	cxa_pure_virtual).
+
+2014-04-14  Paolo Carlini  <paolo.carlini@oracle.com>
+
+	* tree.h (TYPE_IDENTIFIER): Declare.
+	* tree.c (subrange_type_for_debug_p): Use it.
+	* godump.c (go_format_type): Likewise.
+	* dwarf2out.c (is_cxx_auto, modified_type_die,
+	gen_type_die_with_usage, gen_type_die_with_usage): Likewise.
+	* dbxout.c (dbxout_type, dbxout_symbol): Likewise.
+
+2014-04-14  Jan Hubicka   <hubicka@ucw.cz>
+
+	PR lto/60820
+	* varpool.c (varpool_remove_node): Do not alter decls when streaming.
+
+2014-04-14  Uros Bizjak  <ubizjak@gmail.com>
+
+	* config/i386/i386.c (examine_argument): Return bool.  Return true if
+	parameter should be passed in memory.
+	<case X86_64_COMPLEX_X87_CLASS>: Adjust.
+	(construct_container): Update calls to examine_argument.
+	(function_arg_advance_64): Ditto.
+	(return_in_memory_32): Merge with ix86_return_in_memory.
+	(return_in_memory_64): Ditto.
+	(return_in_memory_ms_64): Ditto.
+
+2014-04-14  Jan Hubicka  <hubicka@ucw.cz>
+
+	* ipa-utils.c (ipa_merge_profiles): Merge profile_id.
+	* coverage.c (coverage_compute_profile_id): Handle externally visible
+	symbols.
+
+2014-04-14  Martin Jambor  <mjambor@suse.cz>
+
+	* tree-sra.c (ipa_sra_preliminary_function_checks): Skip
+	DECL_DISREGARD_INLINE_LIMITS functions.
+
+2014-04-14  H.J. Lu  <hongjiu.lu@intel.com>
+
+	PR target/60827
+	* config/i386/i386.md (*fixuns_trunc<mode>_1): Revert the last change.
+
+2014-04-14  H.J. Lu  <hongjiu.lu@intel.com>
+
+	PR target/60827
+	* config/i386/i386.md (*fixuns_trunc<mode>_1): Check
+	optimize_insn_for_speed_p instead of
+	optimize_function_for_speed_p.
+
+2014-04-14  Yufeng Zhang  <yufeng.zhang@arm.com>
+
+	* doc/invoke.texi (free): Document AArch64.
+
+2014-04-14  Richard Biener  <rguenther@suse.de>
+
+	PR tree-optimization/60042
+	* tree-ssa-pre.c (inhibit_phi_insertion): Remove.
+	(insert_into_preds_of_block): Do not prevent PHI insertion
+	for REFERENCE exprs here ...
+	(eliminate_dom_walker::before_dom_children): ... but prevent
+	their use here under similar conditions when applied to the
+	IL after PRE optimizations.
+
+2014-04-14  Richard Biener  <rguenther@suse.de>
+
+	* passes.def: Move early points-to after early SRA.
+
+2014-04-14  Richard Biener  <rguenther@suse.de>
+
+	* tree-ssa-forwprop.c (simplify_gimple_switch): Enhance
+	check for which sign-changes we allow when forwarding
+	a converted value into a switch.
+
+2014-04-14  Eric Botcazou  <ebotcazou@adacore.com>
+
+	* stor-layout.c (place_field): Finalize non-constant offset for the
+	field, if any.
+
+2014-04-14  Richard Biener  <rguenther@suse.de>
+
+	* tree-switch-conversion.c (lshift_cheap_p): Get speed_p
+	as argument.
+	(expand_switch_using_bit_tests_p): Likewise.
+	(process_switch): Compute and pass on speed_p based on the
+	switch stmt.
+	* tree-ssa-math-opts.c (gimple_expand_builtin_pow): Use
+	optimize_bb_for_speed_p.
+
 2014-04-14  Eric Botcazou  <ebotcazou@adacore.com>
 
 	* cfgloop.h (struct loop): Rename force_vect into force_vectorize.
@@ -118,8 +250,7 @@
 2014-04-11  Tobias Burnus  <burnus@net-b.de>
 
 	PR other/59055
-	* doc/bugreport.texi (Bugs): Remove nodes pointing to the
-	nirvana.
+	* doc/bugreport.texi (Bugs): Remove nodes pointing to the nirvana.
 	* doc/gcc.texi (Service): Update description in the @menu
 	* doc/invoke.texi (Option Summary): Remove misplaced and
 	duplicated @menu.
@@ -145,15 +276,14 @@
 2014-04-11  Jakub Jelinek  <jakub@redhat.com>
 
 	PR rtl-optimization/60663
-	* cse.c (cse_insn): Set src_volatile on ASM_OPERANDS in
-	PARALLEL.
+	* cse.c (cse_insn): Set src_volatile on ASM_OPERANDS in PARALLEL.
 
 2014-04-10  Jan Hubicka  <hubicka@ucw.cz>
 	    Jakub Jelinek  <jakub@redhat.com>
 
 	PR lto/60567
-	* ipa.c (function_and_variable_visibility): Copy forced_by_abi flag from
-	decl_node to node.
+	* ipa.c (function_and_variable_visibility): Copy forced_by_abi
+	flag from decl_node to node.
 
 2014-04-10  Ramana Radhakrishnan  <ramana.radhakrishnan@arm.com>
 
@@ -271,9 +401,10 @@
 
 2014-04-05  Pitchumani Sivanupandi  <Pitchumani.S@atmel.com>
 
-	* config/avr/avr-arch.h (avr_mcu_t): Add dev_attribute field to have device
-	specific ISA/ feature information. Remove short_sp and errata_skip ds.
-	Add avr_device_specific_features enum to have device specific info.
+	* config/avr/avr-arch.h (avr_mcu_t): Add dev_attribute field to have
+	device specific ISA/ feature information. Remove short_sp and
+	errata_skip ds.  Add avr_device_specific_features enum to have device
+	specific info.
 	* config/avr/avr-c.c (avr_cpu_cpp_builtins): use dev_attribute to check
 	errata_skip. Add __AVR_ISA_RMW__ builtin macro if RMW ISA available.
 	* config/avr/avr-devices.c (avr_mcu_types): Update AVR_MCU macro for
@@ -393,8 +524,8 @@
 
 	PR tree-optimization/60505
 	* tree-vectorizer.h (struct _stmt_vec_info): Add th field as the
-	threshold of number of iterations below which no vectorization will be
-	done.
+	threshold of number of iterations below which no vectorization
+	will be done.
 	* tree-vect-loop.c (new_loop_vec_info):
 	Initialize LOOP_VINFO_COST_MODEL_THRESHOLD.
 	* tree-vect-loop.c (vect_analyze_loop_operations):
@@ -406,8 +537,7 @@
 
 2014-04-03  Richard Biener  <rguenther@suse.de>
 
-	* tree-streamer.h (struct streamer_tree_cache_d): Add next_idx
-	member.
+	* tree-streamer.h (struct streamer_tree_cache_d): Add next_idx member.
 	(streamer_tree_cache_create): Adjust.
 	* tree-streamer.c (streamer_tree_cache_add_to_node_array): Adjust
 	to allow optional nodes array.
@@ -418,8 +548,7 @@
 	* lto-streamer-out.c (create_output_block): Avoid maintaining
 	the node array in the writer cache.
 	(DFS_write_tree): Remove assertion.
-	(produce_asm_for_decls): Free the out decl state hash table
-	early.
+	(produce_asm_for_decls): Free the out decl state hash table early.
 	* lto-streamer-in.c (lto_data_in_create): Adjust for
 	streamer_tree_cache_create prototype change.
 
@@ -473,8 +602,8 @@
 2014-04-02  Jan Hubicka  <hubicka@ucw.cz>
 
 	PR ipa/60659
-	* ipa-devirt.c (get_polymorphic_call_info): Do not ICE on type inconsistent
-	code and instead mark the context inconsistent.
+	* ipa-devirt.c (get_polymorphic_call_info): Do not ICE on type
+	inconsistent code and instead mark the context inconsistent.
 	(possible_polymorphic_call_targets): For inconsistent contexts
 	return empty complete list.
 
@@ -578,8 +707,7 @@
 
 2014-04-01  Richard Biener  <rguenther@suse.de>
 
-	* gimple.h (struct gimple_statement_base): Align subcode to
-	16 bits.
+	* gimple.h (struct gimple_statement_base): Align subcode to 16 bits.
 
 2014-04-01  Sebastian Huber  <sebastian.huber@embedded-brains.de>
 
