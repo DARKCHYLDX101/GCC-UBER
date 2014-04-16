@@ -1,7 +1,8 @@
+// { dg-require-atomic-builtins "" }
 // { dg-options "-std=gnu++11" }
 // { dg-do compile }
 
-// Copyright (C) 2006-2014 Free Software Foundation, Inc.
+// Copyright (C) 2014 Free Software Foundation, Inc.
 //
 // This file is part of the GNU ISO C++ Library.  This library is free
 // software; you can redistribute it and/or modify it under the
@@ -18,13 +19,12 @@
 // with this library; see the file COPYING3.  If not see
 // <http://www.gnu.org/licenses/>.
 
-// 20.6.6.2 Template class shared_ptr [util.smartptr.shared]
+#include <atomic>
 
-#include <memory>
-#include <testsuite_tr1.h>
+// libstdc++/60695
 
-using namespace __gnu_test;
-template class std::weak_ptr<int>;
-template class std::weak_ptr<void>;
-template class std::weak_ptr<ClassType>;
-template class std::weak_ptr<IncompleteClass>;
+struct X {
+  char stuff[0]; // GNU extension, type has zero size
+};
+
+std::atomic<X> a;  // { dg-error "not supported" "" { target *-*-* } 168 }

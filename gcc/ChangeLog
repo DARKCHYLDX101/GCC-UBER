@@ -1,3 +1,79 @@
+2014-04-15  Jan Hubicka  <jh@suse.cz>
+
+	* ipa-devirt.c (referenced_from_vtable_p): New predicate.
+	(maybe_record_node, likely_target_p): Use it.
+
+2014-04-15  Bill Schmidt  <wschmidt@linux.vnet.ibm.com>
+
+	PR target/60839
+	Revert following patch
+
+	2014-04-02  Michael Meissner  <meissner@linux.vnet.ibm.com>
+
+	PR target/60735
+	* config/rs6000/rs6000.c (rs6000_hard_regno_mode_ok): If we have
+	software floating point or no floating point registers, do not
+	allow any type in the FPRs.  Eliminate a test for SPE SIMD types
+	in GPRs that occurs after we tested for GPRs that would never be
+	true.
+
+	* config/rs6000/rs6000.md (mov<mode>_softfloat32, FMOVE64):
+	Rewrite tests to use TARGET_DOUBLE_FLOAT and TARGET_E500_DOUBLE,
+	since the FMOVE64 type is DFmode/DDmode.  If TARGET_E500_DOUBLE,
+	specifically allow DDmode, since that does not use the SPE SIMD
+	instructions.
+
+2014-03-21  Mark Wielaard  <mjw@redhat.com>
+
+	* dwarf2out.c (gen_enumeration_type_die): Add DW_AT_const_value
+	as unsigned or int depending on type and value used.
+
+2014-04-15  Richard Biener  <rguenther@suse.de>
+
+	PR rtl-optimization/56965
+	* alias.c (ncr_compar, nonoverlapping_component_refs_p): Move ...
+	* tree-ssa-alias.c (ncr_compar, nonoverlapping_component_refs_p):
+	... here.
+	* alias.c (true_dependence_1): Do not call
+	nonoverlapping_component_refs_p.
+	* tree-ssa-alias.c (indirect_ref_may_alias_decl_p): Call
+	nonoverlapping_component_refs_p.
+	(indirect_refs_may_alias_p): Likewise.
+
+2014-04-15  Teresa Johnson  <tejohnson@google.com>
+
+	* cfg.c (dump_bb_info): Fix flags check.
+	* tree-cfg.c (remove_bb): Only dump TDF_BLOCKS when removing.
+
+2014-04-15  Kyrylo Tkachov  <kyrylo.tkachov@arm.com>
+
+	PR rtl-optimization/60663
+	* config/arm/arm.c (arm_new_rtx_costs): Improve ASM_OPERANDS case,
+	avoid 0 cost.
+
+2014-04-15  Richard Biener  <rguenther@suse.de>
+
+	* lto-streamer.h (LTO_major_version): Bump to 4.
+
+2014-04-15  Richard Biener  <rguenther@suse.de>
+
+	* common.opt (lto_partition_model): New enum.
+	(flto-partition=): Merge separate options with a single with argument,
+	add -flto-partition=one support.
+	* flag-types.h (enum lto_partition_model): Declare.
+	* opts.c (finish_options): Remove duplicate -flto-partition=
+	option check.
+	* lto-wrapper.c (run_gcc): Adjust.
+
+2014-04-15  Richard Biener  <rguenther@suse.de>
+
+	* alias.c (ncr_compar): New function.
+	(nonoverlapping_component_refs_p): Re-implement in O (n log n).
+
+2014-04-15  Richard Biener  <rguenther@suse.de>
+
+	* alias.c (record_component_aliases): Do not walk BINFOs.
+
 2014-04-15  Richard Biener  <rguenther@suse.de>
 
 	* tree-ssa-structalias.c (find_func_aliases_for_builtin_call):
