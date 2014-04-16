@@ -1,3 +1,30 @@
+2014-04-16  Jakub Jelinek  <jakub@redhat.com>
+
+	PR tree-optimization/60844
+	* tree-ssa-reassoc.c (reassoc_remove_stmt): New function.
+	(propagate_op_to_single_use, remove_visited_stmt_chain,
+	linearize_expr, repropagate_negates, reassociate_bb): Use it
+	instead of gsi_remove.
+
+2014-04-16  Martin Jambor  <mjambor@suse.cz>
+
+	* cgraphclones.c (cgraph_create_virtual_clone): Duplicate
+	ipa_transforms_to_apply.
+	(cgraph_function_versioning): Assert that old_node has empty
+	ipa_transforms_to_apply.
+	* trans-mem.c (ipa_tm_create_version): Likewise.
+	* tree-inline.c (tree_function_versioning): Do not duplicate
+	ipa_transforms_to_apply.
+
+2014-04-16  Rainer Orth  <ro@CeBiTec.Uni-Bielefeld.DE>
+
+	PR target/60817
+	* configure.ac (set_have_as_tls): Merge i[34567]86-*-* and
+	x86_64-*-* cases.
+	Pass necessary as flags on 64-bit Solaris/x86.
+	Use lowercase relocs for x86_64-*-*.
+	* configure: Regenerate.
+
 2014-04-15  Jan Hubicka  <jh@suse.cz>
 
 	* ipa-devirt.c (referenced_from_vtable_p): New predicate.
