@@ -1,3 +1,100 @@
+2014-04-17  Richard Biener  <rguenther@suse.de>
+
+	PR middle-end/60849
+	* tree-ssa-propagate.c (valid_gimple_rhs_p): Only allow effective
+	boolean results for comparisons.
+
+2014-04-17  Richard Biener  <rguenther@suse.de>
+
+	PR tree-optimization/60836
+	* tree-vect-loop.c (vect_create_epilog_for_reduction): Force
+	initial PHI args to be gimple values.
+
+2014-04-17   Richard Biener  <rguenther@suse.de>
+
+	PR tree-optimization/60841
+	* tree-vect-data-refs.c (vect_analyze_data_refs): Count stmts.
+	* tree-vect-loop.c (vect_analyze_loop_2): Pass down number
+	of stmts to SLP build.
+	* tree-vect-slp.c (vect_slp_analyze_bb_1): Likewise.
+	(vect_analyze_slp): Likewise.
+	(vect_analyze_slp_instance): Likewise.
+	(vect_build_slp_tree): Limit overall SLP tree growth.
+	* tree-vectorizer.h (vect_analyze_data_refs,
+	vect_analyze_slp): Adjust prototypes.
+
+2014-04-17  Evgeny Stupachenko  <evstupac@gmail.com>
+
+	* config/i386/i386.c (x86_add_stmt_cost): Fix vector cost model for
+	Silvermont.
+
+2014-04-17  Evgeny Stupachenko  <evstupac@gmail.com>
+
+	* config/i386/x86-tune.def (TARGET_SLOW_PSHUFB): New tune definition.
+	* config/i386/i386.h (TARGET_SLOW_PSHUFB): New tune flag.
+	* config/i386/i386.c (expand_vec_perm_even_odd_1): Avoid byte shuffles
+	for TARGET_SLOW_PSHUFB
+
+2014-04-17  Evgeny Stupachenko  <evstupac@gmail.com>
+
+	* config/i386/i386.c (slm_cost): Adjust vec_to_scalar_cost.
+	* config/i386/i386.c (intel_cost): Ditto.
+
+2014-04-17  Joey Ye  <joey.ye@arm.com>
+
+	* opts.c (OPT_fif_conversion, OPT_fif_conversion2): Disable for Og.
+
+2014-04-16  Jan Hubicka  <hubicka@ucw.cz>
+
+	* opts.c (common_handle_option): Disable -fipa-reference coorectly
+	with -fuse-profile.
+
+2014-04-16  Jan Hubicka  <hubicka@ucw.cz>
+
+	* ipa-devirt.c (odr_type_d): Add field all_derivations_known.
+	(type_all_derivations_known_p): New predicate.
+	(type_all_ctors_visible_p): New predicate.
+	(type_possibly_instantiated_p): New predicate.
+	(get_odr_type): Compute all_derivations_known.
+	(dump_odr_type): Dump the flag.
+	(maybe_record_type): Cleanup.
+	(record_target_from_binfo): Add bases_to_consider array;
+	record bases for types w/o instances and skip CXX destructor.
+	(possible_polymorphic_call_targets_1): Add bases_to_consider
+	and consider_construction parameters; check if type may
+	have instance.
+	(get_polymorphic_call_info): Set maybe_in_construction to true
+	when we know nothing.
+	(record_targets_from_bases): Skip CXX destructors; they are
+	never called for types in construction.
+	(possible_polymorphic_call_targets): Do not record target when
+	type may not have instance.
+
+2014-04-16  Jan Hubicka  <hubicka@ucw.cz>
+
+	PR ipa/60854
+	* ipa.c (symtab_remove_unreachable_nodes): Mark targets of
+	external aliases alive, too.
+
+2014-04-16  Andrew  Pinski  <apinski@cavium.com>
+
+	* config/host-linux.c (TRY_EMPTY_VM_SPACE): Change aarch64 ilp32
+        definition.
+
+2014-04-16  Eric Botcazou  <ebotcazou@adacore.com>
+
+	* final.c (compute_alignments): Do not apply loop alignment to a block
+	falling through to the exit.
+
+2014-04-16  Catherine Moore  <clm@codesourcery.com>
+
+	* mips.md (*mov<mode>_internal, *movhi_internal, *movqi_internal):
+	Adjust constraints for microMIPS store patterns.
+
+2014-04-16  Pitchumani Sivanupandi  <Pitchumani.S@atmel.com>
+
+	* config/avr/avr-mcus.def: Correct typo for atxmega256a3bu macro.
+
 2014-04-16  Eric Botcazou  <ebotcazou@adacore.com>
 
 	* tree-ssa-operands.c (create_vop_var): Set DECL_IGNORED_P.
