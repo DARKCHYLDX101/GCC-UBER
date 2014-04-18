@@ -8326,13 +8326,6 @@ execute_expand_omp (void)
 
 /* OMP expansion -- the default pass, run before creation of SSA form.  */
 
-static bool
-gate_expand_omp (void)
-{
-  return ((flag_openmp != 0 || flag_openmp_simd != 0
-	   || flag_cilkplus != 0) && !seen_error ());
-}
-
 namespace {
 
 const pass_data pass_data_expand_omp =
@@ -8340,7 +8333,6 @@ const pass_data pass_data_expand_omp =
   GIMPLE_PASS, /* type */
   "ompexp", /* name */
   OPTGROUP_NONE, /* optinfo_flags */
-  true, /* has_gate */
   true, /* has_execute */
   TV_NONE, /* tv_id */
   PROP_gimple_any, /* properties_required */
@@ -8358,8 +8350,13 @@ public:
   {}
 
   /* opt_pass methods: */
-  bool gate () { return gate_expand_omp (); }
-  unsigned int execute () { return execute_expand_omp (); }
+  virtual bool gate (function *)
+    {
+      return ((flag_openmp != 0 || flag_openmp_simd != 0
+	       || flag_cilkplus != 0) && !seen_error ());
+    }
+
+  virtual unsigned int execute (function *) { return execute_expand_omp (); }
 
 }; // class pass_expand_omp
 
@@ -10201,7 +10198,6 @@ const pass_data pass_data_lower_omp =
   GIMPLE_PASS, /* type */
   "omplower", /* name */
   OPTGROUP_NONE, /* optinfo_flags */
-  false, /* has_gate */
   true, /* has_execute */
   TV_NONE, /* tv_id */
   PROP_gimple_any, /* properties_required */
@@ -10219,7 +10215,7 @@ public:
   {}
 
   /* opt_pass methods: */
-  unsigned int execute () { return execute_lower_omp (); }
+  virtual unsigned int execute (function *) { return execute_lower_omp (); }
 
 }; // class pass_lower_omp
 
@@ -10619,12 +10615,6 @@ diagnose_omp_structured_block_errors (void)
   return 0;
 }
 
-static bool
-gate_diagnose_omp_blocks (void)
-{
-  return flag_openmp || flag_cilkplus;
-}
-
 namespace {
 
 const pass_data pass_data_diagnose_omp_blocks =
@@ -10632,7 +10622,6 @@ const pass_data pass_data_diagnose_omp_blocks =
   GIMPLE_PASS, /* type */
   "*diagnose_omp_blocks", /* name */
   OPTGROUP_NONE, /* optinfo_flags */
-  true, /* has_gate */
   true, /* has_execute */
   TV_NONE, /* tv_id */
   PROP_gimple_any, /* properties_required */
@@ -10650,10 +10639,11 @@ public:
   {}
 
   /* opt_pass methods: */
-  bool gate () { return gate_diagnose_omp_blocks (); }
-  unsigned int execute () {
-    return diagnose_omp_structured_block_errors ();
-  }
+  virtual bool gate (function *) { return flag_openmp || flag_cilkplus; }
+  virtual unsigned int execute (function *)
+    {
+      return diagnose_omp_structured_block_errors ();
+    }
 
 }; // class pass_diagnose_omp_blocks
 
@@ -11797,7 +11787,6 @@ const pass_data pass_data_omp_simd_clone =
   SIMPLE_IPA_PASS,		/* type */
   "simdclone",			/* name */
   OPTGROUP_NONE,		/* optinfo_flags */
-  true,				/* has_gate */
   true,				/* has_execute */
   TV_NONE,			/* tv_id */
   ( PROP_ssa | PROP_cfg ),	/* properties_required */
@@ -11815,12 +11804,18 @@ public:
   {}
 
   /* opt_pass methods: */
-  bool gate () { return ((flag_openmp || flag_openmp_simd
-			  || flag_cilkplus || (in_lto_p && !flag_wpa))
-			 && (targetm.simd_clone.compute_vecsize_and_simdlen
-			     != NULL)); }
-  unsigned int execute () { return ipa_omp_simd_clone (); }
+  virtual bool gate (function *);
+  virtual unsigned int execute (function *) { return ipa_omp_simd_clone (); }
 };
+
+bool
+pass_omp_simd_clone::gate (function *)
+{
+  return ((flag_openmp || flag_openmp_simd
+	   || flag_cilkplus
+	   || (in_lto_p && !flag_wpa))
+	  && (targetm.simd_clone.compute_vecsize_and_simdlen != NULL));
+}
 
 } // anon namespace
 

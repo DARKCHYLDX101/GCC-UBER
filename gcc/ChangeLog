@@ -1,3 +1,239 @@
+2014-04-17  Michael Meissner  <meissner@linux.vnet.ibm.com>
+
+	PR target/60876
+	* config/rs6000/rs6000.c (rs6000_setup_reg_addr_masks): Make sure
+	GET_MODE_SIZE gets passed an enum machine_mode type and not
+	integer.
+	(rs6000_init_hard_regno_mode_ok): Likewise.
+
+2014-04-17  Jan Hubicka  <hubicka@ucw.cz>
+
+	* ipa-inline.c (inline_small_functions): Account only non-cold
+	functions.
+	* doc/invoke.texi (inline-unit-growth): Update documentation.
+
+2014-04-17  Pat Haugen  <pthaugen@us.ibm.com>
+
+	* config/rs6000/rs6000.md (addti3, subti3): New.
+
+2014-04-17  H.J. Lu  <hongjiu.lu@intel.com>
+
+	PR target/60863
+	* config/i386/i386.c (ix86_expand_clear): Remove outdated
+	comment.  Check optimize_insn_for_size_p instead of
+	optimize_insn_for_speed_p.
+
+2014-04-17  Martin Jambor  <mjambor@suse.cz>
+
+	* gimple-iterator.c (gsi_start_edge): New function.
+	* gimple-iterator.h (gsi_start_edge): Declare.
+	* tree-sra.c (single_non_eh_succ): New function.
+	(disqualify_ops_if_throwing_stmt): Renamed to
+	disqualify_if_bad_bb_terminating_stmt.  Allow throwing statements
+	having one non-EH successor BB.
+	(sra_modify_expr): If stmt ends bb, use single non-EH successor to
+	generate loads into replacements.
+	(sra_modify_assign): Likewise and and also use the simple path for
+	such statements.
+	(sra_modify_function_body): Commit statements on edges.
+
+2014-04-17  Richard Biener  <rguenther@suse.de>
+
+	PR middle-end/60849
+	* tree-ssa-propagate.c (valid_gimple_rhs_p): Allow vector
+	comparison results and add clarifying comment.
+
+2014-04-17  Jakub Jelinek  <jakub@redhat.com>
+
+	* genmodes.c (struct mode_data): Add need_bytesize_adj field.
+	(blank_mode): Initialize it.
+	(emit_mode_size_inline, emit_mode_nunits_inline,
+	emit_mode_inner_inline): New functions.
+	(emit_insn_modes_h): Call them and surround their output with
+	#if GCC_VERSION >= 4001 ... #endif.
+	* machmode.h (GET_MODE_SIZE, GET_MODE_NUNITS, GET_MODE_INNER):
+	For GCC_VERSION >= 4001 use mode_*_inline routines instead of
+	mode_* arrays if the argument is __builtin_constant_p.
+	* lower-subreg.c (dump_choices): Make sure GET_MODE_SIZE argument
+	is enum machine_mode.
+
+2014-04-17  Trevor Saunders  <tsaunders@mozilla.com>
+
+	* passes.c (opt_pass::execute): Adjust.
+	(pass_manager::execute_pass_mode_switching): Likewise.
+	(early_local_passes::execute): Likewise.
+	(execute_one_pass): Pass cfun to the pass's execute method.
+	* tree-pass.h (opt_pass::execute): Add function * argument.
+	* asan.c, auto-inc-dec.c, bb-reorder.c, bt-load.c, cfgcleanup.c,
+	cfgexpand.c, cfgrtl.c, cgraphbuild.c, combine-stack-adj.c, combine.c,
+	compare-elim.c, config/arc/arc.c, config/epiphany/mode-switch-use.c,
+	config/epiphany/resolve-sw-modes.c, config/i386/i386.c,
+	config/mips/mips.c, config/rl78/rl78.c, config/s390/s390.c,
+	config/sparc/sparc.c, cprop.c, dce.c, df-core.c, dse.c, dwarf2cfi.c,
+	except.c, final.c, function.c, fwprop.c, gcse.c, gimple-low.c,
+	gimple-ssa-isolate-paths.c, gimple-ssa-strength-reduction.c,
+	graphite.c, ifcvt.c, init-regs.c, ipa-cp.c, ipa-devirt.c,
+	ipa-inline-analysis.c, ipa-inline.c, ipa-profile.c, ipa-pure-const.c,
+	ipa-reference.c, ipa-split.c, ipa.c, ira.c, jump.c, loop-init.c,
+	lower-subreg.c, mode-switching.c, omp-low.c, postreload-gcse.c,
+	postreload.c, predict.c, recog.c, ree.c, reg-stack.c, regcprop.c,
+	reginfo.c, regrename.c, reorg.c, sched-rgn.c, stack-ptr-mod.c,
+	store-motion.c, tracer.c, trans-mem.c, tree-call-cdce.c, tree-cfg.c,
+	tree-cfgcleanup.c, tree-complex.c, tree-eh.c, tree-emutls.c,
+	tree-if-conv.c, tree-into-ssa.c, tree-loop-distribution.c, tree-nrv.c,
+	tree-object-size.c, tree-parloops.c, tree-predcom.c, tree-ssa-ccp.c,
+	tree-ssa-copy.c, tree-ssa-copyrename.c, tree-ssa-dce.c,
+	tree-ssa-dom.c, tree-ssa-dse.c, tree-ssa-forwprop.c,
+	tree-ssa-ifcombine.c, tree-ssa-loop-ch.c, tree-ssa-loop-im.c,
+	tree-ssa-loop-ivcanon.c, tree-ssa-loop-prefetch.c,
+	tree-ssa-loop-unswitch.c, tree-ssa-loop.c, tree-ssa-math-opts.c,
+	tree-ssa-phiopt.c, tree-ssa-phiprop.c, tree-ssa-pre.c,
+	tree-ssa-reassoc.c, tree-ssa-sink.c, tree-ssa-strlen.c,
+	tree-ssa-structalias.c, tree-ssa-uncprop.c, tree-ssa-uninit.c,
+	tree-ssa.c, tree-ssanames.c, tree-stdarg.c, tree-switch-conversion.c,
+	tree-tailcall.c, tree-vect-generic.c, tree-vectorizer.c, tree-vrp.c,
+	tree.c, tsan.c, ubsan.c, var-tracking.c, vtable-verify.c, web.c:
+	Adjust.
+
+2014-04-17  Trevor Saunders  <tsaunders@mozilla.com>
+
+	* passes.c (opt_pass::gate): Take function * argument.
+	(gate_all_early_local_passes): Merge into
+	(early_local_passes::gate): this.
+	(gate_all_early_optimizations): Merge into
+	(all_early_optimizations::gate): this.
+	(gate_all_optimizations): Mege into
+	(all_optimizations::gate): this.
+	(gate_all_optimizations_g): Merge into
+	(all_optimizations_g::gate): this.
+	(gate_rest_of_compilation): Mege into
+	(rest_of_compilation::gate): this.
+	(gate_postreload): Merge into
+	(postreload::gate): this.
+	(dump_one_pass): Pass cfun to the pass's gate method.
+	(execute_ipa_summary_passes): Likewise.
+	(execute_one_pass): Likewise.
+	(ipa_write_summaries_2): Likewise.
+	(ipa_write_optimization_summaries_1): Likewise.
+	(ipa_read_summaries_1): Likewise.
+	(ipa_read_optimization_summaries_1): Likewise.
+	(execute_ipa_stmt_fixups): Likewise.
+	* tree-pass.h (opt_pass::gate): Add function * argument.
+	* asan.c, auto-inc-dec.c, bb-reorder.c, bt-load.c,
+	combine-stack-adj.c, combine.c, compare-elim.c,
+	config/epiphany/resolve-sw-modes.c, config/i386/i386.c,
+	config/rl78/rl78.c, config/sh/sh_optimize_sett_clrt.cc,
+	config/sh/sh_treg_combine.cc, config/sparc/sparc.c, cprop.c, cse.c,
+	dce.c, df-core.c, dse.c, dwarf2cfi.c, except.c,  fwprop.c, gcse.c,
+	gimple-ssa-isolate-paths.c, gimple-ssa-strength-reduction.c,
+	graphite.c, ifcvt.c, init-regs.c, ipa-cp.c, ipa-devirt.c,
+	ipa-profile.c, ipa-pure-const.c, ipa-reference.c, ipa-split.c, ipa.c,
+	loop-init.c, lower-subreg.c, mode-switching.c, modulo-sched.c,
+	omp-low.c, postreload-gcse.c, postreload.c, predict.c, recog.c, ree.c,
+	reg-stack.c, regcprop.c, regrename.c, reorg.c, sched-rgn.c,
+	store-motion.c, tracer.c, trans-mem.c, tree-call-cdce.c, tree-cfg.c,
+	tree-cfgcleanup.c, tree-complex.c, tree-eh.c, tree-emutls.c,
+	tree-if-conv.c, tree-into-ssa.c, tree-loop-distribution.c,
+	tree-nrv.c, tree-parloops.c, tree-predcom.c, tree-profile.c,
+	tree-sra.c, tree-ssa-ccp.c, tree-ssa-copy.c, tree-ssa-copyrename.c,
+	tree-ssa-dce.c, tree-ssa-dom.c, tree-ssa-dse.c, tree-ssa-forwprop.c,
+	tree-ssa-ifcombine.c, tree-ssa-loop-ch.c, tree-ssa-loop-im.c,
+	tree-ssa-loop-ivcanon.c, tree-ssa-loop-prefetch.c,
+	tree-ssa-loop-unswitch.c, tree-ssa-loop.c, tree-ssa-math-opts.c,
+	tree-ssa-phiopt.c, tree-ssa-phiprop.c, tree-ssa-pre.c,
+	tree-ssa-reassoc.c, tree-ssa-sink.c, tree-ssa-strlen.c,
+	tree-ssa-structalias.c, tree-ssa-uncprop.c, tree-ssa-uninit.c,
+	tree-ssa.c, tree-stdarg.c, tree-switch-conversion.c, tree-tailcall.c,
+	tree-vect-generic.c, tree-vectorizer.c, tree-vrp.c, tsan.c, ubsan.c,
+	var-tracking.c, vtable-verify.c, web.c: Adjust.
+
+2014-04-17  Trevor Saunders  <tsaunders@mozilla.com>
+
+	* configure.ac: Check for -Woverloaded-virtual and enable it if found.
+	* configure: Regenerate.
+
+2014-04-17  Trevor Saunders  <tsaunders@mozilla.com>
+	
+	* passes.c (dump_one_pass): don't check pass->has_gate.
+	(execute_ipa_summary_passes): Likewise.
+	(execute_one_pass): Likewise.
+	(ipa_write_summaries_2): Likewise.
+	(ipa_write_optimization_summaries_1): Likewise.
+	(ipa_read_optimization_summaries_1): Likewise.
+	(execute_ipa_stmt_fixups): Likewise.
+	* tree-pass.h (pass_data::has_gate): Remove.
+	* asan.c, auto-inc-dec.c, bb-reorder.c, bt-load.c, cfgcleanup.c,
+	cfgexpand.c, cfgrtl.c, cgraphbuild.c, combine-stack-adj.c, combine.c,
+	compare-elim.c, config/arc/arc.c, config/epiphany/mode-switch-use.c,
+	config/epiphany/resolve-sw-modes.c, config/i386/i386.c,
+	config/mips/mips.c, config/rl78/rl78.c, config/s390/s390.c,
+	config/sh/sh_optimize_sett_clrt.cc, config/sh/sh_treg_combine.cc,
+	config/sparc/sparc.c, cprop.c, cse.c, dce.c, df-core.c, dse.c,
+	dwarf2cfi.c, except.c, final.c, function.c, fwprop.c, gcse.c,
+	gimple-low.c, gimple-ssa-isolate-paths.c,
+	gimple-ssa-strength-reduction.c, graphite.c, ifcvt.c, init-regs.c,
+	ipa-cp.c, ipa-devirt.c, ipa-inline-analysis.c, ipa-inline.c,
+	ipa-profile.c, ipa-pure-const.c, ipa-reference.c, ipa-split.c, ipa.c,
+	ira.c, jump.c, loop-init.c, lower-subreg.c, mode-switching.c,
+	modulo-sched.c, omp-low.c, postreload-gcse.c, postreload.c, predict.c,
+	recog.c, ree.c, reg-stack.c, regcprop.c, reginfo.c, regrename.c,
+	reorg.c, sched-rgn.c, stack-ptr-mod.c, store-motion.c, tracer.c,
+	trans-mem.c, tree-call-cdce.c, tree-cfg.c, tree-cfgcleanup.c,
+	tree-complex.c, tree-eh.c, tree-emutls.c, tree-if-conv.c,
+	tree-into-ssa.c, tree-loop-distribution.c, tree-nrv.c,
+	tree-object-size.c, tree-parloops.c, tree-predcom.c, tree-profile.c,
+	tree-sra.c, tree-ssa-ccp.c, tree-ssa-copy.c, tree-ssa-copyrename.c,
+	tree-ssa-dce.c, tree-ssa-dom.c, tree-ssa-dse.c, tree-ssa-forwprop.c,
+	tree-ssa-ifcombine.c, tree-ssa-loop-ch.c, tree-ssa-loop-im.c,
+	tree-ssa-loop-ivcanon.c, tree-ssa-loop-prefetch.c,
+	tree-ssa-loop-unswitch.c, tree-ssa-loop.c, tree-ssa-math-opts.c,
+	tree-ssa-phiopt.c, tree-ssa-phiprop.c, tree-ssa-pre.c,
+	tree-ssa-reassoc.c, tree-ssa-sink.c, tree-ssa-strlen.c,
+	tree-ssa-structalias.c, tree-ssa-uncprop.c, tree-ssa-uninit.c,
+	tree-ssa.c, tree-ssanames.c, tree-stdarg.c, tree-switch-conversion.c,
+	tree-tailcall.c, tree-vect-generic.c, tree-vectorizer.c, tree-vrp.c,
+	tree.c, tsan.c, ubsan.c, var-tracking.c, vtable-verify.c, web.c:
+	Adjust.
+
+2014-04-17  Trevor Saunders  <tsaunders@mozilla.com>
+
+	* pass_manager.h (pass_manager::register_dump_files_1): Remove declaration.
+	* passes.c (pass_manager::register_dump_files_1): Merge into
+	(pass_manager::register_dump_files): this, and remove its handling of
+	properties since the pass always has the properties anyway.
+	(pass_manager::pass_manager): Adjust.
+
+2014-04-17  Trevor Saunders  <tsaunders@mozilla.com>
+
+	* pass_manager.h (pass_manager::register_dump_files_1): Adjust.
+	* passes.c (pass_manager::register_dump_files_1): Remove dead code
+	dealing with properties.
+	(pass_manager::register_dump_files): Adjust.
+
+2014-03-20  Mark Wielaard  <mjw@redhat.com>
+
+	* dwarf2out.c (add_bound_info): If HOST_WIDE_INT is big enough,
+	then represent the bound as normal constant value.
+
+2014-04-17  Jakub Jelinek  <jakub@redhat.com>
+
+	PR target/60847
+	Forward port from 4.8 branch
+	2013-07-19  Kirill Yukhin  <kirill.yukhin@intel.com>
+
+	* config/i386/bmiintrin.h (_blsi_u32): New.
+	(_blsi_u64): Ditto.
+	(_blsr_u32): Ditto.
+	(_blsr_u64): Ditto.
+	(_blsmsk_u32): Ditto.
+	(_blsmsk_u64): Ditto.
+	(_tzcnt_u32): Ditto.
+	(_tzcnt_u64): Ditto.
+
+2014-04-17  Kito Cheng  <kito@0xlab.org>
+
+	* gcc.c (used_arg): Prevent out of bound access for multilib_options.
+
 2014-04-17  Richard Biener  <rguenther@suse.de>
 
 	PR middle-end/60849
