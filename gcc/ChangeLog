@@ -1,3 +1,90 @@
+2014-04-22  Renlin Li  <Renlin.Li@arm.com>
+
+	* config/aarch64/aarch64.c (aarch64_print_operand_address): Adjust
+	the output asm format.
+
+2014-04-22  James Greenhalgh  <james.greenhalgh@arm.com>
+
+	* config/aarch64/aarch64-simd.md
+	(aarch64_cm<optab>di): Always split.
+	(*aarch64_cm<optab>di): New.
+	(aarch64_cmtstdi): Always split.
+	(*aarch64_cmtstdi): New.
+
+2014-04-22  Jakub Jelinek  <jakub@redhat.com>
+
+	PR tree-optimization/60823
+	* omp-low.c (ipa_simd_modify_function_body): Go through
+	all SSA_NAMEs and for those refering to vector arguments
+	which are going to be replaced adjust SSA_NAME_VAR and,
+	if it is a default definition, change it into a non-default
+	definition assigned at the beginning of function from new_decl.
+	(ipa_simd_modify_stmt_ops): Rewritten.
+	* tree-dfa.c (set_ssa_default_def): When removing default def,
+	check for NULL loc instead of NULL *loc.
+
+2014-04-22  Ramana Radhakrishnan  <ramana.radhakrishnan@arm.com>
+
+	* config/arm/arm.c (arm_hard_regno_mode_ok): Loosen
+	restrictions on core registers for DImode values in Thumb2.
+
+2014-04-22  Ian Bolton  <ian.bolton@arm.com>
+
+	* config/arm/arm.md (*anddi_notdi_zesidi): New pattern.
+	* config/arm/thumb2.md (*iordi_notdi_zesidi): New pattern.
+
+2014-04-22  Ian Bolton  <ian.bolton@arm.com>
+
+	* config/arm/thumb2.md (*iordi_notdi_di): New pattern.
+	(*iordi_notzesidi_di): Likewise.
+	(*iordi_notsesidi_di): Likewise.
+
+2014-04-22  Ian Bolton  <ian.bolton@arm.com>
+
+	* config/arm/arm-protos.h (tune_params): New struct members.
+	* config/arm/arm.c: Initialise tune_params per processor.
+	(thumb2_reorg): Suppress conversion from t32 to t16 when optimizing
+	for speed, based on new tune_params.
+
+2014-04-22  Alex Velenko  <Alex.Velenko@arm.com>
+
+	* config/aarch64/aarch64-builtins.c (BUILTIN_VDQF_DF): Macro
+	added.
+	* config/aarch64/aarch64-simd-builtins.def (frintn): Use added
+	macro.
+	* config/aarch64/aarch64-simd.md (<frint_pattern>): Comment
+	corrected.
+	* config/aarch64/aarch64.md (<frint_pattern>): Likewise.
+	* config/aarch64/arm_neon.h (vrnd_f64): Added.
+	(vrnda_f64): Likewise.
+	(vrndi_f64): Likewise.
+	(vrndm_f64): Likewise.
+	(vrndn_f64): Likewise.
+	(vrndp_f64): Likewise.
+	(vrndx_f64): Likewise.
+
+2014-04-22  Zhenqiang Chen  <zhenqiang.chen@linaro.org>
+
+	* config/arm/arm.c (arm_print_operand, thumb_exit): Make sure
+	GET_MODE_SIZE argument is enum machine_mode.
+
+2014-04-22  Jakub Jelinek  <jakub@redhat.com>
+
+	PR target/60910
+	* config/sparc/sparc.c (sparc_init_modes): Pass enum machine_mode
+	value instead of int to GET_MODE_CLASS and GET_MODE_SIZE macros.
+
+2014-04-22  Lin Zuojian  <manjian2006@gmail.com>
+
+	PR middle-end/60281
+	* asan.c (asan_emit_stack_protection): Force the base to align to
+	appropriate bits if STRICT_ALIGNMENT.  Set shadow_mem align to
+	appropriate bits if STRICT_ALIGNMENT.
+	* cfgexpand.c (expand_stack_vars): Set base_align appropriately
+	when asan is on.
+	(expand_used_vars): Leave a space in the stack frame for alignment
+	if STRICT_ALIGNMENT.
+
 2014-04-21  David Malcolm  <dmalcolm@redhat.com>
 
 	* gimple.h (gimple_assign_single_p): Accept a const_gimple rather
