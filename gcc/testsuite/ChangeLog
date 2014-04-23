@@ -1,3 +1,121 @@
+2014-04-23  Richard Biener  <rguenther@suse.de>
+
+	PR middle-end/60895
+	* g++.dg/torture/pr60895.C: New testcase.
+
+2014-04-23  Richard Biener  <rguenther@suse.de>
+
+	PR middle-end/60891
+	* gcc.dg/torture/pr60891.c: New testcase.
+
+2014-04-22  Jakub Jelinek  <jakub@redhat.com>
+
+	PR sanitizer/60275
+	* g++.dg/ubsan/return-2.C: Revert 2014-03-24 changes, add
+	-fno-sanitize-recover to dg-options.
+	* g++.dg/ubsan/cxx11-shift-1.C: Remove c++11 target restriction,
+	add -std=c++11 to dg-options.
+	* g++.dg/ubsan/cxx11-shift-2.C: Likewise.
+	* g++.dg/ubsan/cxx1y-vla.C: Remove c++1y target restriction,
+	add -std=c++1y to dg-options.
+	* c-c++-common/ubsan/undefined-1.c: Revert 2014-03-24 changes, add
+	-fno-sanitize-recover to dg-options.
+	* c-c++-common/ubsan/overflow-sub-1.c: Likewise.
+	* c-c++-common/ubsan/vla-4.c: Likewise.
+	* c-c++-common/ubsan/pr59503.c: Likewise.
+	* c-c++-common/ubsan/vla-3.c: Likewise.
+	* c-c++-common/ubsan/save-expr-1.c: Likewise.
+	* c-c++-common/ubsan/overflow-add-1.c: Likewise.
+	* c-c++-common/ubsan/shift-3.c: Likewise.
+	* c-c++-common/ubsan/overflow-1.c: Likewise.
+	* c-c++-common/ubsan/overflow-negate-2.c: Likewise.
+	* c-c++-common/ubsan/vla-2.c: Likewise.
+	* c-c++-common/ubsan/overflow-mul-1.c: Likewise.
+	* c-c++-common/ubsan/pr60613-1.c: Likewise.
+	* c-c++-common/ubsan/shift-6.c: Likewise.
+	* c-c++-common/ubsan/overflow-mul-3.c: Likewise.
+	* c-c++-common/ubsan/overflow-add-3.c: New test.
+	* c-c++-common/ubsan/overflow-add-4.c: New test.
+	* c-c++-common/ubsan/div-by-zero-6.c: New test.
+	* c-c++-common/ubsan/div-by-zero-7.c: New test.
+
+2014-04-22  Christian Bruel  <christian.bruel@st.com>
+
+	* gcc.target/sh/hiconst.c: New test.
+
+2014-04-22  Sandra Loosemore  <sandra@codesourcery.com>
+
+	* gcc.target/nios2/custom-fp-conversion.c: Adjust to test that
+	lroundf generates custom round instruction, too.
+
+2014-04-22  Tobias Burnus  <burnus@net-b.de>
+
+	PR fortran/60881
+	* coarray/alloc_comp_3.f90: New.
+
+2014-04-22  H.J. Lu  <hongjiu.lu@intel.com>
+
+	PR target/60868
+	* gcc.target/i386/pr60868.c: New testcase.
+
+2014-04-22  Jakub Jelinek  <jakub@redhat.com>
+
+	PR c/59073
+	* c-c++-common/gomp/pr59073.c: New test.
+
+2014-04-22  Alex Velenko  <Alex.Velenko@arm.com>
+
+	* gcc.target/aarch64/vreinterpret_f64_1.c: New.
+
+2014-04-22  Alex Velenko  <Alex.Velenko@arm.com>
+
+	* gcc.target/aarch64/vqneg_s64_1.c: New testcase.
+	* gcc.target/aarch64/vqabs_s64_1.c: New testcase.
+
+2014-04-22  Richard Sandiford  <rdsandiford@googlemail.com>
+
+	* gcc.dg/memcpy-5.c: New test.
+
+2014-04-22  Rainer Orth  <ro@CeBiTec.Uni-Bielefeld.DE>
+
+	* gcc.c-torture/compile/pr28865.c: Remove dg-xfail-if.
+
+	* gcc.dg/c99-stdint-6.c: Remove dg-options for *-*-solaris2.9.
+	* gcc.dg/lto/20090210_0.c: Remove dg-extra-ld-options for
+	*-*-solaris2.9.
+	* gcc.dg/torture/pr47917.c: Remove dg-options for *-*-solaris2.9.
+	* gcc.target/i386/pr22076.c: Remove i?86-*-solaris2.9 handling
+	from dg-options.
+	* gcc.target/i386/pr22152.c: Remove i?86-*-solaris2.9 handling
+	from dg-additional-options.
+	* gcc.target/i386/vect8-ret.c: Remove i?86-*-solaris2.9 handling
+	from dg-options.
+
+	* gcc.dg/vect/tree-vect.h (check_vect): Remove Solaris 9 SSE2
+	execution check.
+	* gcc.target/i386/sse-os-support.h [__sun__ && __svr4__]
+	(sigill_hdlr): Remove.
+	(sse_os_support) [__sun__ && __svr4__]: Remove SSE execution
+	check.
+
+	* gfortran.dg/erf_3.F90: Remove sparc*-*-solaris2.9* handling.
+	* gfortran.dg/fmt_en.f90: Remove i?86-*-solaris2.9* handling.
+	* gfortran.dg/round_4.f90: Remove *-*-solaris2.9* handling.
+
+	* lib/target-supports.exp (add_options_for_tls): Remove
+	*-*-solaris2.9* handling.
+
+2014-04-22  Vidya Praveen  <vidyapraveen@arm.com>
+
+	* gcc.target/aarch64/vect_cvtf_1.c: New.
+
+2014-04-22  Jakub Jelinek  <jakub@redhat.com>
+
+	PR tree-optimization/60823
+	* c-c++-common/gomp/pr60823-1.c: New test.
+	* c-c++-common/gomp/pr60823-2.c: New test.
+	* c-c++-common/gomp/pr60823-3.c: New test.
+
 2014-04-22  Ian Bolton  <ian.bolton@arm.com>
 
 	* gcc.target/arm/anddi_notdi-1.c: New test.
