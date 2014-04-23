@@ -1,3 +1,27 @@
+2014-04-23  Jeff Law  <law@redhat.com>
+
+	PR tree-optimization/60902
+	* gcc.target/i386/pr60902.c: New test.
+
+2014-04-23  Alex Velenko  <Alex.Velenko@arm.com>
+
+	* gcc.target/aarch64/vdup_lane_1.c: New testcase.
+	* gcc.target/aarch64/vdup_lane_2.c: New testcase.
+	* gcc.target/aarch64/vdup_n_1.c: New testcase.
+
+2014-04-23  Kyrylo Tkachov  <kyrylo.tkachov@arm.com>
+
+	* gcc.target/arm/rev16.c: New test.
+
+2014-04-23  Kyrylo Tkachov  <kyrylo.tkachov@arm.com>
+
+       * gcc.target/aarch64/rev16_1.c: New test.
+
+2014-04-23  Richard Biener  <rguenther@suse.de>
+
+	PR tree-optimization/60903
+	* gcc.dg/torture/pr60903.c: New testcase.
+
 2014-04-23  Richard Biener  <rguenther@suse.de>
 
 	PR middle-end/60895
