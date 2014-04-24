@@ -1,3 +1,77 @@
+2014-04-24  Trevor Saunders  <tsaunders@mozilla.com>
+
+	* config/sh/sh_treg_combine.c (sh_treg_combine::execute): Take
+	function * argument.
+
+2014-04-24  Alan Lawrence  <alan.lawrence@arm.com>
+
+	* config/aarch64/aarch64.c (aarch64_evpc_tbl): Enable for bigendian.
+
+2014-04-24  Radovan Obradovic  <robradovic@mips.com>
+            Tom de Vries  <tom@codesourcery.com>
+
+	* reg-notes.def (REG_NOTE (CALL_DECL)): New reg-note REG_CALL_DECL.
+	* calls.c (expand_call, emit_library_call_value_1): Add REG_CALL_DECL
+	reg-note.
+	* combine.c (distribute_notes): Handle REG_CALL_DECL reg-note.
+	* emit-rtl.c (try_split): Same.
+
+2014-04-24  Radovan Obradovic  <robradovic@mips.com>
+            Tom de Vries  <tom@codesourcery.com>
+
+	* common.opt (fuse-caller-save): New option.
+
+2014-04-24  Tejas Belagod  <tejas.belagod@arm.com>
+
+	* config/aarch64/aarch64.c (aarch64_evpc_tbl): Reverse order of elements
+	for big-endian.
+
+2014-04-24  Richard Biener  <rguenther@suse.de>
+
+	* expr.c (expand_expr_real_1): Avoid gimple_assign_rhs_to_tree
+	during TER and instead use the sepops interface for expanding
+	non-GIMPLE_SINGLE_RHS.
+
+2014-04-24  Rainer Orth  <ro@CeBiTec.Uni-Bielefeld.DE>
+
+	* config/i386/sol2.h (ASM_PREFERRED_EH_DATA_FORMAT): Only redefine
+	if not HAVE_AS_IX86_DIFF_SECT_DELTA.
+
+2014-04-24  Rainer Orth  <ro@CeBiTec.Uni-Bielefeld.DE>
+
+	* configure.ac (gcc_cv_as_cfi_directive): Support Solaris/x86
+	assembler 64-bit option.
+	* configure: Regenerate.
+
+2014-04-24  Kyrylo Tkachov  <kyrylo.tkachov@arm.com>
+
+	* config/aarch64/aarch64.h (TARGET_CPU_CPP_BUILTINS): Check
+	TARGET_SIMD rather than TARGET_GENERAL_REGS_ONLY.
+	(TARGET_SIMD): Take AARCH64_ISA_SIMD into account.
+	(TARGET_FLOAT): Take AARCH64_ISA_FP into account.
+	(TARGET_CRYPTO): Take TARGET_SIMD into account.
+
+2014-04-24  Kyrylo Tkachov  <kyrylo.tkachov@arm.com>
+
+	* config/aarch64/aarch64-builtins.c
+	(aarch64_builtin_vectorized_function): Handle BUILT_IN_BSWAP16,
+	BUILT_IN_BSWAP32, BUILT_IN_BSWAP64.
+	* config/aarch64/aarch64-simd.md (bswap<mode>): New pattern.
+	* config/aarch64/aarch64-simd-builtins.def: Define vector bswap
+	builtins.
+	* config/aarch64/iterator.md (VDQHSD): New mode iterator.
+	(Vrevsuff): New mode attribute.
+
+2014-04-24  Terry Guo  <terry.guo@arm.com>
+
+	* config/arm/arm.h (machine_function): Define variable
+	after_arm_reorg here.
+	* config/arm/arm.c (after_arm_reorg): Remove the definition.
+	(arm_split_constant): Update the way to access variable
+	after_arm_reorg.
+	(arm_reorg): Ditto.
+	(arm_output_function_epilogue): Remove the reset of after_arm_reorg.
+
 2014-04-23  Tom de Vries  <tom@codesourcery.com>
 
 	* target-hooks-macros.h: Fix DEFHOOKPOD argument order in comment.
