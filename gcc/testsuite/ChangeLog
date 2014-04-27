@@ -1,3 +1,19 @@
+2014-04-26  Uros Bizjak  <ubizjak@gmail.com>
+
+	* gcc.dg/tree-ssa/alias-30.c (dg-options): Dump only fre1 details.
+	* gcc.dg/vect/pr60505.c: Cleanup vect tree dump.
+	* g++.dg/ipa/devirt-27.C (dg-options): Remove -fdump-ipa-devirt.
+
+2014-04-25  Uros Bizjak  <ubizjak@gmail.com>
+
+	* c-c++-common/gomp/pr60823-2.c: Require effective target
+	vect_simd_clones.
+
+2014-04-25  Jakub Jelinek  <jakub@redhat.com>
+
+	PR tree-optimization/60960
+	* gcc.c-torture/execute/pr60960.c: New test.
+
 2014-04-25  Eric Botcazou  <ebotcazou@adacore.com>
 
 	* gcc.c-torture/execute/20140425-1.c: New test.
@@ -1689,8 +1705,7 @@
 
 2014-02-19  Paul Pluzhnikov  <ppluzhnikov@google.com>
 
-	* gcc.dg/vect/no-vfa-vect-depend-2.c (main1): Fix buffer
-	overflow.
+	* gcc.dg/vect/no-vfa-vect-depend-2.c (main1): Fix buffer overflow.
 
 2014-02-19  Jakub Jelinek  <jakub@redhat.com>
 
@@ -1999,8 +2014,7 @@
 
 2014-02-10  Jakub Jelinek  <jakub@redhat.com>
 
-	* gcc.dg/vect/pr59984.c: Require effective target
-	vect_simd_clones.
+	* gcc.dg/vect/pr59984.c: Require effective target vect_simd_clones.
 
 2014-02-09  Paul Thomas  <pault@gcc.gnu.org>
 
@@ -3247,8 +3261,8 @@
 	* gfortran.dg/vect/fast-math-mgrid-resid.f: Change
 	-fdump-tree-optimized to -fdump-tree-pcom-details in dg-options and
 	cleanup-tree-dump from optimized to pcom.  Remove scan-tree-dump-times
-	for vect_\[^\\n\]*\\+, add scan-tree-dump-times for no suitable chains and
-	Executing predictive commoning without unrolling.
+	for vect_\[^\\n\]*\\+, add scan-tree-dump-times for no suitable
+	chains and Executing predictive commoning without unrolling.
 
 2014-01-14  Kirill Yukhin  <kirill.yukhin@intel.com>
 
