@@ -1,3 +1,59 @@
+2014-04-26  Jerry DeLisle  <jvdelisle@gcc.gnu>
+
+	PR libfortran/52539
+	* gfortran.dg/namelist_utf8.f90: New test.
+
+2014-04-26  Uros Bizjak  <ubizjak@gmail.com>
+
+	* gcc.dg/tree-ssa/alias-30.c (dg-options): Dump only fre1 details.
+	* gcc.dg/vect/pr60505.c: Cleanup vect tree dump.
+	* g++.dg/ipa/devirt-27.C (dg-options): Remove -fdump-ipa-devirt.
+
+2014-04-25  Cary Coutant  <ccoutant@google.com>
+
+        PR debug/60929
+        * g++.dg/debug/dwarf2/dwarf4-nested.C: New test case.
+        * g++.dg/debug/dwarf2/dwarf4-typedef.C: Add
+        -fdebug-types-section flag.
+
+2014-04-25  Jiong Wang  <jiong.wang@arm.com>
+
+	* gcc.target/arm/tail-long-call.c: New test.
+
+2014-04-25  Bill Schmidt  <wschmidt@linux.vnet.ibm.com>
+
+	PR tree-optimization/60930
+	* gcc.dg/torture/pr60930.c:  New test.
+
+2014-04-25  Jakub Jelinek  <jakub@redhat.com>
+
+	PR tree-optimization/60960
+	* gcc.c-torture/execute/pr60960.c: New test.
+
+2014-04-25  Marek Polacek  <polacek@redhat.com>
+
+	* gcc.dg/pr18079-2.c: Fix quoting in dg-warning.
+
+2014-04-25  Marek Polacek  <polacek@redhat.com>
+
+	PR c/18079
+	* gcc.dg/pr18079.c: New test.
+	* gcc.dg/pr18079-2.c: New test.
+
+2014-04-25  Uros Bizjak  <ubizjak@gmail.com>
+
+	* c-c++-common/gomp/pr60823-2.c: Require effective target
+	vect_simd_clones.
+
+2014-04-25  Marek Polacek  <polacek@redhat.com>
+
+	PR c/60114
+	* gcc.dg/pr60114.c: New test.
+
+2014-04-25  Eric Botcazou  <ebotcazou@adacore.com>
+
+	* gcc.c-torture/execute/20140425-1.c: New test.
+
 2014-04-25  Marek Polacek  <polacek@redhat.com>
 
 	PR c/60156
@@ -39,10 +95,10 @@
 
 	* gcc/testsuite/gcc.dg/tree-ssa/isolate-1.c: Skip test if
 	keeps_null_pointer_checks.
-	* gcc/testsuite/gcc.dg/tree-ssa/isolate-2.c: Ditto 
-	* gcc/testsuite/gcc.dg/tree-ssa/isolate-3.c: Ditto
-	* gcc/testsuite/gcc.dg/tree-ssa/isolate-4.c: Ditto
-	* gcc/testsuite/gcc.dg/tree-ssa/isolate-5.c: Ditto
+	* gcc/testsuite/gcc.dg/tree-ssa/isolate-2.c: Ditto.
+	* gcc/testsuite/gcc.dg/tree-ssa/isolate-3.c: Ditto.
+	* gcc/testsuite/gcc.dg/tree-ssa/isolate-4.c: Ditto.
+	* gcc/testsuite/gcc.dg/tree-ssa/isolate-5.c: Ditto.
 
 2014-04-24  Jakub Jelinek  <jakub@redhat.com>
 
@@ -66,7 +122,7 @@
 	true for aarch64_be.
 
 2014-04-24  Radovan Obradovic  <robradovic@mips.com>
-            Tom de Vries  <tom@codesourcery.com>
+	    Tom de Vries  <tom@codesourcery.com>
 
 	* gcc.dg/fuse-caller-save.c: New test.
 
@@ -98,7 +154,7 @@
 
 2014-04-23  Kyrylo Tkachov  <kyrylo.tkachov@arm.com>
 
-       * gcc.target/aarch64/rev16_1.c: New test.
+	* gcc.target/aarch64/rev16_1.c: New test.
 
 2014-04-23  Richard Biener  <rguenther@suse.de>
 
@@ -303,7 +359,7 @@
 	PR tree-optimization/60836
 	* g++.dg/vect/pr60836.cc: New testcase.
 
-2014-04-17   Richard Biener  <rguenther@suse.de>
+2014-04-17  Richard Biener  <rguenther@suse.de>
 
 	PR tree-optimization/60841
 	* gcc.dg/vect/pr60841.c: New testcase.
@@ -1986,8 +2042,7 @@
 
 2014-02-19  Paul Pluzhnikov  <ppluzhnikov@google.com>
 
-	* gcc.dg/vect/no-vfa-vect-depend-2.c (main1): Fix buffer
-	overflow.
+	* gcc.dg/vect/no-vfa-vect-depend-2.c (main1): Fix buffer overflow.
 
 2014-02-19  Jakub Jelinek  <jakub@redhat.com>
 
@@ -2296,8 +2351,7 @@
 
 2014-02-10  Jakub Jelinek  <jakub@redhat.com>
 
-	* gcc.dg/vect/pr59984.c: Require effective target
-	vect_simd_clones.
+	* gcc.dg/vect/pr59984.c: Require effective target vect_simd_clones.
 
 2014-02-09  Paul Thomas  <pault@gcc.gnu.org>
 
