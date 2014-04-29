@@ -1,7 +1,7 @@
-// { dg-options "-std=gnu++11" }
+// { dg-options "-std=gnu++14" }
 // { dg-do compile }
 
-// Copyright (C) 2007-2014 Free Software Foundation, Inc.
+// Copyright (C) 2014 Free Software Foundation, Inc.
 //
 // This file is part of the GNU ISO C++ Library.  This library is free
 // software; you can redistribute it and/or modify it under the
@@ -18,21 +18,20 @@
 // with this library; see the file COPYING3.  If not see
 // <http://www.gnu.org/licenses/>.
 
-// Tuple
+// libstdc++/60497
 
 #include <tuple>
 
-using namespace std;
+struct A;
+template<typename T> struct B { T t; };
 
-struct foo
-{ };
+using element_type = B<A>*;
+using tuple_type = std::tuple<element_type>;
 
-int
-main()
-{
-  // As foo isn't constructible from anything else, this
-  // lets us check if type is returning foo when it should
-  foo q1;
-  tuple_element<0,tuple<foo,void,int> >::type q2(q1);
-  tuple_element<2,tuple<void,int,foo> >::type q3(q1);
-}
+tuple_type t;
+const tuple_type ct;
+
+auto a = std::get<0>(t);
+auto b = std::get<0>(ct);
+auto c = std::get<element_type>(t);
+auto d = std::get<element_type>(ct);
