@@ -1,3 +1,175 @@
+2014-04-29  Patrick Palka  <patrick@parcs.ath.cx>
+
+	* doc/invoke.texi: Fix typo.
+	* tree-vrp.c: Fix typos.
+	* gimple.c (infer_nonnull_range): Reorder operands of an &&
+	condition.
+
+2014-04-29  Zhenqiang Chen  <zhenqiang.chen@linaro.org>
+
+	* config/aarch64/aarch64.md (mov<mode>cc): New for GPF.
+
+2014-04-28  James Greenhalgh  <james.greenhalgh@arm.com>
+
+	* config/aarch64/aarch64-builtins.c
+	(aarch64_types_storestruct_lane_qualifiers): New.
+	(TYPES_STORESTRUCT_LANE): Likewise.
+	* config/aarch64/aarch64-simd-builtins.def (st2_lane): New.
+	(st3_lane): Likewise.
+	(st4_lane): Likewise.
+	* config/aarch64/aarch64-simd.md (vec_store_lanesoi_lane<mode>): New.
+	(vec_store_lanesci_lane<mode>): Likewise.
+	(vec_store_lanesxi_lane<mode>): Likewise.
+	(aarch64_st2_lane<VQ:mode>): Likewise.
+	(aarch64_st3_lane<VQ:mode>): Likewise.
+	(aarch64_st4_lane<VQ:mode>): Likewise.
+	* config/aarch64/aarch64.md (unspec): Add UNSPEC_ST{2,3,4}_LANE.
+	* config/aarch64/arm_neon.h
+	(__ST2_LANE_FUNC): Rewrite using builtins, update use points to
+	use new macro arguments.
+	(__ST3_LANE_FUNC): Likewise.
+	(__ST4_LANE_FUNC): Likewise.
+	* config/aarch64/iterators.md (V_TWO_ELEM): New.
+	(V_THREE_ELEM): Likewise.
+	(V_FOUR_ELEM): Likewise.
+
+2014-04-28  David Malcolm  <dmalcolm@redhat.com>
+
+	* doc/gimple.texi: Replace the description of the now-defunct
+	union gimple_statement_d with a diagram showing the
+	gimple_statement_base class hierarchy and its relationships to
+	the GSS_ and GIMPLE_ enums.
+
+2014-04-28  James Greenhalgh  <james.greenhalgh@arm.com>
+
+	* config/aarch64/aarch64-protos.h (aarch64_modes_tieable_p): New.
+	* config/aarch64/aarch64.c
+	(aarch64_cannot_change_mode_class): Weaken conditions.
+	(aarch64_modes_tieable_p): New.
+	* config/aarch64/aarch64.h (MODES_TIEABLE_P): Use it.
+
+2014-04-28  Pat Haugen  <pthaugen@us.ibm.com>
+
+	* config/rs6000/sync.md (AINT mode_iterator): Move definition.
+	(loadsync_<mode>): Change mode.
+	(load_quadpti, store_quadpti): New.
+	(atomic_load<mode>, atomic_store<mode>): Add support for TI mode.
+	* config/rs6000/rs6000.md (unspec enum): Add UNSPEC_LSQ.
+
+2014-04-28  Martin Jambor  <mjambor@suse.cz>
+
+	* tree-sra.c (sra_modify_expr): Generate new memory accesses with
+	same alias type as the original statement.
+	(subreplacement_assignment_data): New type.
+	(handle_unscalarized_data_in_subtree): New type of parameter,
+	generate new memory accesses with same alias type as the original
+	statement.
+	(load_assign_lhs_subreplacements): Likewise.
+	(sra_modify_constructor_assign): Generate new memory accesses with
+	same alias type as the original statement.
+
+2014-04-28  Richard Biener  <rguenther@suse.de>
+
+	* tree-pass.h (TODO_verify_il): Define.
+	(TODO_verify_all): Complete properly.
+	* passes.c (execute_function_todo): Move existing loop-closed
+	SSA verification under TODO_verify_il.
+	(execute_one_pass): Trigger TODO_verify_il at todo-after time.
+	* graphite-sese-to-poly.c (rewrite_cross_bb_scalar_deps):
+	Fix tree sharing issue.
+
+2014-04-28  Richard Biener  <rguenther@suse.de>
+
+	PR middle-end/60092
+	* builtins.def (DEF_C11_BUILTIN): Add.
+	(BUILT_IN_ALIGNED_ALLOC): Likewise.
+	* coretypes.h (enum function_class): Add function_c11_misc.
+	* tree-ssa-alias.c (ref_maybe_used_by_call_p_1): Handle
+	BUILT_IN_ALIGNED_ALLOC like BUILT_IN_MALLOC.
+	(call_may_clobber_ref_p_1): Likewise.
+	* tree-ssa-dce.c (mark_stmt_if_obviously_necessary): Likewise.
+	(mark_all_reaching_defs_necessary_1): Likewise.
+	(propagate_necessity): Likewise.
+	(eliminate_unnecessary_stmts): Likewise.
+	* tree-ssa-ccp.c (evaluate_stmt): Handle BUILT_IN_ALIGNED_ALLOC.
+
+2014-04-28  Richard Biener  <rguenther@suse.de>
+
+	* tree-vrp.c (vrp_var_may_overflow): Remove.
+	(vrp_visit_phi_node): Rather than bumping to +-INF possibly
+	with overflow immediately bump to one before that value and
+	let iteration figure out overflow status.
+
+2014-04-28  Richard Biener  <rguenther@suse.de>
+
+	* configure.ac: Do valgrind header checks unconditionally.
+	Add --enable-valgrind-annotations.
+	* system.h: Guard valgrind header inclusion with
+	ENABLE_VALGRIND_ANNOTATIONS instead of ENABLE_VALGRIND_CHECKING.
+	* alloc-pool.c (pool_alloc, pool_free): Use
+	ENABLE_VALGRIND_ANNOTATIONS instead of ENABLE_VALGRIND_CHECKING
+	to guard possibly dead code.
+	* config.in: Regenerated.
+	* configure: Likewise.
+
+2014-04-28  Jeff Law  <law@redhat.com>
+
+	PR tree-optimization/60902
+	* tree-ssa-threadedge.c
+	(record_temporary_equivalences_from_stmts_at_dest): Only iterate
+	over real defs when invalidating outputs from statements that do not
+	produce useful outputs for threading.
+
+2014-04-28  Richard Biener  <rguenther@suse.de>
+
+	PR tree-optimization/60979
+	* graphite-scop-detection.c (scopdet_basic_block_info): Reject
+	SCOPs that end in a block with a successor with abnormal
+	predecessors.
+
+2014-04-28  Richard Biener  <rguenther@suse.de>
+
+	* tree-pass.h (execute_pass_list): Adjust prototype.
+	* passes.c (pass_manager::execute_early_local_passes):
+	Adjust.
+	(do_per_function): Change callback signature, push all actual
+	work to the callbals.
+	(do_per_function_toporder): Likewise.
+	(execute_function_dump): Adjust.
+	(execute_function_todo): Likewise.
+	(clear_last_verified): Likewise.
+	(verify_curr_properties): Likewise.
+	(update_properties_after_pass): Likewise.
+	(execute_pass_list_1): Split out from ...
+	(execute_pass_list): ... here.  Adjust.
+	(execute_ipa_pass_list): Likewise.
+	* cgraphunit.c (cgraph_add_new_function): Adjust.
+	(analyze_function): Likewise.
+	(expand_function): Likewise.
+	* cgraph.c (release_function_body): Free dominance info
+	here instead of asserting it was magically freed elsewhere.
+
+2014-04-28  Eric Botcazou  <ebotcazou@adacore.com>
+
+	* configure.ac: Tweak GAS check for LEON instructions on SPARC.
+	* configure: Regenerate.
+	* config/sparc/sparc.opt (muser-mode): New option.
+	* config/sparc/sync.md (atomic_compare_and_swap<mode>_1): Do not enable
+	for LEON3.
+	(atomic_compare_and_swap_leon3_1): New instruction for LEON3.
+	* doc/invoke.texi (SPARC options): Document -muser-mode.
+
+2014-04-27  Richard Sandiford  <rdsandiford@googlemail.com>
+
+	* cselib.c (find_slot_memmode): Delete.
+	(cselib_hasher): Change compare_type to a struct.
+	(cselib_hasher::equal): Update accordingly.  Don't expect wrapped
+	constants.
+	(preserve_constants_and_equivs): Adjust for new compare_type.
+	(cselib_find_slot): Likewise.  Take the mode of the rtx as argument.
+	(wrap_constant): Delete.
+	(cselib_lookup_mem, cselib_lookup_1): Update calls to cselib_find_slot.
+
 2014-04-26  Markus Trippelsdorf  <markus@trippelsdorf.de>
 
 	* doc/install.texi (Building with profile feedback): Remove
