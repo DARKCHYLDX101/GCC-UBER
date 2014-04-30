@@ -1,3 +1,66 @@
+2014-04-29  Alan Lawrence  <alan.lawrence@arm.com>
+
+	* config/aarch64/arm_neon.h (vzip1_f32, vzip1_p8, vzip1_p16, vzip1_s8,
+	vzip1_s16, vzip1_s32, vzip1_u8, vzip1_u16, vzip1_u32, vzip1q_f32,
+	vzip1q_f64, vzip1q_p8, vzip1q_p16, vzip1q_s8, vzip1q_s16, vzip1q_s32,
+	vzip1q_s64, vzip1q_u8, vzip1q_u16, vzip1q_u32, vzip1q_u64, vzip2_f32,
+	vzip2_p8, vzip2_p16, vzip2_s8, vzip2_s16, vzip2_s32, vzip2_u8,
+	vzip2_u16, vzip2_u32, vzip2q_f32, vzip2q_f64, vzip2q_p8, vzip2q_p16,
+	vzip2q_s8, vzip2q_s16, vzip2q_s32, vzip2q_s64, vzip2q_u8, vzip2q_u16,
+	vzip2q_u32, vzip2q_u64): Replace inline __asm__ with __builtin_shuffle.
+
+2014-04-29  David Malcolm  <dmalcolm@redhat.com>
+
+	* tree-cfg.c (dump_function_to_file): Dump the return type of
+	functions, in a line to itself before the function body, mimicking
+	the layout of a C function.
+
+2014-04-29  Jakub Jelinek  <jakub@redhat.com>
+
+	PR tree-optimization/60971
+	* tree-tailcall.c (process_assignment): Reject conversions which
+	reduce precision.
+
+2014-04-29  James Greenhalgh  <james.greenhalgh@arm.com>
+
+	* calls.c (initialize_argument_information): Always treat
+	PUSH_ARGS_REVERSED as 1, simplify code accordingly.
+	(expand_call): Likewise.
+	(emit_library_call_calue_1): Likewise.
+	* expr.c (PUSH_ARGS_REVERSED): Do not define.
+	(emit_push_insn): Always treat PUSH_ARGS_REVERSED as 1, simplify
+	code accordingly.
+
+2014-04-29  Nick Clifton  <nickc@redhat.com>
+
+	* config/msp430/msp430.md (umulsidi): Fix typo.
+	(mulhisi3): Enable even inside interrupt handlers.
+	* config/msp430/msp430.c (msp430_print_operand): %O: Allow for the
+	bigger return address pushed in large mode.
+
+2014-04-29  Nick Clifton  <nickc@redhat.com>
+
+	* config/arc/arc.c (arc_select_cc_mode): Fix parentheses.
+	(arc_init_reg_tables): Use a machine_mode enum to iterate over
+	available modes.
+	* config/m32r/m32r.c (init_reg_tables): Likewise.
+	* config/m32c/m32c.c (m32c_illegal_subreg_p): Use a machine_mode
+	enum to hold the modes.
+
+2014-04-29  Richard Biener  <rguenther@suse.de>
+
+	* dominance.c (free_dominance_info): Add overload with
+	function parameter.
+	(dom_info_state): Likewise.
+	(dom_info_available_p): Likewise.
+	* basic-block.h (free_dominance_info, dom_info_state,
+	dom_info_available_p): Declare overloads.
+	* passes.c (execute_function_todo): Verify that verifiers
+	don't change dominator info state.  Drop dominator info
+	for IPA pass invocations.
+	* cgraph.c (release_function_body): Restore asserts that
+	dominator information is released.
+
 2014-04-29  Patrick Palka  <patrick@parcs.ath.cx>
 
 	* doc/invoke.texi: Fix typo.
