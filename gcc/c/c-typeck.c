@@ -2107,7 +2107,8 @@ default_conversion (tree exp)
 
   if (code == VOID_TYPE)
     {
-      error ("void value not ignored as it ought to be");
+      error_at (EXPR_LOC_OR_LOC (exp, input_location),
+		"void value not ignored as it ought to be");
       return error_mark_node;
     }
 
@@ -5851,7 +5852,7 @@ convert_for_assignment (location_t location, location_t expr_loc, tree type,
 		     vice-versa.  */
 		  if (TYPE_QUALS_NO_ADDR_SPACE (ttl)
 		      & ~TYPE_QUALS_NO_ADDR_SPACE (ttr))
-		    WARN_FOR_QUALIFIERS (location, 0,
+		    WARN_FOR_QUALIFIERS (location, OPT_Wdiscarded_qualifiers,
 					 G_("passing argument %d of %qE "
 					    "makes %q#v qualified function "
 					    "pointer from unqualified"),
@@ -5867,7 +5868,7 @@ convert_for_assignment (location_t location, location_t expr_loc, tree type,
 		}
 	      else if (TYPE_QUALS_NO_ADDR_SPACE (ttr)
 		       & ~TYPE_QUALS_NO_ADDR_SPACE (ttl))
-		WARN_FOR_QUALIFIERS (location, 0,
+		WARN_FOR_QUALIFIERS (location, OPT_Wdiscarded_qualifiers,
 				     G_("passing argument %d of %qE discards "
 					"%qv qualifier from pointer target type"),
 				     G_("assignment discards %qv qualifier "
@@ -6048,7 +6049,7 @@ convert_for_assignment (location_t location, location_t expr_loc, tree type,
 	      if (TYPE_QUALS_NO_ADDR_SPACE_NO_ATOMIC (ttr)
 		  & ~TYPE_QUALS_NO_ADDR_SPACE_NO_ATOMIC (ttl))
 		{
-		  WARN_FOR_QUALIFIERS (location, 0,
+		  WARN_FOR_QUALIFIERS (location, OPT_Wdiscarded_qualifiers,
 				       G_("passing argument %d of %qE discards "
 					  "%qv qualifier from pointer target type"),
 				       G_("assignment discards %qv qualifier "
@@ -6085,7 +6086,7 @@ convert_for_assignment (location_t location, location_t expr_loc, tree type,
 		 where an ordinary one is wanted, but not vice-versa.  */
 	      if (TYPE_QUALS_NO_ADDR_SPACE (ttl)
 		  & ~TYPE_QUALS_NO_ADDR_SPACE (ttr))
-		WARN_FOR_QUALIFIERS (location, 0,
+		WARN_FOR_QUALIFIERS (location, OPT_Wdiscarded_qualifiers,
 				     G_("passing argument %d of %qE makes "
 					"%q#v qualified function pointer "
 					"from unqualified"),
@@ -8255,12 +8256,12 @@ output_init_element (location_t loc, tree value, tree origtype,
 	  value = error_mark_node;
 	}
       else if (require_constant_elements)
-	pedwarn (input_location, 0,
+	pedwarn (loc, OPT_Wpedantic,
 		 "initializer element is not computable at load time");
     }
   else if (!maybe_const
 	   && (require_constant_value || require_constant_elements))
-    pedwarn_init (input_location, 0,
+    pedwarn_init (loc, OPT_Wpedantic,
 		  "initializer element is not a constant expression");
 
   /* Issue -Wc++-compat warnings about initializing a bitfield with
@@ -9264,7 +9265,8 @@ c_finish_return (location_t loc, tree retval, tree origtype)
 		  && DECL_CONTEXT (inner) == current_function_decl)
 		warning_at (loc,
 			    OPT_Wreturn_local_addr, "function returns address "
-			    "of local variable");
+			    "of %s", TREE_CODE (inner) == LABEL_DECL
+				     ? "label" : "local variable");
 	      break;
 
 	    default:
@@ -10402,7 +10404,7 @@ build_binary_op (location_t location, enum tree_code code,
 		{
 		  int_const = false;
 		  if (c_inhibit_evaluation_warnings == 0)
-		    warning (0, "right shift count is negative");
+		    warning_at (location, 0, "right shift count is negative");
 		}
 	      else
 		{
@@ -10413,7 +10415,8 @@ build_binary_op (location_t location, enum tree_code code,
 		    {
 		      int_const = false;
 		      if (c_inhibit_evaluation_warnings == 0)
-			warning (0, "right shift count >= width of type");
+			warning_at (location, 0, "right shift count >= width "
+				    "of type");
 		    }
 		}
 	    }
@@ -10455,14 +10458,15 @@ build_binary_op (location_t location, enum tree_code code,
 		{
 		  int_const = false;
 		  if (c_inhibit_evaluation_warnings == 0)
-		    warning (0, "left shift count is negative");
+		    warning_at (location, 0, "left shift count is negative");
 		}
 
 	      else if (compare_tree_int (op1, TYPE_PRECISION (type0)) >= 0)
 		{
 		  int_const = false;
 		  if (c_inhibit_evaluation_warnings == 0)
-		    warning (0, "left shift count >= width of type");
+		    warning_at (location, 0, "left shift count >= width of "
+				"type");
 		}
 	    }
 
@@ -10995,7 +10999,8 @@ build_binary_op (location_t location, enum tree_code code,
 	return error_mark_node;
     }
 
-  if ((flag_sanitize & (SANITIZE_SHIFT | SANITIZE_DIVIDE))
+  if ((flag_sanitize & (SANITIZE_SHIFT | SANITIZE_DIVIDE
+			| SANITIZE_FLOAT_DIVIDE))
       && current_function_decl != 0
       && !lookup_attribute ("no_sanitize_undefined",
 			    DECL_ATTRIBUTES (current_function_decl))
@@ -11006,7 +11011,8 @@ build_binary_op (location_t location, enum tree_code code,
       op1 = c_save_expr (op1);
       op0 = c_fully_fold (op0, false, NULL);
       op1 = c_fully_fold (op1, false, NULL);
-      if (doing_div_or_mod && (flag_sanitize & SANITIZE_DIVIDE))
+      if (doing_div_or_mod && (flag_sanitize & (SANITIZE_DIVIDE
+						| SANITIZE_FLOAT_DIVIDE)))
 	instrument_expr = ubsan_instrument_division (location, op0, op1);
       else if (doing_shift && (flag_sanitize & SANITIZE_SHIFT))
 	instrument_expr = ubsan_instrument_shift (location, code, op0, op1);
