@@ -1,3 +1,56 @@
+2014-05-03  Oleg Endo  <olegendo@gcc.gnu.org>
+
+	* config/sh/sh.h (ROUND_ADVANCE): Delete macro.
+	(ROUND_REG, PASS_IN_REG_P): Move and rename macros to ...
+	* config/sh/sh.c (sh_round_reg, sh_pass_in_reg_p): ... these new
+	functions.
+	(sh_arg_partial_bytes, sh_function_arg, sh_function_arg_advance,
+	sh_setup_incoming_varargs): Replace usage of PASS_IN_REG_P with
+	sh_pass_in_reg_p.
+	Replace usage of ROUND_REG with sh_round_reg.
+	Use CEIL instead of ROUND_ADVANCE.
+
+2014-05-03  Oleg Endo  <olegendo@gcc.gnu.org>
+
+	PR target/61026
+	* config/sh/sh.c: Include stdlib headers before everything else.
+
+2014-05-02  Jakub Jelinek  <jakub@redhat.com>
+
+	* gimplify.c (gimplify_adjust_omp_clauses_1): Handle
+	GOVD_FIRSTPRIVATE | GOVD_LASTPRIVATE.
+	(gimplify_adjust_omp_clauses): Simd region is never
+	directly nested in combined parallel.  Instead, for linear
+	with copyin/copyout, if in combined for simd loop, make decl
+	firstprivate/lastprivate on OMP_FOR.
+	* omp-low.c (expand_omp_for_generic, expand_omp_for_static_nochunk,
+	expand_omp_for_static_chunk): When setting endvar, also set
+	fd->loop.v to the same value.
+
+2014-05-02  Richard Sandiford  <rsandifo@linux.vnet.ibm.com>
+
+	* hwint.h (zext_hwi): Fix signed overflow for prec == 63.
+
+2014-05-02  Alan Lawrence  <alan.lawrence@arm.com>
+
+	* config/aarch64/aarch64.c (aarch64_expand_vec_perm_1): Tidy bit-flip
+	expression.
+
+2014-05-02  Marek Polacek  <polacek@redhat.com>
+
+	* doc/invoke.texi: Describe -fsanitize=float-divide-by-zero.
+
+2014-02-26  Kito Cheng  <kito@0xlab.org>
+
+	* defaults.h (HONOR_REG_ALLOC_ORDER): Change HONOR_REG_ALLOC_ORDER
+	to a C expression marco.
+	* ira-color.c (HONOR_REG_ALLOC_ORDER) : Ditto.
+	* config/arm/arm.h (HONOR_REG_ALLOC_ORDER): Ditto.
+	* config/nds32/nds32.h (HONOR_REG_ALLOC_ORDER): Ditto.
+	* doc/tm.texi (HONOR_REG_ALLOC_ORDER): Update document for
+	HONOR_REG_ALLOC_ORDER.
+	* doc/tm.texi.in (HONOR_REG_ALLOC_ORDER): Ditto.
+
 2014-05-01  Jan-Benedict Glaw  <jbglaw@lug-owl.de>
 
 	* config/arc/arc.c (TARGET_LRA_P): Undef before redefine.
