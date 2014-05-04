@@ -1,5 +1,47 @@
 2014-05-03  Oleg Endo  <olegendo@gcc.gnu.org>
 
+	* config/sh/sh_optimize_sett_clrt.cc (sh_optimize_sett_clrt::execute):
+	Add missing function* argument.
+
+2014-05-03  Richard Sandiford  <rdsandiford@googlemail.com>
+
+	* lra-constraints.c (valid_address_p): Move earlier in file.
+	Add a constraint argument to the address_info version.
+	(satisfies_memory_constraint_p): New function.
+	(satisfies_address_constraint_p): Likewise.
+	(process_alt_operands, curr_insn_transform): Use them.
+	(process_address): Pass the constraint to valid_address_p when
+	checking address operands.
+
+2014-05-03  Richard Sandiford  <rdsandiford@googlemail.com>
+
+	* config/mips/mips.c (mips_isa_rev): New variable.
+	(mips_set_architecture): Set it.
+	* config/mips/mips.h (TARGET_CPU_CPP_BUILTINS): Set __mips_isa_rev
+	from mips_isa_rev.
+	(ISA_HAS_MUL3, ISA_HAS_FP_CONDMOVE, ISA_HAS_8CC, ISA_HAS_FP4)
+	(ISA_HAS_PAIRED_SINGLE, ISA_HAS_MADD_MSUB, ISA_HAS_FP_RECIP_RSQRT)
+	(ISA_HAS_CLZ_CLO, ISA_HAS_ROR, ISA_HAS_WSBH, ISA_HAS_PREFETCH)
+	(ISA_HAS_SEB_SEH, ISA_HAS_EXT_INS, ISA_HAS_MXHC1)
+	(ISA_HAS_HILO_INTERLOCKS, ISA_HAS_SYNCI, MIN_FPRS_PER_FMT): Reexpress
+	conditions in terms of mips_isa_rev.
+	(mips_isa_rev): Declare.
+
+2014-05-03  Oleg Endo  <olegendo@gcc.gnu.org>
+
+	* config/sh/sh-mem.cc: Use tabs instead of spaces.
+	(prob_unlikely, prob_likely): Make variables const.
+
+2014-05-03  Denis Chertykov  <chertykov@gmail.com>
+
+	* config/avr/avr.c (avr_adjust_insn_length): Handle JUMP_TABLE_DATA.
+
+2014-05-03  Oleg Endo  <olegendo@gcc.gnu.org>
+
+	* config/sh/sh.h (SH_ASM_SPEC): Handle m1, m2*, m3* and m4* cases.
+
+2014-05-03  Oleg Endo  <olegendo@gcc.gnu.org>
+
 	* config/sh/sh.h (ROUND_ADVANCE): Delete macro.
 	(ROUND_REG, PASS_IN_REG_P): Move and rename macros to ...
 	* config/sh/sh.c (sh_round_reg, sh_pass_in_reg_p): ... these new
