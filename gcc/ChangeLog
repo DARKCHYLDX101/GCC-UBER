@@ -1,3 +1,60 @@
+2014-05-05  Richard Biener  <rguenther@suse.de>
+
+	* passes.c (execute_function_todo): Move TODO_verify_flow under
+	the TODO_verify_ul umbrella.
+
+2014-05-05  Richard Biener  <rguenther@suse.de>
+
+	PR middle-end/61010
+	* fold-const.c (fold_binary_loc): Consistently avoid
+	canonicalizing X & CST away from a CST that is the mask
+	of a mode.
+
+2014-05-05  Jan-Benedict Glaw  <jbglaw@lug-owl.de>
+
+	* config/picochip/picochip-protos.h (picochip_regno_nregs): Change
+	int argument to enum machine_mode.
+	(picochip_class_max_nregs): Ditto.
+	* config/picochip/picochip.c (picochip_regno_nregs): Ditto.
+	(picochip_class_max_nregs): Ditto.
+
+2014-05-05  Andreas Krebbel  <Andreas.Krebbel@de.ibm.com>
+
+	* target.def: Add new target hook.
+	* doc/tm.texi: Regenerate.
+	* targhooks.h (default_keep_leaf_when_profiled): Add prototype.
+	* targhooks.c (default_keep_leaf_when_profiled): New function.
+
+	* config/s390/s390.c (s390_keep_leaf_when_profiled): New function.
+	(TARGET_KEEP_LEAF_WHEN_PROFILED): Define.
+
+2014-05-05  Bin Cheng  <bin.cheng@arm.com>
+
+	PR tree-optimization/60363
+	* gcc/tree-ssa-threadupdate.c (get_value_locus_in_path): New.
+	(copy_phi_args): New parameters.  Call get_value_locus_in_path.
+	(update_destination_phis): New parameter.
+	(create_edge_and_update_destination_phis): Ditto.
+	(ssa_fix_duplicate_block_edges): Pass new arguments.
+	(thread_single_edge): Ditto.
+
+2014-05-04  Peter Bergner  <bergner@vnet.ibm.com>
+
+	* config/rs6000/rs6000.h (RS6000_BTM_HARD_FLOAT): New define.
+	(RS6000_BTM_COMMON): Add RS6000_BTM_HARD_FLOAT.
+	(TARGET_EXTRA_BUILTINS): Add TARGET_HARD_FLOAT.
+	* config/rs6000/rs6000-builtin.def (BU_MISC_1):
+	Use RS6000_BTM_HARD_FLOAT.
+	(BU_MISC_2): Likewise.
+	* config/rs6000/rs6000.c (rs6000_builtin_mask_calculate): Handle
+	RS6000_BTM_HARD_FLOAT.
+	(rs6000_option_override_internal): Enforce -mhard-float if -mhard-dfp
+	is explicitly used.
+	(rs6000_invalid_builtin): Add hard floating builtin support.
+	(rs6000_expand_builtin): Relax the gcc_assert to allow the new
+	hard float builtins.
+	(rs6000_builtin_mask_names): Add RS6000_BTM_HARD_FLOAT.
+
 2014-05-03  Oleg Endo  <olegendo@gcc.gnu.org>
 
 	* config/sh/sh_optimize_sett_clrt.cc (sh_optimize_sett_clrt::execute):
