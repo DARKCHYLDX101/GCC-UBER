@@ -1,3 +1,58 @@
+2014-05-08  Jeff Law  <law@redhat.com>
+
+	PR tree-optimization/61009
+	* g++.dg/tree-ssa/pr61009.C: New test.
+
+2014-05-08  Matthias Klose  <doko@ubuntu.com>
+
+	PR driver/61106
+	* gcc-dg/unused-8a.c: New.
+	* gcc-dg/unused-8b.c: Likewise.
+
+2014-05-08  Marek Polacek  <polacek@redhat.com>
+
+	PR c/61053
+	* gcc.dg/pr61053.c: New test.
+
+2014-05-08  Marek Polacek  <polacek@redhat.com>
+
+	PR c/61077
+	* gcc.dg/pr61077.c: New test.
+
+2014-05-08  Tobias Burnus  <burnus@net-b.de>
+
+	* gfortran.dg/coarray_collectives_1.f90: New.
+	* gfortran.dg/coarray_collectives_2.f90: New.
+	* gfortran.dg/coarray_collectives_3.f90: New.
+	* gfortran.dg/coarray_collectives_4.f90: New.
+	* gfortran.dg/coarray_collectives_5.f90: New.
+	* gfortran.dg/coarray_collectives_6.f90: New.
+	* gfortran.dg/coarray/collectives_1.f90: New.
+	* gfortran.dg/assumed_rank_5.f90: Update dg-error.
+	* gfortran.dg/assumed_type_4.f90: Update dg-error.
+	* gfortran.dg/bind_c_array_params.f03: Update dg-error.
+	* gfortran.dg/bind_c_usage_28.f90: Update dg-error.
+	* gfortran.dg/c_funloc_tests_5.f03: Update dg-error.
+	* gfortran.dg/c_funloc_tests_6.f90: Update dg-error.
+	* gfortran.dg/c_loc_tests_11.f03: Update dg-error.
+
+2014-05-08  Wei Mi  <wmi@google.com>
+
+	PR target/58066
+	* gcc.target/i386/pr58066.c: New test.
+
+2014-05-08  Joseph Myers  <joseph@codesourcery.com>
+
+	* gcc.target/i386/avx256-unaligned-load-2.c,
+	gcc.target/i386/pr49002-1.c, gcc.target/i386/pr53712.c,
+	gcc.target/i386/pr53907.c, gcc.target/i386/pr59539-1.c: Allow
+	packed-single instructions.
+
+2014-05-08  Paolo Carlini  <paolo.carlini@oracle.com>
+
+	PR c++/13981
+	* g++.dg/diagnostic/pr13981.C: New.
+
 2014-05-08  Marc Glisse  <marc.glisse@inria.fr>
 
 	PR tree-optimization/59100
@@ -547,7 +602,7 @@
 
 2014-04-28  Martin Jambor  <mjambor@suse.cz>
 
-        * gcc.dg/tree-ssa/sra-14.c: New test.
+	* gcc.dg/tree-ssa/sra-14.c: New test.
 
 2014-04-28  Richard Biener  <rguenther@suse.de>
 
@@ -596,10 +651,10 @@
 
 2014-04-25  Cary Coutant  <ccoutant@google.com>
 
-        PR debug/60929
-        * g++.dg/debug/dwarf2/dwarf4-nested.C: New test case.
-        * g++.dg/debug/dwarf2/dwarf4-typedef.C: Add
-        -fdebug-types-section flag.
+	PR debug/60929
+	* g++.dg/debug/dwarf2/dwarf4-nested.C: New test case.
+	* g++.dg/debug/dwarf2/dwarf4-typedef.C: Add
+	-fdebug-types-section flag.
 
 2014-04-25  Jiong Wang  <jiong.wang@arm.com>
 
