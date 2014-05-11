@@ -1,3 +1,39 @@
+2014-05-11  Paolo Carlini  <paolo.carlini@oracle.com>
+
+	PR c++/59705
+	* g++.dg/cpp0x/sfinae51.C: New.
+
+	PR c++/58353
+	* g++.dg/cpp0x/variadic157.C: New.
+
+2014-05-10  Oleg Endo  <olegendo@gcc.gnu.org>
+
+	PR target/51244
+	* gcc.target/sh/pr51244-14.c: Relax criteria for passing the test.
+
+2014-05-10  Marek Polacek  <polacek@redhat.com>
+
+	* gcc.dg/pedwarn-init.c: New test.
+	* gcc.dg/init-string-1.c: Adjust dg-error.
+
+2014-05-10  Hans-Peter Nilsson  <hp@bitrange.com>
+
+	* lib/target-supports.exp
+	(check_effective_target_logical_op_short_circuit): Add mmix-*-*
+	to the list.
+
+2014-05-09  Marek Polacek  <polacek@redhat.com>
+
+	PR c/61096
+	* gcc.dg/pr61096-1.c: New test.
+	* gcc.dg/pr61096-2.c: New test.
+
+2014-05-09  Florian Weimer  <fweimer@redhat.com>
+
+	* gcc.dg/fstack-protector-strong.c: Add coverage for return slots.
+	* g++.dg/fstack-protector-strong.C: Likewise.
+	* gcc.target/i386/ssp-strong-reg.c: New file.
+
 2014-05-09  Georg-Johann Lay  <avr@gjlay.de>
 
 	PR target/61055
