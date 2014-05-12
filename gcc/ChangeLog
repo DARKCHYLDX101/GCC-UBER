@@ -1,3 +1,55 @@
+2014-05-12  Senthil Kumar Selvaraj  <senthil_kumar.selvaraj@atmel.com>
+
+	Backport from mainline
+	2014-05-12  Senthil Kumar Selvaraj  <senthil_kumar.selvaraj@atmel.com>
+
+	PR target/60991
+	* config/avr/avr.c (avr_out_store_psi): Use correct constant
+	to restore Y.
+
+2014-05-09  Uros Bizjak  <ubizjak@gmail.com>
+
+	Backport from mainline
+	2014-05-08  Uros Bizjak  <ubizjak@gmail.com>
+
+	PR target/61092
+	* config/alpha/alpha.c: Include gimple-iterator.h.
+	(alpha_gimple_fold_builtin): New function.  Move
+	ALPHA_BUILTIN_UMULH folding from ...
+	(alpha_fold_builtin): ... here.
+	(TARGET_GIMPLE_FOLD_BUILTIN): New define.
+
+2014-05-09  Pitchumani Sivanupandi  <Pitchumani.S@atmel.com>
+
+	Backport from 2014-04-16 trunk r209446
+	2014-04-16  Pitchumani Sivanupandi  <Pitchumani.S@atmel.com>
+
+	* config/avr/avr-mcus.def: Correct typo for atxmega256a3bu macro.
+
+2014-05-09  Georg-Johann Lay  <avr@gjlay.de>
+
+	Backport from 2014-05-09 trunk r210267
+
+	PR target/61055
+	* config/avr/avr.md (cc): Add new attribute set_vzn.
+	(addqi3, addqq3, adduqq3, subqi3, subqq3, subuqq3, negqi2) [cc]:
+	Set cc insn attribute to set_vzn instead of set_zn for alternatives
+	with INC, DEC or NEG.
+	* config/avr/avr.c (avr_notice_update_cc): Handle SET_VZN.
+	(avr_out_plus_1): ADIW sets cc0 to CC_SET_CZN.
+	INC, DEC and ADD+ADC set cc0 to CC_CLOBBER.
+
+2014-05-08  Manuel López-Ibáñez  <manu@gcc.gnu.org>
+	    Matthias Klose  <doko@ubuntu.com>
+
+	PR driver/61106
+	* optc-gen.awk: Fix option handling for -Wunused-parameter.
+
+2014-05-08  Uros Bizjak  <ubizjak@gmail.com>
+
+	PR target/59952
+	* config/i386/i386.c (PTA_HASWELL): Remove PTA_RTM.
+
 2014-05-05  Marek Polacek  <polacek@redhat.com>
 
 	Back port from mainline
