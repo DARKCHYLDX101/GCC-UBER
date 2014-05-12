@@ -1,3 +1,43 @@
+2014-05-09  Jonathan Wakely  <jwakely@redhat.com>
+
+	* config/abi/pre/gnu.ver (GLIBCXX_3.4.20): Correct regex_error export.
+	(GLIBCXX_3.4.21): Export base object constructor for regex_error.
+	* acinclude.m4 (libtool_VERSION): Bump.
+	* configure: Regenerate.
+	* testsuite/util/testsuite_abi.cc: Add GLIBCXX_3.4.21 version.
+	* testsuite/28_regex/regex_error/base.cc: New.
+
+2014-05-08  Joshua Gay  <jgay@gnu.org>
+
+	PR libstdc++/61117
+	* doc/xml/faq.xml (faq.license.what_restrictions): Replace "open
+	source" with "free software".
+	* doc/html/faq.html: Likewise.
+
+2014-05-08  Jonathan Wakely  <jwakely@redhat.com>
+
+	PR libstdc++/57394
+	* include/bits/ios_base.h (ios_base(const ios_base&)): Define as
+	deleted for C++11.
+	(operator=(const ios_base&)): Likewise.
+	* include/std/streambuf: Remove trailing whitespace.
+	(basic_streambuf(const basic_streambuf&)): Fix initializer for
+	_M_out_end. Define as defaulted for C++11.
+	(operator=(const basic_streambuf&)): Define as defaulted for C++11.
+	(swap(basic_streambuf&)): Define for C++11.
+	* testsuite/27_io/basic_streambuf/cons/57394.cc: New.
+
+	PR libstdc++/13860
+	* include/std/fstream (basic_filebuf): Enforce requirements on traits.
+
+	* include/std/iostream: Fix URL in comment.
+	* src/c++98/ios_init.cc: Fix path in comment.
+
+2014-05-08  Paolo Carlini  <paolo.carlini@oracle.com>
+
+	* acinclude.m4 ([GLIBCXX_ENABLE_C99]): Avoid -Wwrite-strings warning.
+	* configure: Regenerate.
+
 2014-05-07  Jonathan Wakely  <jwakely@redhat.com>
 
 	PR libstdc++/61023
