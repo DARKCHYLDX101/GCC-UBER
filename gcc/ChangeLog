@@ -1,3 +1,217 @@
+2014-05-13  David Malcolm  <dmalcolm@redhat.com>
+
+	* gengtype-parse.c (require3): Eliminate in favor of...
+	(require4): New.
+	(require_template_declaration): Update to support optional single *
+	on a type.
+
+	* gengtype.c (get_ultimate_base_class): Add a non-const overload.
+	(create_user_defined_type): Handle a single level of explicit
+	pointerness within template arguments.
+	(struct write_types_data): Add field "kind".
+	(filter_type_name): Handle "*" character.
+	(write_user_func_for_structure_ptr): Require a write_types_data
+	rather than just a prefix string, so that we can look up the kind
+	of the wtd and use it as an index into wrote_user_func_for_ptr,
+	ensuring that such functions are written at most once.  Support
+	subclasses by invoking the marking function of the ultimate base
+	class.
+	(write_user_func_for_structure_body): Require a write_types_data
+	rather than just a prefix string, so that we can pass this to
+	write_user_func_for_structure_ptr.
+	(write_func_for_structure): Likewise.
+	(ggc_wtd): Add initializer of new "kind" field.
+	(pch_wtd): Likewise.
+
+	* gengtype.h (enum write_types_kinds): New.
+	(struct type): Add field wrote_user_func_for_ptr to the "s"
+	union member.
+
+2014-05-13  Richard Sandiford  <r.sandiford@uk.ibm.com>
+
+	* fold-const.c (optimize_bit_field_compare): Use wi:: operations
+	instead of const_binop.
+	(fold_binary_loc): Likewise.
+
+2014-05-13  Richard Sandiford  <r.sandiford@uk.ibm.com>
+
+	* tree-dfa.h (get_addr_base_and_unit_offset_1): Update array index
+	calculation to match get_ref_base_and_extent.
+
+2014-05-13  Catherine Moore  <clm@codesourcery.com>
+	    Sandra Loosemore  <sandra@codesourcery.com>
+
+	* configure.ac: Fix assembly for explicit JALR relocation check.
+	* configure: Regenerate.
+
+2014-05-13  Kyrylo Tkachov  <kyrylo.tkachov@arm.com>
+
+	* config/arm/arm.c (neon_itype): Remove NEON_RESULTPAIR.
+	(arm_init_neon_builtins): Remove handling of NEON_RESULTPAIR.
+	Remove associated type declarations and initialisations.
+	(arm_expand_neon_builtin): Likewise.
+	(neon_emit_pair_result_insn): Delete.
+	* config/arm/arm_neon_builtins (vtrn, vzip, vuzp): Delete.
+	* config/arm/neon.md (neon_vtrn<mode>): Delete.
+	(neon_vzip<mode>): Likewise.
+	(neon_vuzp<mode>): Likewise.
+
+2014-05-13  Richard Biener  <rguenther@suse.de>
+
+	PR ipa/60973
+	* tree-inline.c (remap_gimple_stmt): Clear tail call flag,
+	it needs revisiting whether the call still may be tail-called.
+
+2014-05-13  Richard Sandiford  <rdsandiford@googlemail.com>
+
+	* rtl.def (SYMBOL_REF): Remove middle "0" field.
+	* rtl.h (block_symbol): Reduce number of fields to 2.
+	(rtx_def): Add u2.symbol_ref_flags.
+	(SYMBOL_REF_FLAGS): Use it.
+	(SYMBOL_REF_DATA, SET_SYMBOL_REF_DECL, SYMBOL_REF_DECL)
+	(SET_SYMBOL_REF_CONSTANT, SYMBOL_REF_CONSTANT): Lower index.
+	* gengtype.c (adjust_field_rtx_def): Remove SYMBOL_REF_FLAGS handling.
+	Lower index of SYMBOL_REF_DATA.
+	* print-rtl.c (print_rtx): Lower index for SYMBOL_REF_DATA.
+	Print SYMBOL_REF_FLAGS at the same time.
+	* genattrtab.c (attr_rtx_1): Only initialize 1 "0" SYMBOL_REF field.
+
+2014-05-13  Richard Sandiford  <rdsandiford@googlemail.com>
+
+	* rtl.def (VAR_LOCATION): Remove "i" field.
+	* rtl.h (rtx_def): Add u2.var_location_status.
+	(PAT_VAR_LOCATION_STATUS): Use it.
+	(gen_rtx_VAR_LOCATION): Declare.
+	* gengenrtl.c (excluded_rtx): Add VAR_LOCATION.
+	* emit-rtl.c (gen_rtx_VAR_LOCATION): New function.
+	* var-tracking.c (emit_note_insn_var_location): Remove casts.
+
+2014-05-13  Richard Sandiford  <rdsandiford@googlemail.com>
+
+	* rtl.def (scratch): Fix outdated comment and remove "0" field.
+	* gengtype.c (adjust_field_rtx_def): Update accordingly.
+
+2014-05-13  Richard Sandiford  <rdsandiford@googlemail.com>
+
+	* rtl.def (DEBUG_INSN, INSN, JUMP_INSN, CALL_INSN, JUMP_TABLE_DATA)
+	(BARRIER, CODE_LABEL, NOTE): Remove first "i" field.
+	* rtl.h (rtx_def): Add insn_uid to u2 field.
+	(RTX_FLAG_CHECK8): Delete in favor of...
+	(RTL_INSN_CHAIN_FLAG_CHECK): ...this new macro.
+	(INSN_DELETED_P): Update accordingly.
+	(INSN_UID): Use u2.insn_uid.
+	(INSN_CHAIN_CODE_P): Define.
+	(PREV_INSN, NEXT_INSN, BLOCK_FOR_INSN, PATTERN, INSN_LOCATION)
+	(INSN_CODE, REG_NOTES, CALL_INSN_FUNCTION_USAGE, CODE_LABEL_NUMBER)
+	(NOTE_DATA, NOTE_DELETED_LABEL_NAME, NOTE_BLOCK, NOTE_EH_HANDLER)
+	(NOTE_BASIC_BLOCK, NOTE_VAR_LOCATION, NOTE_CFI, NOTE_LABEL_NUMBER)
+	(NOTE_KIND, LABEL_NAME, LABEL_NUSES, JUMP_LABEL, LABEL_REFS): Lower
+	indices accordingly.
+	* print-rtl.c (print_rtx): Print INSN_UIDs before the main loop.
+	Update indices for insn-chain rtxes.
+	* gengtype.c (gen_rtx_next): Adjust test for insn-chain rtxes.
+	(adjust_field_rtx_def): Lower '0' indices for all insn-chain rtxes.
+	* emit-rtl.c (gen_label_rtx): Update gen_rtx_LABEL call.
+	* caller-save.c (init_caller_save): Update gen_rtx_INSN calls.
+	* combine.c (try_combine): Likewise.
+	* ira.c (setup_prohibited_mode_move_regs): Likewise.
+
+2014-05-13  Richard Sandiford  <rdsandiford@googlemail.com>
+
+	* rtl.def (REG): Remove middle field.
+	* rtl.h (rtx_def): Add orignal_regno to u2.
+	(ORIGINAL_REGNO): Use it instead of field 1.
+	(REG_ATTRS): Lower field index accordingly.
+	* gengtype.c (adjust_field_rtx_def): Remove handling of
+	ORIGINAL_REGNO.  Move REG_ATTRS index down.
+	* print-rtl.c (print_rtx): Move ORIGINAL_REGNO handling to the
+	code that prints the REGNO.
+
+2014-05-13  Richard Sandiford  <rdsandiford@googlemail.com>
+
+	* print-rtl.c (print_rtx): Guard whole '0' block with ifndef
+	GENERATOR_FILE.
+
+2014-05-13  Richard Sandiford  <rdsandiford@googlemail.com>
+
+	* rtl.h (rtx_def): Mark u2 as GTY ((skip)).
+
+2014-05-13  Bin Cheng  <bin.cheng@arm.com>
+
+	* tree-ssa-loop-ivopts.c (contain_complex_addr_expr): New.
+	(alloc_iv): Lower base expressions containing ADDR_EXPR.
+
+2014-05-13  Ian Bolton  <ian.bolton@arm.com>
+
+	* config/aarch64/aarch64-protos.h
+	(aarch64_hard_regno_caller_save_mode): New prototype.
+	* config/aarch64/aarch64.c (aarch64_hard_regno_caller_save_mode):
+	New function.
+	* config/aarch64/aarch64.h (HARD_REGNO_CALLER_SAVE_MODE): New macro.
+
+2014-05-13  Christian Bruel  <christian.bruel@st.com>
+
+	* target.def (mode_switching): New hook vector.
+	(mode_emit, mode_needed, mode_after, mode_entry): New hooks.
+	(mode_exit, modepriority_to_mode): Likewise.
+	* mode-switching.c (MODE_NEEDED, MODE_AFTER, MODE_ENTRY): Hookify.
+	(MODE_EXIT, MODE_PRIORITY_TO_MODE, EMIT_MODE_SET): Likewise.
+	(default_priority_to_mode): Define.
+	* targhooks.h (default_priority_to_mode): Declare.
+	* target.h: Include tm.h and hard-reg-set.h.
+	* doc/tm.texi.in (EMIT_MODE_SET, MODE_NEEDED, MODE_AFTER, MODE_ENTRY)
+	(MODE_EXIT, MODE_PRIORITY_TO_MODE): Delete and hookify.
+	* doc/tm.texi Regenerate.
+	* config/sh/sh.h (MODE_NEEDED, MODE_AFTER, MODE_ENTRY): Delete
+	(MODE_EXIT, MODE_PRIORITY_TO_MODE, EMIT_MODE_SET): Likewise.
+	* config/sh/sh.c (sh_emit_mode_set, sh_mode_priority): Hookify.
+	(sh_mode_needed, sh_mode_after, sh_mode_entry, sh_mode_exit): Likewise.
+	* config/i386/i386.h (MODE_NEEDED, MODE_AFTER, MODE_ENTRY): Delete
+	(MODE_EXIT, MODE_PRIORITY_TO_MODE, EMIT_MODE_SET): Likewise.
+	* config/i386/i386-protos.h (ix86_mode_needed, ix86_mode_after)
+	(ix86_mode_entrym, ix86_emit_mode_set): Remove external declaration.
+	* config/i386/i386.c (ix86_mode_needed, ix86_mode_after, ix86_mode_exit,
+	(ix86_mode_entry, ix86_mode_priority, ix86_emit_mode_set): Hookify.
+	* config/epiphany/epiphany.h (MODE_NEEDED, MODE_AFTER, MODE_ENTRY):
+	Delete
+	(MODE_EXIT, MODE_PRIORITY_TO_MODE, EMIT_MODE_SET): Likewise.
+	* config/sh/sh.h (MODE_NEEDED, MODE_AFTER, MODE_ENTRY): Delete
+	(MODE_EXIT, MODE_PRIORITY_TO_MODE, EMIT_MODE_SET): Likewise.
+	* config/sh/sh.c (sh4_emit_mode_set, sh4_mode_needed): Hookify.
+	(sh4_mode_after, sh4_mode_entry, sh4_mode_exit): Likewise.
+	* config/epiphany/epiphany-protos.h (epiphany_mode_needed)
+	(emit_set_fp_mode, epiphany_mode_entry_exit, epiphany_mode_after)
+	(epiphany_mode_priority_to_mode): Remove declaration.
+	* config/epiphany/epiphany.c (emit_set_fp_mode): Hookify.
+	(epiphany_mode_needed, epiphany_mode_priority_to_mode): Likewise.
+	(epiphany_mode_entry, epiphany_mode_exit, epiphany_mode_after):
+	Likewise.
+	(epiphany_mode_priority_to_mode): Change priority type. Hookify.
+	(epiphany_mode_needed, epiphany_mode_entry_exit): Hookify.
+	(epiphany_mode_after, epiphany_mode_entry, emit_set_fp_mode): Hookify.
+
+2014-05-13  Jakub Jelinek  <jakub@redhat.com>
+
+	PR target/61060
+	* config/i386/i386.c (ix86_expand_set_or_movmem): If count_exp
+	is const0_rtx, return immediately.  Don't test count == 0 when
+	it is always true.
+
+2014-05-13  Zhenqiang Chen  <zhenqiang.chen@linaro.org>
+
+	* Makefile.in: add shrink-wrap.o.
+	* config/i386/i386.c: include "shrink-wrap.h"
+	* function.c: Likewise.
+	(requires_stack_frame_p, next_block_for_reg,
+	move_insn_for_shrink_wrap, prepare_shrink_wrap,
+	dup_block_and_redirect): Move to shrink-wrap.c
+	(thread_prologue_and_epilogue_insns): Extract three code segments
+	as functions in shrink-wrap.c
+	* function.h: Move #ifdef HAVE_simple_return ... #endif block to
+	shrink-wrap.h
+	* shrink-wrap.c: New file.
+	* shrink-wrap.h: New file.
+
 2014-05-12  David Wohlferd  <dw@LimeGreenSocks.com>
 
 	* doc/extend.texi: Reflect current numbers of pragmas.  Remove

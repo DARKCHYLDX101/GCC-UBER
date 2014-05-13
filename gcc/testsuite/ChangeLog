@@ -1,3 +1,29 @@
+2014-05-13  Paolo Carlini  <paolo.carlini@oracle.com>
+
+	PR c++/54310
+	* g++.dg/template/pr54310.C: New.
+
+2014-05-13  Nathan Sidwell  <nathan@codesourcery.com>
+	    Sandra Loosemore  <sandra@codesourcery.com>
+
+	* gcc.target/mips/loongson-simd.c: Disable micromips too.
+
+2014-05-13  Catherine Moore  <clm@cm00re.com>
+
+	* gcc.target/mips/near-far-1.c: Adjust expected output
+	to allow the JALS instruction.
+	* gcc.target/mips/near-far-2.c: Likewise.
+	* gcc.target/mips/near-far-4.c: Likewise.
+
+2014-05-13  Bin Cheng  <bin.cheng@arm.com>
+
+	* gcc.dg/tree-ssa/ivopts-lower_base.c: New test.
+
+2014-05-13  Jakub Jelinek  <jakub@redhat.com>
+
+	PR target/61060
+	* gcc.dg/pr61060.c: New test.
+
 2014-05-12  DJ Delorie  <dj@redhat.com>
 
 	* gcc.dg/sibcall-3.c: MSP430 doesn't have sibcall.

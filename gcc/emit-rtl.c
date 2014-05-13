@@ -859,6 +859,15 @@ gen_lowpart_SUBREG (enum machine_mode mode, rtx reg)
   return gen_rtx_SUBREG (mode, reg,
 			 subreg_lowpart_offset (mode, inmode));
 }
+
+rtx
+gen_rtx_VAR_LOCATION (enum machine_mode mode, tree decl, rtx loc,
+		      enum var_init_status status)
+{
+  rtx x = gen_rtx_fmt_te (VAR_LOCATION, mode, decl, loc);
+  PAT_VAR_LOCATION_STATUS (x) = status;
+  return x;
+}
 
 
 /* Create an rtvec and stores within it the RTXen passed in the arguments.  */
@@ -2451,7 +2460,7 @@ set_mem_attrs_for_spill (rtx mem)
 rtx
 gen_label_rtx (void)
 {
-  return gen_rtx_CODE_LABEL (VOIDmode, 0, NULL_RTX, NULL_RTX,
+  return gen_rtx_CODE_LABEL (VOIDmode, NULL_RTX, NULL_RTX,
 			     NULL, label_num++, NULL);
 }
 
