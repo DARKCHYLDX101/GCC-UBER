@@ -1,3 +1,46 @@
+2014-05-12  DJ Delorie  <dj@redhat.com>
+
+	* gcc.dg/sibcall-3.c: MSP430 doesn't have sibcall.
+	* gcc.dg/sibcall-4.c: Likewise.
+
+2014-05-12  Dimitris Papavasiliou  <dpapavas@gmail.com>
+
+	* objc.dg/shadow-1.m: New test.
+	* objc.dg/shadow-2.m: New test.
+	* objc.dg/ivar-scope-1.m: New test.
+	* objc.dg/ivar-scope-2.m: New test.
+	* objc.dg/ivar-scope-3.m: New test.
+	* objc.dg/ivar-scope-4.m: New test.
+	* objc.dg/ivar-visibility-1.m: New test.
+	* objc.dg/ivar-visibility-2.m: New test.
+	* objc.dg/ivar-visibility-3.m: New test.
+	* objc.dg/ivar-visibility-4.m: New test.
+
+2014-05-12  Tobias Burnus  <burnus@net-b.de>
+
+	PR fortran/60127
+	* gfortran.dg/gomp/omp_do_concurrent.f90: New.
+
+2014-05-12  Thomas Koenig  <tkoenig@gcc.gnu.org>
+
+	PR fortran/60834
+	* gfortran.dg/associate_16.f90:  New test.
+
+2014-05-12  Senthil Kumar Selvaraj  <senthil_kumar.selvaraj@atmel.com>
+
+	PR target/60991
+	* gcc.target/avr/pr60991.c: New testcase.
+
+2014-05-12  Paolo Carlini  <paolo.carlini@oracle.com>
+
+	PR c++/60054
+	* g++.dg/cpp1y/pr60054.C: New.
+
+2014-05-12  Paolo Carlini  <paolo.carlini@oracle.com>
+
+	PR c++/51199
+	* g++.dg/template/pr51199.C: New.
+
 2014-05-11  Hans-Peter Nilsson  <hp@bitrange.com>
 
 	* gcc.c-torture/execute/20101011-1.c [__MMIX__] (DO_TEST): Define as 0.

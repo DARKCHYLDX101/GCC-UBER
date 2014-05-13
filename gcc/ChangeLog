@@ -1,3 +1,47 @@
+2014-05-12  David Wohlferd  <dw@LimeGreenSocks.com>
+
+	* doc/extend.texi: Reflect current numbers of pragmas.  Remove
+	reference to Solaris.
+
+2014-05-12  Mike Stump  <mikestump@comcast.net>
+
+	PR other/31778
+	* genattrtab.c (filename): Add.
+	(convert_set_attr_alternative): Improve error message.
+	(check_defs): Restore read_md_filename for error messages.
+	(gen_insn): Save filename.
+
+2014-05-12  Dimitris Papavasiliou  <dpapavas@gmail.com>
+
+	* doc/invoke.texi: Document new switches -Wno-shadow-ivar,
+	-fno-local-ivars and -fivar-visibility.
+	* c-family/c.opt: Make -Wshadow also implicitly enable
+	-Wshadow-ivar.
+
+2014-05-12  David Wohlferd <dw@LimeGreenSocks.com>
+
+	* doc/tm.texi: Remove reference to deleted macro.
+	* doc/tm.texi.in: Likewise.
+
+2014-05-12  Senthil Kumar Selvaraj  <senthil_kumar.selvaraj@atmel.com>
+
+	PR target/60991
+	* config/avr/avr.c (avr_out_store_psi): Use correct constant
+	to restore Y.
+
+2014-05-12  Georg-Johann Lay  <avr@gjlay.de>
+
+	* config/arm/arm.h (License): Add GCC Runtime Library Exception.
+	* config/arm/aout.h (License): Same.
+	* config/arm/bpabi.h (License): Same.
+	* config/arm/elf.h (License): Same.
+	* config/arm/linux-elf.h (License): Same.
+	* config/arm/linux-gas.h (License): Same.
+	* config/arm/netbsd-elf.h (License): Same.
+	* config/arm/uclinux-eabi.h (License): Same.
+	* config/arm/uclinux-elf.h (License): Same.
+	* config/arm/vxworks.h (License): Same.
+
 2014-05-11  Jakub Jelinek  <jakub@redhat.com>
 
 	* tree.h (OMP_CLAUSE_LINEAR_STMT): Define.
