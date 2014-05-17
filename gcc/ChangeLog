@@ -1,3 +1,81 @@
+2014-05-16  Dehao Chen  <dehao@google.com>
+
+	* tree-cfg.c (gimple_merge_blocks): Updates bb count with max count.
+
+2014-05-16  Oleg Endo  <olegendo@gcc.gnu.org>
+
+	PR target/54089
+	* config/sh/predicates.md (negt_reg_shl31_operand): Match additional
+	patterns.
+	* config/sh/sh.md (*negt_msb): Merge SH2A and non-SH2A variants.
+
+2014-05-16  Dehao Chen  <dehao@google.com>
+
+	* ira-int.h (REG_FREQ_FROM_EDGE_FREQ): Use optimize_function_for_size_p.
+	* regs.h (REG_FREQ_FROM_BB): Likewise.
+
+2014-05-16  Oleg Endo  <olegendo@gcc.gnu.org>
+
+	PR target/51244
+	* config/sh/sh.c (sh_eval_treg_value): Handle t_reg_operand and
+	negt_reg_operand cases.
+	* config/sh/sh.md (*cset_zero): Likewise by using cbranch_treg_value
+	predicate.
+	* config/sh/predicates.md (cbranch_treg_value): Simplify.
+
+2014-05-16  Oleg Endo  <olegendo@gcc.gnu.org>
+
+	* config/sh/sh.c (sh_option_override): Set branch cost to 2 for all
+	target variants.
+
+2014-05-16  David Malcolm  <dmalcolm@redhat.com>
+
+	Revert:
+	2014-04-29  David Malcolm  <dmalcolm@redhat.com>
+
+	* tree-cfg.c (dump_function_to_file): Dump the return type of
+	functions, in a line to itself before the function body, mimicking
+	the layout of a C function.
+
+2014-05-16  Dehao Chen  <dehao@google.com>
+
+	* cfghooks.c (make_forwarder_block): Use direct computation to
+	get fall-through edge's count and frequency.
+
+2014-02-07  Benno Schulenberg  <bensberg@justemail.net>
+
+	* config/arc/arc.c (arc_init): Fix typo in error message.
+	* config/i386/i386.c (ix86_expand_builtin): Likewise.
+	(split_stack_prologue_scratch_regno): Likewise.
+	* fortran/check.c (gfc_check_fn_rc2008): Remove duplicate
+	word from error message.
+
+2014-05-16  Zhouyi Zhou <yizhouzhou@ict.ac.cn>
+
+	* ira-costs.c: Fix typo in comment.
+
+2014-05-16  David Wohlferd <dw@LimeGreenSocks.com>
+
+	 * doc/extend.texi: (Visibility Pragmas) Fix misplaced @xref
+
+2014-05-16  Jan Hubicka  <hubicka@ucw.cz>
+
+	* varpool.c (dump_varpool_node): Dump write-only flag.
+	* lto-cgraph.c (lto_output_varpool_node, input_varpool_node): Stream
+	write-only flag.
+	* tree-cfg.c (execute_fixup_cfg): Remove statements setting write-only variables.
+
+2014-05-16  Vladimir Makarov  <vmakarov@redhat.com>
+
+	PR rtl-optimization/60969
+	* ira-costs.c (record_reg_classes): Allow only memory for pseudo.
+	Calculate costs for this case.
+
+2014-05-16  Eric Botcazou  <ebotcazou@adacore.com>
+
+	* fold-const (fold_unary_loc) <NON_LVALUE_EXPR>: New case.
+	<CASE_CONVERT>: Pass arg0 instead of op0 to fold_convert_const.
+
 2014-05-16  Richard Biener  <rguenther@suse.de>
 
 	PR tree-optimization/61194

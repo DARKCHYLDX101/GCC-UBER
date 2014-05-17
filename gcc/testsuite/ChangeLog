@@ -1,3 +1,40 @@
+2014-05-16  David Malcolm  <dmalcolm@redhat.com>
+
+	Revert:
+	2014-04-29  David Malcolm  <dmalcolm@redhat.com>
+
+	* gcc.dg/tree-ssa/pr23401.c: Update the expected number of
+	occurrences of "int" in the gimple dump to reflect that the return
+	types of functions now show up in such dumps.
+	* gcc.dg/tree-ssa/pr27810.c: Likewise.
+
+2014-05-16  Jan Hubicka  <hubicka@ucw.cz>
+
+	* gcc.c-torture/execute/20101011-1.c: Update testcase.
+	* gcc.dg/ira-shrinkwrap-prep-1.c: Update testcase.
+	* gcc.dg/tree-ssa/writeonly.c: New testcase.
+	* gcc.dg/tree-ssa/ssa-dse-6.c: Update testcase.
+	* gcc.dg/tree-ssa/pr21559.c: Update testcase.
+	* gcc.dg/debug/pr35154.c: Update testcase.
+	* gcc.target/i386/vectorize1.c: Update testcase.
+	* ipa.c (process_references): New function.
+	(set_readonly_bit): New function.
+	(set_writeonly_bit): New function.
+	(clear_addressable_bit): New function.
+	(ipa_discover_readonly_nonaddressable_var): Mark write only variables; fix
+	handling of aliases.
+	* cgraph.h (struct varpool_node): Add writeonly flag.
+
+2014-05-16  Paolo Carlini  <paolo.carlini@oracle.com>
+
+	PR c++/51640
+	* g++.dg/parse/error54.C: New.
+
+2014-05-16  Vladimir Makarov  <vmakarov@redhat.com>
+
+	PR rtl-optimization/60969
+	* g++.dg/pr60969.C: New.
+
 2014-05-16  Richard Biener  <rguenther@suse.de>
 
 	PR tree-optimization/61194
