@@ -1,3 +1,27 @@
+2014-05-17  Paolo Carlini  <paolo.carlini@oracle.com>
+
+	PR c++/52875
+	* g++.dg/cpp0x/decltype58.C: New.
+
+2014-05-17  Marc Glisse  <marc.glisse@inria.fr>
+
+	PR tree-optimization/61140
+	PR tree-optimization/61150
+	PR tree-optimization/61197
+	* gcc.dg/tree-ssa/pr61140.c: New file.
+	* gcc.dg/tree-ssa/pr61150.c: New file.
+	* gcc.dg/tree-ssa/pr61197.c: New file.
+
+2014-05-17  Uros Bizjak  <ubizjak@gmail.com>
+
+	* g++.dg/pr60969.C: Compile for all ilp32 x86 targets.
+	(dg-options): Add -mfpmath=387.
+	(dg-final): Check that no MMX registers are used.
+
+2014-05-17  Andreas Schwab  <schwab@suse.de>
+
+	* gcc.target/ia64/visibility-1.c (variable_i): Add used attribute.
+
 2014-05-16  David Malcolm  <dmalcolm@redhat.com>
 
 	Revert:
@@ -17,13 +41,6 @@
 	* gcc.dg/tree-ssa/pr21559.c: Update testcase.
 	* gcc.dg/debug/pr35154.c: Update testcase.
 	* gcc.target/i386/vectorize1.c: Update testcase.
-	* ipa.c (process_references): New function.
-	(set_readonly_bit): New function.
-	(set_writeonly_bit): New function.
-	(clear_addressable_bit): New function.
-	(ipa_discover_readonly_nonaddressable_var): Mark write only variables; fix
-	handling of aliases.
-	* cgraph.h (struct varpool_node): Add writeonly flag.
 
 2014-05-16  Paolo Carlini  <paolo.carlini@oracle.com>
 
