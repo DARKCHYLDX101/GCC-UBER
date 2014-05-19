@@ -1,7 +1,28 @@
+2014-05-18  Eric Botcazou  <ebotcazou@adacore.com>
+
+	* gnat.dg/volatile12.ad[sb]: New test.
+
+2014-05-18  Eric Botcazou  <ebotcazou@adacore.com>
+
+	* gnat.dg/enum3.adb: New test.
+
+2014-05-18  Andreas Schwab  <schwab@suse.de>
+
+	* gcc.target/ia64/visibility-1.c (variable_l): Add used attribute.
+
+2014-05-17  Jerry DeLisle  <jvdelisle@gcc.gnu>
+
+	PR libfortran/52539
+	* gfortran.dg/namelist_utf8.f90: New test.
+
 2014-05-17  Paolo Carlini  <paolo.carlini@oracle.com>
 
 	PR c++/52875
 	* g++.dg/cpp0x/decltype58.C: New.
+
+2014-05-17  Ajit Agarwal  <ajitkum@xilinx.com>
+
+	* gcc.target/microblaze/others/break_handler.c: New.
 
 2014-05-17  Marc Glisse  <marc.glisse@inria.fr>
 
