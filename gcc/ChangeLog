@@ -1,3 +1,106 @@
+2014-05-19  David Wohlferd <dw@LimeGreenSocks.com>
+
+	* doc/extend.texi: Create Label Attributes section,
+	move all label attributes into it and reference it.
+
+2014-05-19  Richard Earnshaw  <rearnsha@arm.com>
+
+	* arm.c (thumb1_reorg): When scanning backwards skip anything
+	that's not a proper insn.
+
+2014-05-19  Richard Biener  <rguenther@suse.de>
+
+	PR tree-optimization/61221
+	* tree-ssa-pre.c (eliminate_dom_walker::before_dom_children):
+	Do nothing for unreachable blocks.
+	* tree-ssa-sccvn.c (cond_dom_walker::before_dom_children):
+	Improve unreachability detection.
+
+2014-05-19  Richard Biener  <rguenther@suse.de>
+
+	PR tree-optimization/61209
+	* tree-ssa-sccvn.c (visit_phi): Avoid setting expr to VN_TOP.
+
+2014-05-19  Nick Clifton  <nickc@redhat.com>
+
+	* except.c (init_eh): Fix computation of builtin setjmp buffer
+	size to allow for targets where POINTER_SIZE > BITS_PER_WORD.
+
+2014-05-19  Richard Biener  <rguenther@suse.de>
+
+	PR tree-optimization/61184
+	* tree-vrp.c (is_negative_overflow_infinity): Use
+	TREE_OVERFLOW_P and do that check first.
+	(is_positive_overflow_infinity): Likewise.
+	(is_overflow_infinity): Likewise.
+	(vrp_operand_equal_p): Properly treat operands with
+	differing overflow as not equal.
+
+2014-05-19  Bernd Schmidt  <bernds@codesourcery.com>
+
+	* simplify-rtx.c (simplify_unary_operation_1): Use CONST_INT_P in
+	shift simplification where it was intended.
+
+2014-05-19  Christian Bruel  <christian.bruel@st.com>
+
+	PR target/61195
+	* config/sh/sh.md (movsf_ie): Unset fp_mode for fmov.
+
+2014-05-19  Richard Sandiford  <r.sandiford@uk.ibm.com>
+
+	PR target/61084
+	* config/sparc/sparc.c (sparc_fold_builtin): Use widest_int rather
+	than wide_int.
+
+2014-05-19  Richard Sandiford  <rdsandiford@googlemail.com>
+
+	* reg-notes.def (CROSSING_JUMP): Likewise.
+	* rtl.h (rtx_def): Update comment for jump flag.
+	(CROSSING_JUMP_P): Define.
+	* cfgcleanup.c (try_forward_edges, try_optimize_cfg): Use it instead
+	of a REG_CROSSING_JUMP note.
+	* cfghooks.c (tidy_fallthru_edges): Likewise.
+	* cfgrtl.c (fixup_partition_crossing, rtl_verify_edges): Likewise.
+	* emit-rtl.c (try_split): Likewise.
+	* haifa-sched.c (sched_create_recovery_edges): Likewise.
+	* ifcvt.c (find_if_case_1, find_if_case_2): Likewise.
+	* jump.c (redirect_jump_2): Likewise.
+	* reorg.c (follow_jumps, fill_slots_from_thread): Likewise.
+	(relax_delay_slots): Likewise.
+	* config/arc/arc.md (jump_i, cbranchsi4_scratch, *bbit): Likewise.
+	(bbit_di): Likewise.
+	* config/arc/arc.c (arc_reorg, arc_can_follow_jump): Likewise.
+	* config/sh/sh.md (jump_compact): Likewise.
+	* bb-reorder.c (rotate_loop): Likewise.
+	(pass_duplicate_computed_gotos::execute): Likewise.
+	(add_reg_crossing_jump_notes): Rename to...
+	(update_crossing_jump_flags): ...this.
+	(pass_partition_blocks::execute): Update accordingly.
+
+2014-05-19  Richard Sandiford  <rdsandiford@googlemail.com>
+
+	* tree.h: Remove extraneous template <>.
+
+2014-05-17  Jan Hubicka  <hubicka@ucw.cz>
+
+	* ipa.c (symtab_remove_unreachable_nodes): Remove
+	symbol from comdat group if its body was eliminated.
+	(comdat_can_be_unshared_p_1): Static symbols can always
+	be privatized.
+	* symtab.c (symtab_remove_from_same_comdat_group): Break out
+	from ...
+	(symtab_unregister_node): ... this one.
+	(verify_symtab_base): More strict checking of comdats.
+	* cgraph.h (symtab_remove_from_same_comdat_group): Declare.
+
+2014-05-17  Jan Hubicka  <hubicka@ucw.cz>
+
+	* tree-pass.h (make_pass_ipa_comdats): New pass.
+	* timevar.def (TV_IPA_COMDATS): New timevar.
+	* passes.def (pass_ipa_comdats): Add.
+	* Makefile.in (OBJS): Add ipa-comdats.o
+	* ipa-comdats.c: New file.
+
 2014-05-17  Jan Hubicka  <hubicka@ucw.cz>
 
 	* ipa.c (update_visibility_by_resolution_info): New function.

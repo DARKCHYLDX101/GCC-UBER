@@ -8357,9 +8357,29 @@ label:
       (const_int 2)
       (const_int 2)
       (const_int 0)])
-   (set (attr "fp_mode") (if_then_else (eq_attr "fmovd" "yes")
-					   (const_string "single")
-					   (const_string "single")))])
+  (set_attr_alternative "fp_mode"
+     [(if_then_else (eq_attr "fmovd" "yes")
+		    (const_string "single") (const_string "none"))
+      (const_string "none")
+      (const_string "single")
+      (const_string "single")
+      (const_string "none")
+      (if_then_else (eq_attr "fmovd" "yes")
+		    (const_string "single") (const_string "none"))
+      (if_then_else (eq_attr "fmovd" "yes")
+		    (const_string "single") (const_string "none"))
+      (const_string "none")
+      (const_string "none")
+      (const_string "none")
+      (const_string "none")
+      (const_string "none")
+      (const_string "none")
+      (const_string "none")
+      (const_string "none")
+      (const_string "none")
+      (const_string "none")
+      (const_string "none")
+      (const_string "none")])])
 
 (define_split
   [(set (match_operand:SF 0 "register_operand" "")
@@ -8804,7 +8824,7 @@ label:
 (define_insn "jump_compact"
   [(set (pc)
 	(label_ref (match_operand 0 "" "")))]
-  "TARGET_SH1 && !find_reg_note (insn, REG_CROSSING_JUMP, NULL_RTX)"
+  "TARGET_SH1 && !CROSSING_JUMP_P (insn)"
 {
   /* The length is 16 if the delay slot is unfilled.  */
   if (get_attr_length(insn) > 4)
