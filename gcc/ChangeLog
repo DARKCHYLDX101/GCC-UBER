@@ -1,3 +1,117 @@
+2014-05-20  Dehao Chen  <dehao@google.com>
+
+	* ipa-inline-transform.c (clone_inlined_nodes): Use min of edge count
+	and callee count to get clone count.
+	* tree-inline.c (expand_call_inline): Use callee count instead of bb
+	count in copy_body.
+
+2014-05-20  Richard Sandiford  <rdsandiford@googlemail.com>
+
+	PR rtl-optimization/61243
+	* emit-rtl.c (emit_copy_of_insn_after): Copy CROSSING_JUMP_P.
+
+2014-05-20  Xinliang David Li  <davidxl@google.com>
+
+	* cgraphunit.c (walk_polymorphic_call_targets): Add
+	dbgcnt and fopt-info support.
+	* ipa-prop.c (ipa_make_edge_direct_to_target): Ditto.
+	* ipa-devirt.c (ipa_devirt): Ditto.
+	* tree-ssa-pre.c (eliminate_dom_walker::before_dom_children):
+	Ditto.
+	* ipa.c (walk_polymorphic_call_targets): Ditto.
+	* gimple-fold.c (fold_gimple_assign): Ditto.
+	(gimple_fold_call): Ditto.
+	* dbgcnt.def: New counter.
+
+2014-05-20  DJ Delorie  <dj@redhat.com>
+
+	* config/msp430/msp430.md (split): Don't allow subregs when
+	splitting SImode adds.
+	(andneghi): Fix subtraction logic.
+	* config/msp430/predicates.md (msp430_nonsubreg_or_imm_operand): New.
+
+2014-05-20  Jan Hubicka  <hubicka@ucw.cz>
+
+	* tree.h (DECL_ONE_ONLY): Return true only for externally visible
+	symbols.
+	* except.c (switch_to_exception_section, resolve_unique_section,
+	get_named_text_section, default_function_rodata_section, 
+	align_variable, get_block_for_decl, default_section_type_flags):
+	Use DECL_COMDAT_GROUP instead of DECL_ONE_ONLY.
+	* symtab.c (symtab_add_to_same_comdat_group,
+	symtab_make_decl_local, fixup_same_cpp_alias_visibility,
+	symtab_nonoverwritable_alias, symtab_get_symbol_partitioning_class):
+	Likewise.
+	* cgraphclones.c (cgraph_create_virtual_clone): Likewise.
+	* bb-reorder.c (pass_partition_blocks::gate): Likewise.
+	* config/c6x/c6x.c (c6x_elf_unique_section): Likewise.
+	(c6x_function_in_section_p): Likewise.
+	* config/darwin.c (machopic_select_section): Likewise.
+	* config/arm/arm.c (arm_function_in_section_p): Likewise.
+	* config/mips/mips.c (mips_function_rodata_section): Likewise.
+	* config/mep/mep.c (mep_select_section): LIkewise.
+	* config/i386/i386.c (x86_64_elf_unique_section): Likewise.
+
+2014-05-20  Eric Botcazou  <ebotcazou@adacore.com>
+
+	* tree-ssa-dom.c (hashable_expr_equal_p) <EXPR_CALL>: Also compare the
+	EH region of calls to pure functions that can throw an exception.
+	* tree-ssa-sccvn.c (vn_reference_eq): Remove duplicated test.
+	(copy_reference_ops_from_call): Also copy the EH region of the call if
+	it can throw an exception.
+
+2014-05-20  Bill Schmidt  <wschmidt@linux.vnet.ibm.com>
+
+	* simplify-rtx.c (simplify_binary_operation_1): Optimize case of
+	nested VEC_SELECTs that are inverses of each other.
+
+2014-05-20  Richard Biener  <rguenther@suse.de>
+
+	* tree-ssa-sccvn.c (process_scc): Dump SCC here, when
+	iterating,
+	(extract_and_process_scc_for_name): not here.
+	(cond_dom_walker::before_dom_children): Only process
+	stmts that end the BB in interesting ways.
+	(run_scc_vn): Mark param uses as visited.
+
+2014-05-20  Kyrylo Tkachov  <kyrylo.tkachov@arm.com>
+
+	* config/arm/arm.md (arith_shiftsi): Do not predicate for
+	arm_restrict_it.
+
+2014-05-20  Nick Clifton  <nickc@redhat.com>
+
+	* config/msp430/msp430.c (TARGET_GIMPLIFY_VA_ARG_EXPR): Define.
+	(msp430_gimplify_va_arg_expr): New function.
+	(msp430_print_operand): Handle (CONST (ZERO_EXTRACT)).
+
+	* config/msp430/msp430.md (zero_extendpsisi2): Use + constraint on
+	operand 0 in order to prevent confusion about the number of
+	registers involved.
+
+2014-05-20  Richard Biener  <rguenther@suse.de>
+
+	PR tree-optimization/61221
+	* tree-ssa-pre.c (el_to_update): Remove.
+	(eliminate_dom_walker::before_dom_children): Handle released
+	VDEFs by value-numbering them to the associated VUSE.  Update
+	stmt immediately for substituted call address.
+	(eliminate): Remove delayed stmt updating code.
+	* tree-ssa-sccvn.c (vuse_ssa_val): New function valueizing
+	possibly late re-numbered vuses.
+	(vn_reference_lookup_2): Adjust.
+	(vn_reference_lookup_pieces): Likewise.
+	(vn_reference_lookup): Likewise.
+
+2014-05-20  Richard Biener  <rguenther@suse.de>
+
+	* config.gcc: Remove need_64bit_hwint.
+	* configure.ac: Do not define NEED_64BIT_HOST_WIDE_INT.
+	* hwint.h: Do not check NEED_64BIT_HOST_WIDE_INT but assume
+	it to be true.
+	* config.in: Regenerate.
+	* configure: Likewise.
+
 2014-05-19  David Wohlferd <dw@LimeGreenSocks.com>
 
 	* doc/extend.texi: Create Label Attributes section,

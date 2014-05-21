@@ -1,3 +1,40 @@
+2014-05-20  Paolo Carlini  <paolo.carlini@oracle.com>
+
+	PR c++/58753
+	PR c++/58930
+	PR c++/58704
+	* g++.dg/cpp0x/nsdmi-template11.C: New.
+	* g++.dg/cpp0x/nsdmi-template12.C: Likewise.
+	* g++.dg/cpp0x/nsdmi-template13.C: Likewise.
+
+2014-05-20  Eric Botcazou  <ebotcazou@adacore.com>
+
+	* gnat.dg/opt35.adb: New test.
+	* gnat.dg/opt36.adb: Likewise.
+	* gnat.dg/opt35_pkg.ad[sb]: New helper.
+
+2014-05-20  Paolo Carlini  <paolo.carlini@oracle.com>
+
+	PR c++/60373
+	* g++.dg/cpp0x/Wattributes1.C: New.
+	* g++.dg/ext/visibility/redecl1.C: Adjust.
+	* g++.dg/ext/visibility/visibility-7.C: Likewise.
+
+2014-05-20  Bill Schmidt  <wschmidt@linux.vnet.ibm.com>
+
+	* gcc.target/powerpc/vsxcopy.c: New test.
+
+2014-05-20  Paolo Carlini  <paolo.carlini@oracle.com>
+
+	PR c++/58664
+	* g++.dg/cpp0x/nsdmi-union6.C: New.
+	* g++.dg/parse/pr58664.C: Likewise.
+	* g++.dg/cpp0x/nsdmi6.C: Tweak.
+	* g++.dg/parse/crash31.C: Likewise.
+	* g++.dg/template/error2.C: Likewise.
+	* g++.dg/template/inherit8.C: Likewise.
+	* g++.dg/template/offsetof2.C: Likewise.
+
 2014-05-19  Paolo Carlini  <paolo.carlini@oracle.com>
 
 	* c-c++-common/gomp/simd4.c: Adjust for inform.

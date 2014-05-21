@@ -2306,10 +2306,11 @@ duplicate_decls (tree newdecl, tree olddecl, bool newdecl_is_friend)
       && DECL_VISIBILITY_SPECIFIED (newdecl)
       && DECL_VISIBILITY (newdecl) != DECL_VISIBILITY (olddecl))
     {
-      warning_at (input_location, OPT_Wattributes,
-		  "%q+D: visibility attribute ignored because it", newdecl);
-      warning_at (DECL_SOURCE_LOCATION (olddecl), OPT_Wattributes,
-		  "conflicts with previous declaration here");
+      if (warning_at (DECL_SOURCE_LOCATION (newdecl), OPT_Wattributes,
+		      "%qD: visibility attribute ignored because it "
+		      "conflicts with previous declaration", newdecl))
+	inform (DECL_SOURCE_LOCATION (olddecl),
+		"previous declaration of %qD", olddecl);
     }
   /* Choose the declaration which specified visibility.  */
   if (DECL_VISIBILITY_SPECIFIED (olddecl))
@@ -5026,13 +5027,12 @@ maybe_commonize_var (tree decl)
 		 be merged.  */
 	      TREE_PUBLIC (decl) = 0;
 	      DECL_COMMON (decl) = 0;
-	      warning_at (input_location, 0,
-			  "sorry: semantics of inline function static "
-			  "data %q+#D are wrong (you%'ll wind up "
-			  "with multiple copies)", decl);
-	      warning_at (DECL_SOURCE_LOCATION (decl), 0, 
-			  "  you can work around this by removing "
-			  "the initializer");
+	      if (warning_at (DECL_SOURCE_LOCATION (decl), 0,
+			      "sorry: semantics of inline function static "
+			      "data %q#D are wrong (you%'ll wind up "
+			      "with multiple copies)", decl))
+		inform (DECL_SOURCE_LOCATION (decl),
+			"you can work around this by removing the initializer");
 	    }
 	}
     }
@@ -10586,11 +10586,16 @@ grokdeclarator (const cp_declarator *declarator,
 	  }
 	else if (!staticp && !dependent_type_p (type)
 		 && !COMPLETE_TYPE_P (complete_type (type))
-		 && (TREE_CODE (type) != ARRAY_TYPE || initialized == 0))
+		 && (TREE_CODE (type) != ARRAY_TYPE
+		     || !COMPLETE_TYPE_P (TREE_TYPE (type))
+		     || initialized == 0))
 	  {
 	    if (unqualified_id)
-	      error ("field %qD has incomplete type %qT",
-		     unqualified_id, type);
+	      {
+		error ("field %qD has incomplete type %qT",
+		       unqualified_id, type);
+		cxx_incomplete_type_inform (strip_array_types (type));
+	      }
 	    else
 	      error ("name %qT has incomplete type", type);
 

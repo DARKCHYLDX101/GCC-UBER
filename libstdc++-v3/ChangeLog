@@ -1,3 +1,35 @@
+2014-05-20  Cesar Philippidis  <cesar@codesourcery.com>
+
+	* scripts/testsuite_flags.in (cxxflags): Remove @CXXFLAGS@ since 
+	libstdc++.exp imports those flags via getenv.
+	* testsuite/lib/libstdc++.exp (libstdc++_init): Ensure that 
+	CXXFLAGS contains a '-O' flag. 
+
+2014-05-20  Alexey Merzlyakov  <alexey.merzlyakov@samsung.com>
+
+	PR libstdc++/61223
+	Revert:
+	2014-05-16  Alexey Merzlyakov  <alexey.merzlyakov@samsung.com>
+
+	PR libstdc++/60758
+	* libsupc++/eh_arm.cc (__cxa_end_cleanup): Change r4 to lr in save/restore
+	and add unwind directives.
+
+2014-05-20  Sebastian Huber  <sebastian.huber@embedded-brains.de>
+
+	* testsuite/lib/libstdc++.exp (load_gcc_lib): Register loaded libs.
+
+2014-05-20  Tim Shen  <timshen91@gmail.com>
+
+	PR libstdc++/61227
+	* include/bits/regex_compiler.h
+	(_BracketMatcher<>::_M_add_character_class): Add negative character
+	class support.
+	* include/bits/regex_compiler.tcc (_BracketMatcher<>::_M_apply):
+	Likewise.
+	* testsuite/28_regex/algorithms/regex_match/ecma/char/quoted_char.cc:
+	Add more testcases.
+
 2014-05-19  Jonathan Wakely  <jwakely@redhat.com>
 
 	* python/libstdcxx/v6/printers.py: Use Python3 raise syntax.

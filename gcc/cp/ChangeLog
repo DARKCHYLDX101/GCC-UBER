@@ -1,3 +1,41 @@
+2014-05-20  Paolo Carlini  <paolo.carlini@oracle.com>
+
+	PR c++/58753
+	PR c++/58930
+	PR c++/58704
+	* typeck2.c (digest_nsdmi_init): New.
+	* parser.c (cp_parser_late_parse_one_default_arg): Use it.
+	* init.c (get_nsdmi): Likewise.
+	* cp-tree.h (digest_nsdmi_init): Declare.
+
+2014-05-20  Jason Merrill  <jason@redhat.com>
+
+	* typeck.c (get_member_function_from_ptrfunc): Don't try to look
+	up a virtual function in a dummy object.
+
+2014-05-20  Paolo Carlini  <paolo.carlini@oracle.com>
+
+	PR c++/60373
+	* decl.c (duplicate_decls): Replace pair of warning_at with
+	warning_at + inform.
+	(maybe_commonize_var): Likewise.
+
+2014-05-20  Richard Sandiford  <rsandifo@linux.vnet.ibm.com>
+
+	PR bootstrap/61210
+	* pt.c (tsubst_copy, tsubst_omp_for_iterator, tsubst_expr)
+	(tsubst_copy_and_build): Perform recursive substitutions in a
+	deterministic order.
+
+2014-05-20  Paolo Carlini  <paolo.carlini@oracle.com>
+
+	PR c++/58664
+	* typeck2.c (cxx_incomplete_type_inform): New.
+	(cxx_incomplete_type_diagnostic): Use it.
+	* decl.c (grokdeclarator): Check the element type of an
+	incomplete array type; call the above.
+	* cp-tree.h (cxx_incomplete_type_inform): Declare.
+
 2014-05-19  Jason Merrill  <jason@redhat.com>
 
 	PR c++/58761
