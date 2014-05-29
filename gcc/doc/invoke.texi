@@ -8787,6 +8787,7 @@ Use the @command{bfd} linker instead of the default linker.
 Use the @command{gold} linker instead of the default linker.
 
 @item -fuse-ld=mcld
+@opindex fuse-ld=mcld
 Use the @command{mcld} linker instead of the default linker.
 
 @item -fcprop-registers

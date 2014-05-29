@@ -234,4 +234,6 @@ asm ("  .pushsection .text.__cxa_end_cleanup\n"
 #endif
 #endif
 
+#pragma GCC visibility pop
+
 #endif

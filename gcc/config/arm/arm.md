@@ -7042,7 +7042,7 @@
 (define_expand "reload_inhi"
   [(parallel [(match_operand:HI 0 "s_register_operand" "=r")
 	      (match_operand:HI 1 "arm_reload_memory_operand" "o")
-	      (match_operand:DI 2 "s_register_operand" "=&l")])]
+	      (match_operand:DI 2 "s_register_operand" "=&r")])]
   "TARGET_EITHER"
   "
   if (TARGET_ARM)
@@ -9674,7 +9674,7 @@
    (match_operand:SI 2 "const_int_operand" "")	; total range
    (match_operand:SI 3 "" "")			; table label
    (match_operand:SI 4 "" "")]			; Out of range label
-  "TARGET_32BIT || optimize_size || flag_pic"
+  "TARGET_32BIT || ((optimize_size || flag_pic) && !inline_thumb1_jump_table)"
   "
   {
     enum insn_code code;

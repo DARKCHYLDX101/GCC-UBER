@@ -31,7 +31,6 @@
 #include "libgomp.h"
 #include "proc.h"
 #include <errno.h>
-#include <stdlib.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>

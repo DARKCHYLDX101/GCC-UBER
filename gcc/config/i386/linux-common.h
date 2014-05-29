@@ -30,7 +30,7 @@ along with GCC; see the file COPYING3.  If not see
 #undef CC1_SPEC
 #define CC1_SPEC \
   LINUX_OR_ANDROID_CC (GNU_USER_TARGET_CC1_SPEC, \
-		       GNU_USER_TARGET_CC1_SPEC \
+                       GNU_USER_TARGET_CC1_SPEC \
                        " -mstackrealign -msse3" \
                        " -fno-short-enums" \
                        " " \
