@@ -1,3 +1,30 @@
+2014-05-28  Guozhi Wei  <carrot@google.com>
+
+	PR target/61202
+	* config/aarch64/arm_neon.h (vqdmulh_n_s16): Change the last operand's
+	constraint.
+	(vqdmulhq_n_s16): Likewise.
+
+2014-05-28  Eric Botcazou  <ebotcazou@adacore.com>
+
+	Backport from mainline
+	2014-05-27  Eric Botcazou  <ebotcazou@adacore.com>
+
+	* double-int.c (div_and_round_double) <ROUND_DIV_EXPR>: Use the proper
+	predicate to detect a negative quotient.
+
+2014-05-28  Georg-Johann Lay  <avr@gjlay.de>
+
+	PR target/61044
+	* doc/extend.texi (Local Labels): Note that label differences are
+	not supported for AVR.
+
+2014-05-26  Michael Tautschnig  <mt@debian.org>
+
+	PR target/61249
+	* doc/extend.texi (X86 Built-in Functions): Fix parameter lists of
+	__builtin_ia32_vfrczs[sd] and __builtin_ia32_mpsadbw256.
+
 2014-05-23  Alan Modra  <amodra@gmail.com>
 
 	PR target/61231
