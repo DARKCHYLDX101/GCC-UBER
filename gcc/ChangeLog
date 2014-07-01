@@ -1,3 +1,112 @@
+2014-06-30  Thomas Preud'homme  <thomas.preudhomme@arm.com>
+
+	Backport from Mainline
+	2014-06-20  Jakub Jelinek  <jakub@redhat.com>
+	2014-06-11  Thomas Preud'homme  <thomas.preudhomme@arm.com>
+
+	PR tree-optimization/61306
+	* tree-ssa-math-opts.c (struct symbolic_number): Store type of
+	expression instead of its size.
+	(do_shift_rotate): Adapt to change in struct symbolic_number. Return
+	false to prevent optimization when the result is unpredictable due to
+	arithmetic right shift of signed type with highest byte is set.
+	(verify_symbolic_number_p): Adapt to change in struct symbolic_number.
+	(find_bswap_1): Likewise. Return NULL to prevent optimization when the
+	result is unpredictable due to sign extension.
+	(find_bswap): Adapt to change in struct symbolic_number.
+
+2014-06-27  Uros Bizjak  <ubizjak@gmail.com>
+
+	Backport from mainline
+	2014-06-26  Uros Bizjak  <ubizjak@gmail.com>
+
+	PR target/61586
+	* config/alpha/alpha.c (alpha_handle_trap_shadows): Handle BARRIER RTX.
+
+2014-06-26  Bill Schmidt  <wschmidt@linux.vnet.ibm.com>
+
+	PR target/61542
+	* config/rs6000/vsx.md (vsx_extract_v4sf): Fix bug with element
+	extraction other than index 3.
+
+2014-06-24  Jakub Jelinek  <jakub@redhat.com>
+
+	PR target/61570
+	* config/i386/driver-i386.c (host_detect_local_cpu): For unknown
+	model family 6 CPU with has_longmode never use a CPU without
+	64-bit support.
+
+2014-06-20  Chung-Lin Tang  <cltang@codesourcery.com>
+
+	Backport from mainline
+
+	2014-06-20  Julian Brown  <julian@codesourcery.com>
+	            Chung-Lin Tang  <cltang@codesourcery.com>
+
+	* config/arm/arm.c (arm_output_mi_thunk): Fix offset for
+	TARGET_THUMB1_ONLY. Add comments.
+
+2014-06-18  Uros Bizjak  <ubizjak@gmail.com>
+
+	Backport from mainline
+	2014-06-06  Uros Bizjak  <ubizjak@gmail.com>
+
+	PR target/61423
+	* config/i386/i386.md (*floatunssi<mode>2_i387_with_xmm): New
+	define_insn_and_split pattern, merged from *floatunssi<mode>2_1
+	and corresponding splitters.  Zero extend general register
+	or memory input operand to XMM temporary.  Enable for
+	TARGET_SSE2 and TARGET_INTER_UNIT_MOVES_TO_VEC only.
+	(floatunssi<mode>2): Update expander predicate.
+
+2014-06-18  Richard Henderson  <rth@redhat.com>
+
+	PR target/61545
+	* config/aarch64/aarch64.md (tlsdesc_small): Clobber CC_REGNUM.
+
+2014-06-17  Nagaraju Mekala <nagaraju.mekala@xilinx.com>
+
+	Revert on gcc-4_8-branch.
+	* config/microblaze/microblaze.md: Add movsi4_rev insn pattern.
+	* config/microblaze/predicates.md: Add reg_or_mem_operand predicate.
+
+2014-06-17  Yufeng Zhang  <yufeng.zhang@arm.com>
+
+	Backport from mainline
+
+	PR target/61483
+	* config/aarch64/aarch64.c (aarch64_layout_arg): Add new local
+	variable 'size'; calculate 'size' right in the front; use
+	'size' to compute 'nregs' (when 'allocate_ncrn != 0') and
+	pcum->aapcs_stack_words.
+
+2014-06-13  Peter Bergner  <bergner@vnet.ibm.com>
+
+	Backport from mainline
+
+	2014-06-13  Peter Bergner  <bergner@vnet.ibm.com>
+	PR target/61415
+	* config/rs6000/rs6000-builtin.def (BU_MISC_1): Delete.
+	(BU_MISC_2): Rename to ...
+	(BU_LDBL128_2): ... this.
+	* config/rs6000/rs6000.h (RS6000_BTM_LDBL128): New define.
+	(RS6000_BTM_COMMON): Add RS6000_BTM_LDBL128.
+	* config/rs6000/rs6000.c (rs6000_builtin_mask_calculate): Handle
+	RS6000_BTM_LDBL128.
+	(rs6000_invalid_builtin): Add long double 128-bit builtin support.
+	(rs6000_builtin_mask_names): Add RS6000_BTM_LDBL128.
+	* config/rs6000/rs6000.md (unpacktf_0): Remove define)expand.
+	(unpacktf_1): Likewise.
+	* doc/extend.texi (__builtin_longdouble_dw0): Remove documentation.
+	(__builtin_longdouble_dw1): Likewise.
+	* doc/sourcebuild.texi (longdouble128): Document.
+
+2014-06-13  Jason Merrill  <jason@redhat.com>
+
+	PR c++/60731
+	* common.opt (-fno-gnu-unique): Add.
+	* config/elfos.h (USE_GNU_UNIQUE_OBJECT): Check it.
+
 2014-06-12  Georg-Johann Lay  <avr@gjlay.de>
 
 	Backport from 2014-05-09 trunk r210272
