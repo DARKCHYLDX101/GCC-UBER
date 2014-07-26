@@ -70,4 +70,6 @@
 #define ENDFILE_SPEC \
   LINUX_OR_ANDROID_LD (GNU_USER_TARGET_ENDFILE_SPEC, ANDROID_ENDFILE_SPEC)
 
+#define TARGET_ASM_FILE_END file_end_indicate_exec_stack
+
 #endif  /* GCC_AARCH64_LINUX_H */

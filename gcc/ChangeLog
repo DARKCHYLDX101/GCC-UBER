@@ -1,3 +1,80 @@
+2014-07-25  Uros Bizjak  <ubizjak@gmail.com>
+
+	Backport from mainline
+	2014-07-14  Jakub Jelinek  <jakub@redhat.com>
+
+	PR target/61656
+	* config/i386/i386.c (classify_argument): Don't merge classes above
+	number of words.
+
+2014-07-25  Uros Bizjak  <ubizjak@gmail.com>
+
+	* config/alpha/elf.h: Define TARGET_UNWIND_TABLES_DEFAULT.
+
+2014-07-24  Kyle McMartin  <kyle@redhat.com>
+
+        * config/aarch64/aarch64-linux.h (TARGET_ASM_FILE_END): Define.
+
+2014-07-24  Ulrich Weigand  <Ulrich.Weigand@de.ibm.com>
+
+	* config/rs6000/rs6000-protos.h (rs6000_special_adjust_field_align_p):
+	Add prototype.
+	* config/rs6000/rs6000.c (rs6000_special_adjust_field_align_p): New
+	function.  Issue -Wpsabi warning if future GCC releases will use
+	different field alignment rules for this type.
+	* config/rs6000/sysv4.h (ADJUST_FIELD_ALIGN): Call it.
+	* config/rs6000/linux64.h (ADJUST_FIELD_ALIGN): Likewise.
+	* config/rs6000/freebsd64.h (ADJUST_FIELD_ALIGN): Likewise.
+
+2014-07-24  Ulrich Weigand  <Ulrich.Weigand@de.ibm.com>
+
+	* config/rs6000/rs6000.c (rs6000_function_arg_boundary): Issue
+	-Wpsabi note when encountering a type where future GCC releases
+	will apply different alignment requirements.
+
+2014-07-24  Ulrich Weigand  <Ulrich.Weigand@de.ibm.com>
+
+	* config/rs6000/rs6000.c (rs6000_function_arg): If a float argument
+	does not fit fully into floating-point registers, and there is still
+	space in the register parameter area, issue -Wpsabi note that the ABI
+	will change in a future GCC release.
+
+2014-07-23  Sebastian Huber  <sebastian.huber@embedded-brains.de>
+
+	* config/arm/t-rtems-eabi: Add
+	mthumb/march=armv7-r/mfpu=vfpv3-d16/mfloat-abi=hard,
+	mthumb/march=armv7-m/mfpu=fpv4-sp-d16/mfloat-abi=hard,
+	mbig-endian/mthumb/march=armv7-r, and
+	mbig-endian/mthumb/march=armv7-r/mfpu=vfpv3-d16/mfloat-abi=hard
+	multilibs.
+
+2014-07-23  Sebastian Huber  <sebastian.huber@embedded-brains.de>
+	    Chris Johns <chrisj@rtems.org>
+	    Joel Sherrill <joel.sherrill@oarcorp.com>
+
+	* config.gcc: Add nios2-*-rtems*.
+	* config/nios2/rtems.h: New file.
+	* gcc/config/nios2/t-rtems: New file.
+
+2014-07-21  Peter Bergner  <bergner@vnet.ibm.com>
+
+	* config/rs6000/sysv4.h (LIBASAN_EARLY_SPEC): Define.
+	(LIBTSAN_EARLY_SPEC): Likewise.
+
+2014-07-21  Uros Bizjak  <ubizjak@gmail.com>
+
+	Backport from mainline
+	2014-07-21  Uros Bizjak  <ubizjak@gmail.com>
+
+	PR target/61855
+	* config/i386/avx512fintrin.h: Move constants for mantissa extraction
+	out of #ifdef __OPTIMIZE__.
+
+2014-07-20  Eric Botcazou  <ebotcazou@adacore.com>
+
+	* expr.c (store_field): Handle VOIDmode for calls that return values
+	in multiple locations.
+
 2014-07-19  Eric Botcazou  <ebotcazou@adacore.com>
 
 	* toplev.c (output_stack_usage): Adjust the location of the warning.
@@ -52,12 +129,12 @@
 	(cris_side_effect_mode_ok): Replace CONSTANT_P with CRIS_CONSTANT_P.
 	(cris_address_cost): Ditto last CONSTANT_P.
 	(cris_symbol_type_of): Rename from cris_pic_symbol_type_of.  All
-        callers changed.  Yield cris_offsettable_symbol for non-PIC
-        constant symbolic expressions including labels.  Yield cris_unspec
+	callers changed.  Yield cris_offsettable_symbol for non-PIC
+	constant symbolic expressions including labels.  Yield cris_unspec
 	for all unspecs.
 	(cris_expand_pic_call_address): New parameter MARKERP.  Set its
-        target to pic_offset_table_rtx for calls that will likely go
-        through PLT, const0_rtx when they can't.  All callers changed.
+	target to pic_offset_table_rtx for calls that will likely go
+	through PLT, const0_rtx when they can't.  All callers changed.
 	Assert flag_pic.  Use CONSTANT_P, not CONSTANT_ADDRESS_P, for
 	symbolic expressions to be PICified.  Remove second, redundant,
 	assert on can_create_pseudo_p returning non-zero.  Use
@@ -72,7 +149,7 @@
 	("call", "call_value"): Use second incoming operand as a marker
 	for pic-offset-table-register being used.
 	("*expanded_call_non_v32", "*expanded_call_v32")
-        ("*expanded_call_value_non_v32", "*expanded_call_value_v32"): For
+	("*expanded_call_value_non_v32", "*expanded_call_value_v32"): For
 	second incoming operand to CALL, match cris_call_type_marker.
 	("*expanded_call_value_side"): Ditto.  Disable before reload_completed.
 	("*expanded_call_side"): Ditto.  Fix typo in comment.
@@ -81,10 +158,10 @@
 	* config/cris/predicates.md ("cris_call_type_marker"): New predicate.
 	* config/cris/cris.h (CRIS_CONSTANT_P): New macro.
 	(enum cris_symbol_type): Rename from cris_pic_symbol_type.  All
-        users changed.  Add members cris_offsettable_symbol and cris_unspec.
+	users changed.  Add members cris_offsettable_symbol and cris_unspec.
 	(cris_symbol_type): Rename from cris_pic_symbol_type.
 	* config/cris/constraints.md ("T"): Use CRIS_CONSTANT_P, not
-        just CONSTANT_P.
+	just CONSTANT_P.
 	* config/cris/cris-protos.h (cris_symbol_type_of,
 	cris_expand_pic_call_address): Adjust prototypes.
 	(cris_legitimate_constant_p): New prototype.
@@ -106,14 +183,14 @@
 
 2014-07-10  Cary Coutant  <ccoutant@google.com>
 
-        Backport from trunk at r212211.
+	Backport from trunk at r212211.
 
 	* dwarf2out.c (remove_addr_table_entry): Remove unnecessary hash table
-        lookup.
+	lookup.
 	(resolve_addr_in_expr): When replacing the rtx in a location list
-        entry, get a new address table entry.
+	entry, get a new address table entry.
 	(dwarf2out_finish): Call index_location_lists even if there are no
-        addr_index_table entries yet.
+	addr_index_table entries yet.
 
 2014-07-10  Tom G. Christensen  <tgc@jupiterrise.com>
 
