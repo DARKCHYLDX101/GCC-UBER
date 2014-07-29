@@ -1,3 +1,52 @@
+2014-07-28  Richard Biener  <rguenther@suse.de>
+
+	PR rtl-optimization/61801
+	* gcc.target/i386/pr61801.c: Fix testcase.
+
+2014-07-28  Richard Biener  <rguenther@suse.de>
+
+	PR rtl-optimization/61801
+	* gcc.target/i386/pr61801.c: New testcase.
+
+2014-07-24  Ulrich Weigand  <Ulrich.Weigand@de.ibm.com>
+
+	Backport from mainline
+	2014-07-24  Ulrich Weigand  <Ulrich.Weigand@de.ibm.com>
+
+	* gcc.target/powerpc/ppc64-abi-warn-3.c: New test.
+
+	* gcc.c-torture/execute/20050316-1.x: Add -Wno-psabi.
+	* gcc.c-torture/execute/20050604-1.x: Add -Wno-psabi.
+	* gcc.c-torture/execute/20050316-3.x: New file.  Add -Wno-psabi.
+	* gcc.c-torture/execute/pr23135.x: Likewise.
+
+2014-07-24  Ulrich Weigand  <Ulrich.Weigand@de.ibm.com>
+
+	Backport from mainline
+	2014-07-24  Ulrich Weigand  <Ulrich.Weigand@de.ibm.com>
+
+	* gcc.target/powerpc/ppc64-abi-warn-2.c: New test.
+
+2014-07-24  Ulrich Weigand  <Ulrich.Weigand@de.ibm.com>
+
+	Backport from mainline
+	2014-07-24  Ulrich Weigand  <Ulrich.Weigand@de.ibm.com>
+
+	* gcc.target/powerpc/ppc64-abi-warn-1.c: New test.
+
+2014-07-24  Ulrich Weigand  <Ulrich.Weigand@de.ibm.com>
+
+	Backport from mainline
+	2014-07-24  Ulrich Weigand  <Ulrich.Weigand@de.ibm.com>
+
+	* g++.dg/compat/struct-layout-1.exp: Load g++-dg.exp.
+
+2014-07-24  Martin Jambor  <mjambor@suse.cz>
+
+	PR ipa/61160
+	* g++.dg/ipa/pr61160-2.C (main): Return zero.
+	* g++.dg/ipa/pr61160-3.C (main): Likewise.
+
 2014-07-21  Uros Bizjak  <ubizjak@gmail.com>
 
 	Backport from mainline
