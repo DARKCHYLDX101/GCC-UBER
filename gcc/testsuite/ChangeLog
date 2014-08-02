@@ -1,3 +1,17 @@
+2014-08-01  Thomas Preud'homme  <thomas.preudhomme@arm.com>
+
+	Backport from mainline
+	2014-06-13  Thomas Preud'homme  <thomas.preudhomme@arm.com>
+
+	PR tree-optimization/61375
+	* gcc.c-torture/execute/pr61375-1.c: New test.
+
+2014-08-01  Richard Biener  <rguenther@suse.de>
+
+	PR tree-optimization/61964
+	* gcc.dg/torture/pr61964.c: New testcase.
+	* gcc.dg/pr51879-18.c: XFAIL.
+
 2014-07-28  Richard Biener  <rguenther@suse.de>
 
 	PR rtl-optimization/61801
