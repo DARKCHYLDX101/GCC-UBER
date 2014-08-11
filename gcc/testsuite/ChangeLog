@@ -1,3 +1,57 @@
+2014-08-10  Thomas Koenig  <tkoenig@gcc.gnu.org>
+
+	Backport from trunk
+	PR fortran/61999
+	* gfortran.dg/dot_product_3.f90:  New test case.
+
+2014-08-07  John David Anglin  <danglin@gcc.gnu.org>
+
+	PR tree-optimization/60707
+	* gfortran.dg/pr45636.f90: xfail on 32-bit hppa*-*-*.
+
+	* gcc.dg/atomic/c11-atomic-exec-4.c: Undefine _POSIX_C_SOURCE before
+	defining in dg-options.
+	* gcc.dg/atomic/c11-atomic-exec-5.c: Likewise.
+
+	* gcc.dg/atomic/stdatomic-flag.c: Add xfail comment.
+
+	* gcc.c-torture/compile/pr60655-1.c: Don't add -fdata-sections option
+	on 32-bit hppa-hpux.
+
+	* gcc.dg/pr57233.c: Add -fno-common option on hppa*-*-hpux*.
+
+2014-08-07  Petr Murzin  <petr.murzin@intel.com>
+
+	* gcc.target/i386/avx512f-vfixupimmpd-2.c: Include float.h instead of
+	values.h, change MAXDOUBLE for DBL_MAX.
+	* gcc.target/i386/avx512f-vfixupimmsd-2.c: Ditto.
+	* gcc.target/i386/avx512f-vfixupimmps-2.c: Include float.h instead of
+	values.h, change MAXFLOAT for FLT_MAX.
+	* gcc.target/i386/avx512f-vfixupimmss-2.c: Ditto.
+	* gcc.target/i386/avx512f-vpermi2d-2.c: Do not include values.h.
+	* gcc.target/i386/avx512f-vpermi2pd-2.c: Ditto.
+	* gcc.target/i386/avx512f-vpermi2ps-2.c: Ditto.
+	* gcc.target/i386/avx512f-vpermi2q-2.c: Ditto.
+	* gcc.target/i386/avx512f-vpermt2d-2.c: Ditto.
+	* gcc.target/i386/avx512f-vpermt2pd-2.c: Ditto.
+	* gcc.target/i386/avx512f-vpermt2ps-2.c: Ditto.
+	* gcc.target/i386/avx512f-vpermt2q-2.c: Ditto.
+
+2014-08-06  Vladimir Makarov  <vmakarov@redhat.com>
+
+	PR debug/61923
+	* gcc.target/i386/pr61923.c: New test.
+
+2014-08-06  Jakub Jelinek  <jakub@redhat.com>
+
+	PR rtl-optimization/61801
+	* gcc.target/i386/pr61801.c: Rewritten.
+
+2014-08-04  Rohit  <rohitarulraj@freescale.com>
+
+	PR target/60102
+	* gcc.target/powerpc/pr60102.c: New testcase.
+
 2014-08-01  Igor Zamyatin  <igor.zamyatin@intel.com>
 
 	PR other/61963
