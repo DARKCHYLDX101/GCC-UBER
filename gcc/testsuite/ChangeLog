@@ -1,3 +1,33 @@
+2014-08-10  Thomas Koenig  <tkoenig@gcc.gnu.org>
+
+	Backport from trunk
+	PR fortran/61999
+	* gfortran.dg/dot_product_3.f90:  New test case.
+
+2014-08-07  John David Anglin  <danglin@gcc.gnu.org>
+
+	PR tree-optimization/60707
+	* gfortran.dg/pr45636.f90: xfail on 32-bit hppa*-*-*.
+
+2014-08-06  Jakub Jelinek  <jakub@redhat.com>
+
+	PR rtl-optimization/61801
+	* gcc.target/i386/pr61801.c: Rewritten.
+
+2014-08-01  Thomas Preud'homme  <thomas.preudhomme@arm.com>
+
+	Backport from mainline
+	2014-06-13  Thomas Preud'homme  <thomas.preudhomme@arm.com>
+
+	PR tree-optimization/61375
+	* gcc.c-torture/execute/pr61375-1.c: New test.
+
+2014-08-01  Richard Biener  <rguenther@suse.de>
+
+	PR tree-optimization/61964
+	* gcc.dg/torture/pr61964.c: New testcase.
+	* gcc.dg/pr51879-18.c: XFAIL.
+
 2014-07-28  Richard Biener  <rguenther@suse.de>
 
 	PR rtl-optimization/61801
