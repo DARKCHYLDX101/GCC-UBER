@@ -1,3 +1,46 @@
+2014-08-16  John David Anglin  <danglin@gcc.gnu.org>
+
+	PR target/61641
+	* config/pa/pa-protos.h (pa_output_addr_vec, pa_output_addr_diff_vec):
+	Declare.
+	* config/pa/pa.c (pa_reorg): Remove code to insert brtab marker insns.
+	(pa_output_addr_vec, pa_output_addr_diff_vec): New.
+	* config/pa/pa.h (ASM_OUTPUT_ADDR_VEC, ASM_OUTPUT_ADDR_DIFF_VEC):
+	Define.
+	* config/pa/pa.md (begin_brtab): Delete insn.
+	(end_brtab): Likewise.
+
+2014-08-15  Oleg Endo  <olegendo@gcc.gnu.org>
+
+	Backport from mainline:
+	2014-08-15  Oleg Endo  <olegendo@gcc.gnu.org>
+
+	* doc/invoke.texi (SH options): Document missing processor variant
+	options.  Remove references to Hitachi.  Undocument deprecated mspace
+	option.
+
+2014-08-15  Tom de Vries  <tom@codesourcery.com>
+
+	Backport from mainline:
+	2014-08-14  Tom de Vries  <tom@codesourcery.com>
+
+	PR rtl-optimization/62004
+	PR rtl-optimization/62030
+	* ifcvt.c (rtx_interchangeable_p): New function.
+	(noce_try_move, noce_process_if_block): Use rtx_interchangeable_p.
+
+	2014-08-05  Richard Biener  <rguenther@suse.de>
+
+	* emit-rtl.h (mem_attrs_eq_p): Declare.
+	* emit-rtl.c (mem_attrs_eq_p): Export.
+
+2014-08-15  Jakub Jelinek  <jakub@redhat.com>
+
+	PR middle-end/62092
+	* gimplify.c (gimplify_adjust_omp_clauses_1): Don't remove
+	OMP_CLAUSE_SHARED for global vars if the global var is mentioned
+	in OMP_CLAUSE_MAP in some outer target region.
+
 2014-08-14  Kyrylo Tkachov  <kyrylo.tkachov@arm.com>
 
 	Backport from mainline
