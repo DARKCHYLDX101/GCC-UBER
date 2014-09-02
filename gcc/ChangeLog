@@ -1,3 +1,38 @@
+2014-09-01  Oleg Endo  <olegendo@gcc.gnu.org>
+
+	Backport from mainline
+	2014-09-01  Oleg Endo  <olegendo@gcc.gnu.org>
+
+	PR target/62312
+	* config/sh/sh.md (*cmp_div0s_0): Add missing constraints.
+
+2014-09-01  Jakub Jelinek  <jakub@redhat.com>
+
+	PR target/62025
+	* sched-deps.c (add_or_update_dep_1): If ask_dependency_caches
+	returned DEP_PRESENT, make sure to set DEP_MULTIPLE on present_dep.
+	(find_inc): Revert 2014-08-12 change.
+
+	* config/gnu-user.h (LIBLSAN_EARLY_SPEC): Define.
+	* gcc.c (LIBLSAN_SPEC, LIBLSAN_EARLY_SPEC): Follow LIBTSAN*_SPEC.
+	(SANITIZER_EARLY_SPEC): Include LIBLSAN_EARLY_SPEC for -fsanitize=leak.
+
+2014-09-01  Marek Polacek  <polacek@redhat.com>
+
+	Backport from mainline
+	2014-08-21  Marek Polacek  <polacek@redhat.com>
+
+	PR c/61271
+	* expr.c (is_aligning_offset): Remove logical not.
+
+2014-09-01  Marek Polacek  <polacek@redhat.com>
+
+	Backport from mainline
+	2014-08-19  Marek Polacek  <polacek@redhat.com>
+
+	PR c/61271
+	* cgraphunit.c (handle_alias_pairs): Fix condition.
+
 2014-08-30  John David Anglin  <danglin@gcc.gnu.org>
 
 	* config/pa/pa.c (pa_assemble_integer): Don't add PLABEL relocation
