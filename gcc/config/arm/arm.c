@@ -14490,7 +14490,7 @@ arm_block_move_unaligned_loop (rtx dest, rtx src, HOST_WIDE_INT length,
 			       unsigned int interleave_factor,
 			       HOST_WIDE_INT bytes_per_iter)
 {
-  rtx label, src_reg, dest_reg, final_src, test;
+  rtx src_reg, dest_reg, final_src, test;
   HOST_WIDE_INT leftover;
   
   leftover = length % bytes_per_iter;
@@ -14506,7 +14506,7 @@ arm_block_move_unaligned_loop (rtx dest, rtx src, HOST_WIDE_INT length,
 				   0, 0, OPTAB_WIDEN);
 
   /* Emit the start of the loop.  */
-  label = gen_label_rtx ();
+  rtx_code_label *label = gen_label_rtx ();
   emit_label (label);
   
   /* Emit the loop body.  */
@@ -16108,7 +16108,7 @@ struct minipool_fixup
 
 static Mnode *	minipool_vector_head;
 static Mnode *	minipool_vector_tail;
-static rtx	minipool_vector_label;
+static rtx_code_label	*minipool_vector_label;
 static int	minipool_pad;
 
 /* The linked list of all minipool fixes required for this function.  */
@@ -29970,6 +29970,7 @@ arm_builtin_vectorized_function (tree fndecl, tree type_out, tree type_in)
 {
   enum machine_mode in_mode, out_mode;
   int in_n, out_n;
+  bool out_unsigned_p = TYPE_UNSIGNED (type_out);
 
   if (TREE_CODE (type_out) != VECTOR_TYPE
       || TREE_CODE (type_in) != VECTOR_TYPE)
@@ -30015,6 +30016,36 @@ arm_builtin_vectorized_function (tree fndecl, tree type_out, tree type_in)
             return ARM_FIND_VRINT_VARIANT (vrintz);
           case BUILT_IN_ROUNDF:
             return ARM_FIND_VRINT_VARIANT (vrinta);
+#undef ARM_CHECK_BUILTIN_MODE_1
+#define ARM_CHECK_BUILTIN_MODE_1(C) \
+  (out_mode == SImode && out_n == C \
+   && in_mode == SFmode && in_n == C)
+
+#define ARM_FIND_VCVT_VARIANT(N) \
+  (ARM_CHECK_BUILTIN_MODE (2) \
+   ? arm_builtin_decl(ARM_BUILTIN_NEON_##N##v2sfv2si, false) \
+   : (ARM_CHECK_BUILTIN_MODE (4) \
+     ? arm_builtin_decl(ARM_BUILTIN_NEON_##N##v4sfv4si, false) \
+     : NULL_TREE))
+
+#define ARM_FIND_VCVTU_VARIANT(N) \
+  (ARM_CHECK_BUILTIN_MODE (2) \
+   ? arm_builtin_decl(ARM_BUILTIN_NEON_##N##uv2sfv2si, false) \
+   : (ARM_CHECK_BUILTIN_MODE (4) \
+     ? arm_builtin_decl(ARM_BUILTIN_NEON_##N##uv4sfv4si, false) \
+     : NULL_TREE))
+          case BUILT_IN_LROUNDF:
+            return out_unsigned_p
+                     ? ARM_FIND_VCVTU_VARIANT (vcvta)
+                     : ARM_FIND_VCVT_VARIANT (vcvta);
+          case BUILT_IN_LCEILF:
+            return out_unsigned_p
+                     ? ARM_FIND_VCVTU_VARIANT (vcvtp)
+                     : ARM_FIND_VCVT_VARIANT (vcvtp);
+          case BUILT_IN_LFLOORF:
+            return out_unsigned_p
+                     ? ARM_FIND_VCVTU_VARIANT (vcvtm)
+                     : ARM_FIND_VCVT_VARIANT (vcvtm);
 #undef ARM_CHECK_BUILTIN_MODE
 #define ARM_CHECK_BUILTIN_MODE(C, N) \
   (out_mode == N##Imode && out_n == C \
@@ -30045,8 +30076,11 @@ arm_builtin_vectorized_function (tree fndecl, tree type_out, tree type_in)
     }
   return NULL_TREE;
 }
+#undef ARM_FIND_VCVT_VARIANT
+#undef ARM_FIND_VCVTU_VARIANT
 #undef ARM_CHECK_BUILTIN_MODE
 #undef ARM_FIND_VRINT_VARIANT
+
 
 /* The AAPCS sets the maximum alignment of a vector to 64 bits.  */
 static HOST_WIDE_INT
