@@ -987,10 +987,8 @@ reg_set_p (const_rtx reg, const_rtx insn)
    X contains a MEM; this routine does use memory aliasing.  */
 
 int
-modified_between_p (const_rtx x, const_rtx uncast_start, const_rtx end)
+modified_between_p (const_rtx x, const rtx_insn *start, const rtx_insn *end)
 {
-  const rtx_insn *start =
-    safe_as_a <const rtx_insn *> (uncast_start);
   const enum rtx_code code = GET_CODE (x);
   const char *fmt;
   int i, j;
@@ -1920,7 +1918,7 @@ find_reg_equal_equiv_note (const_rtx insn)
    return null.  */
 
 rtx
-find_constant_src (const_rtx insn)
+find_constant_src (const rtx_insn *insn)
 {
   rtx note, set, x;
 
@@ -6074,7 +6072,7 @@ tls_referenced_p (const_rtx x)
     return false;
 
   subrtx_iterator::array_type array;
-  FOR_EACH_SUBRTX (iter, array, x, NONCONST)
+  FOR_EACH_SUBRTX (iter, array, x, ALL)
     if (GET_CODE (*iter) == SYMBOL_REF && SYMBOL_REF_TLS_MODEL (*iter) != 0)
       return true;
   return false;

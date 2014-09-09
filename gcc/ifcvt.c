@@ -42,6 +42,7 @@
 #include "df.h"
 #include "vec.h"
 #include "dbgcnt.h"
+#include "shrink-wrap.h"
 
 #ifndef HAVE_conditional_move
 #define HAVE_conditional_move 0
@@ -92,7 +93,7 @@ static rtx_insn *find_active_insn_after (basic_block, rtx_insn *);
 static basic_block block_fallthru (basic_block);
 static int cond_exec_process_insns (ce_if_block *, rtx_insn *, rtx, rtx, int,
 				    int);
-static rtx cond_exec_get_condition (rtx);
+static rtx cond_exec_get_condition (rtx_insn *);
 static rtx noce_get_condition (rtx_insn *, rtx_insn **, bool);
 static int noce_operand_ok (const_rtx);
 static void merge_if_block (ce_if_block *);
@@ -429,7 +430,7 @@ cond_exec_process_insns (ce_if_block *ce_info ATTRIBUTE_UNUSED,
 /* Return the condition for a jump.  Do not do any special processing.  */
 
 static rtx
-cond_exec_get_condition (rtx jump)
+cond_exec_get_condition (rtx_insn *jump)
 {
   rtx test_if, cond;
 
@@ -4288,14 +4289,13 @@ dead_or_predicable (basic_block test_bb, basic_block merge_bb,
 	if (NONDEBUG_INSN_P (insn))
 	  df_simulate_find_defs (insn, merge_set);
 
-#ifdef HAVE_simple_return
       /* If shrink-wrapping, disable this optimization when test_bb is
 	 the first basic block and merge_bb exits.  The idea is to not
 	 move code setting up a return register as that may clobber a
 	 register used to pass function parameters, which then must be
 	 saved in caller-saved regs.  A caller-saved reg requires the
 	 prologue, killing a shrink-wrap opportunity.  */
-      if ((flag_shrink_wrap && HAVE_simple_return && !epilogue_completed)
+      if ((SHRINK_WRAPPING_ENABLED && !epilogue_completed)
 	  && ENTRY_BLOCK_PTR_FOR_FN (cfun)->next_bb == test_bb
 	  && single_succ_p (new_dest)
 	  && single_succ (new_dest) == EXIT_BLOCK_PTR_FOR_FN (cfun)
@@ -4342,7 +4342,6 @@ dead_or_predicable (basic_block test_bb, basic_block merge_bb,
 	    }
 	  BITMAP_FREE (return_regs);
 	}
-#endif
     }
 
  no_body:
@@ -4403,17 +4402,14 @@ dead_or_predicable (basic_block test_bb, basic_block merge_bb,
       insn = head;
       do
 	{
-	  rtx note, set;
+	  rtx note;
 
 	  if (! INSN_P (insn))
 	    continue;
 	  note = find_reg_note (insn, REG_EQUAL, NULL_RTX);
 	  if (! note)
 	    continue;
-	  set = single_set (insn);
-	  if (!set || !function_invariant_p (SET_SRC (set))
-	      || !function_invariant_p (XEXP (note, 0)))
-	    remove_note (insn, note);
+	  remove_note (insn, note);
 	} while (insn != end && (insn = NEXT_INSN (insn)));
 
       /* PR46315: when moving insns above a conditional branch, the REG_EQUAL
