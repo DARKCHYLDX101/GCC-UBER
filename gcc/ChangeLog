@@ -1,3 +1,68 @@
+2014-09-09  Bill Schmidt  <wschmidt@us.ibm.com>
+
+	Backported from mainline
+	2014-09-04  Bill Schmidt  <wschmidt@linux.vnet.ibm.com>
+
+	* config/rs6000/vsx.md (*vsx_extract_<mode>_load): Always match
+	selection of 0th memory doubleword, regardless of endianness.
+
+2014-09-09  James Greenhalgh  <james.greenhalgh@arm.com>
+
+	Backport from mainline
+	2014-09-09  James Greenhalgh  <james.greenhalgh@arm.com>
+
+	* doc/invoke.texi (-march): Use GNU/Linux rather than Linux.
+	(-mtune): Likewise.
+	(-mcpu): Likewise.
+
+2014-09-09  Jason Merrill  <jason@redhat.com>
+
+	PR c++/61214
+	PR c++/62224
+	* gimple-fold.c (can_refer_decl_in_current_unit_p): Don't allow
+	reference to a DECL_EXTERNAL COMDAT.
+
+2014-09-09  Richard Biener  <rguenther@suse.de>
+
+	Backport from mainline
+	2014-08-05  Richard Biener  <rguenther@suse.de>
+
+	PR rtl-optimization/61672
+	* emit-rtl.h (mem_attrs_eq_p): Declare.
+	* emit-rtl.c (mem_attrs_eq_p): Export.  Handle NULL mem-attrs.
+	* cse.c (exp_equiv_p): Use mem_attrs_eq_p.
+	* cfgcleanup.c (merge_memattrs): Likewise.
+	Include emit-rtl.h.
+
+	2014-08-11  Richard Biener  <rguenther@suse.de>
+
+	PR tree-optimization/62075
+	* tree-vect-slp.c (vect_detect_hybrid_slp_stmts): Properly
+	handle uses in patterns.
+
+	2014-08-14  Richard Biener  <rguenther@suse.de>
+
+	PR rtl-optimization/62079
+	* recog.c (peephole2_optimize): If peep2_do_cleanup_cfg
+	run cleanup_cfg.
+
+	2014-08-26  Richard Biener  <rguenther@suse.de>
+
+	PR tree-optimization/62175
+	* tree-ssa-loop-niter.c (expand_simple_operations): Do not
+	expand possibly trapping operations.
+
+2014-09-08  DJ Delorie  <dj@redhat.com>
+
+	* doc/invoke.texi (MSP430 Options): Add -minrt.
+
+2014-09-05  Easwaran Raman  <eraman@google.com>
+
+	Backport from mainline
+	PR rtl-optimization/62146
+	* ifcvt.c (dead_or_predicable): Make removal of REG_EQUAL note of
+	hoisted instruction unconditional.
+
 2014-09-04  Guozhi Wei  <carrot@google.com>
 
 	PR target/62040
