@@ -9816,6 +9816,11 @@ tsubst_pack_expansion (tree t, tree args, tsubst_flags_t complain,
 	}
     }
 
+  /* If the expansion is just T..., return the matching argument pack.  */
+  if (!unsubstituted_packs
+      && TREE_PURPOSE (packs) == pattern)
+    return ARGUMENT_PACK_ARGS (TREE_VALUE (packs));
+
   /* We cannot expand this expansion expression, because we don't have
      all of the argument packs we need.  */
   if (use_pack_expansion_extra_args_p (packs, len, unsubstituted_packs))
@@ -10676,6 +10681,9 @@ tsubst_decl (tree t, tree args, tsubst_flags_t complain)
 	      /* We instantiated this while substituting into
 		 the type earlier (template/friend54.C).  */
 	      RETURN (new_r);
+
+	    if (!DECL_FRIEND_P (r))
+	      note_comdat_fn (r);
 
 	    /* We're not supposed to instantiate default arguments
 	       until they are called, for a template.  But, for a

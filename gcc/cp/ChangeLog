@@ -1,4 +1,19 @@
+2014-09-10  Jason Merrill  <jason@redhat.com>
+
+	PR c++/63139
+	* pt.c (tsubst_pack_expansion): Simplify substitution into T....
+
 2014-09-09  Jason Merrill  <jason@redhat.com>
+
+	PR lto/53808
+	PR c++/61659
+	* decl2.c (note_comdat_fn): New.
+	(set_comdat): New.
+	(cp_write_global_declarations): Call set_comdat.
+	* method.c (implicitly_declare_fn): Call note_comdat_fn.
+	* pt.c (tsubst_decl) [FUNCTION_DECL]: Likewise.
+	* decl2.c (mark_needed): Mark clones.
+	(import_export_decl): Not here.
 
 	PR c++/61214
 	PR c++/62224
